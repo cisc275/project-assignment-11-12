@@ -24,7 +24,6 @@ public class Fox extends GameObject{
 		questions.add(new Question("Clapper Rails have beaks that are...", "short and fat", "long and slender", 2));
 		questions.add(new Question("The size of a Clapper Rail is similar to the size of a...", "chicken", "cardinal", 1));
 		questions.add(new Question("Clapper Rails live in...", "marshes", "forests", 1));
-		
 	}
 	
 	/**
@@ -34,10 +33,8 @@ public class Fox extends GameObject{
 	 * @author Celeste Lemus
 	 */
 	public void moveEnter() {
-		
 			xloc+=xIncr;
 			yloc += yIncr;
-		
 	}
 	
 	/**
@@ -48,8 +45,7 @@ public class Fox extends GameObject{
 	 */
 	public void moveExit() {
 		xloc+=-xIncr;
-		yloc +=-yIncr;
-		
+		yloc +=-yIncr;	
 	}
 
 	@Override

@@ -19,17 +19,10 @@ public class Controller implements ActionListener, KeyListener {
 	final int drawDelay = 30; // change this to 25
 	Action drawAction;
 	private int clockcount = 0;
+	int currentpanel;
 	
 	boolean upflag = false;
 	boolean downflag = true;
-	
-	int CR_Y = 150;
-	int CR_X = 160;
-	int CR_Y_SPACE = 30;
-	int CR_BOUND = 250 + CR_Y;
-	int CR_BOUND_TOP = 250;
-	int CR_BOUND_BOTTOM = 250 + CR_Y;
-	int O_Y = 35;
 	
 	Controller(){
 		this.initializeView();
@@ -38,7 +31,7 @@ public class Controller implements ActionListener, KeyListener {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
 					view.addGameObjectStorageToView(model.getGobjS());
-					model.updateGame();
+					model.updateGame(currentpanel);
 					clockcount++;
 					if (clockcount > 2000) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
@@ -57,13 +50,13 @@ public class Controller implements ActionListener, KeyListener {
 	}
 	
 	public void endGame() {
-		if (view.getContent() == "g1") {
+		if (currentpanel == 1) {
 			view.cl.show(view.panelContainer, "3");
-			view.currentpanel = "e1";
+			currentpanel = 3;
 		}
 		else {
 			view.cl.show(view.panelContainer, "4");
-			view.currentpanel = "e2";
+			currentpanel = 4;
 		}
 	}
 	
@@ -76,13 +69,13 @@ public class Controller implements ActionListener, KeyListener {
 		if (e.getSource() == view.game1) {
 			System.out.println("game1 button pressed");
 			view.cl.show(view.panelContainer, "1");
-			view.currentpanel = "g1";
+			currentpanel = 1;
 			model.initializeGameOne();
 		}
 		else if (e.getSource() == view.game2) {
 			System.out.println("game2 button pressed");
 			view.cl.show(view.panelContainer, "2");
-			view.currentpanel = "g2";
+			currentpanel = 2;
 			model.initializeGameTwo();
 		}
 		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
@@ -90,13 +83,11 @@ public class Controller implements ActionListener, KeyListener {
 			model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
 			view.cl.show(view.panelContainer, "0");
 			clockcount = 0;
-			view.currentpanel = "m";
+			currentpanel = 0;
 		}
-		view.initializeBackground();
+		view.initializeBackground(currentpanel);
 	}
 
-	
-	
 	public void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -108,7 +99,6 @@ public class Controller implements ActionListener, KeyListener {
 		
 	}
 	
-	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(model.getGobjS().getPlayer().imageHeight == Constants.CR_IMH) {
@@ -116,7 +106,7 @@ public class Controller implements ActionListener, KeyListener {
 			switch( k ) { 
 	        	case KeyEvent.VK_UP:
 	        		if (upflag) {
-	        			model.getGobjS().getPlayer().setyIncr(-CR_Y);
+	        			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y);
 	        		}
 	        		upflag = false;
 	        		downflag = true;
@@ -125,7 +115,7 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_DOWN:
 	        		if (downflag) {
-	        			model.getGobjS().getPlayer().setyIncr(CR_Y);
+	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y);
 	        		}
 	        		downflag = false;
 	        		upflag = true;
@@ -134,28 +124,29 @@ public class Controller implements ActionListener, KeyListener {
 	        		
 	        	case KeyEvent.VK_LEFT:
 	        		System.out.println("left");
-	        		if (!(model.getGobjS().getPlayer().getXloc() - CR_X < 0)){
-	        			model.getGobjS().getPlayer().setxIncr(-CR_X);
+	        		if (!(model.getGobjS().getPlayer().getXloc() - Constants.CR_X < 0)){
+	        			model.getGobjS().getPlayer().setxIncr(-Constants.CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth() + CR_X > View.frameWidth)) {
-	        			model.getGobjS().getPlayer().setxIncr(CR_X);
+	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth() 
+	        				+ Constants.CR_X > View.frameWidth)) {
+	        			model.getGobjS().getPlayer().setxIncr(Constants.CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
 	        		//System.out.println("space");
-	        		if (view.getContent() == "g2") {
+	        		if (currentpanel == 2) {
 	        			model.eatFoodOrTrash();
 	        			System.out.println("g2 space pressed");
 	        		}
-	        		if((model.getGobjS().getPlayer().getYloc() == CR_BOUND_BOTTOM) || (model.getGobjS().getPlayer().getYloc() == CR_BOUND_TOP) )
+	        		if((model.getGobjS().getPlayer().getYloc() == Constants.CR_BOUND_BOTTOM) || (model.getGobjS().getPlayer().getYloc() == Constants.CR_BOUND_TOP) )
 	        		{
-	        			model.getGobjS().getPlayer().setyIncr(CR_Y_SPACE);
+	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y_SPACE);
 	        		}
 	        		else {
-	        			model.getGobjS().getPlayer().setyIncr(O_Y);
+	        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
 	        		}
 	        		break;
 			}
@@ -166,7 +157,7 @@ public class Controller implements ActionListener, KeyListener {
 				switch( k ) { 
 		      
 		        	case KeyEvent.VK_SPACE:
-		        		model.getGobjS().getPlayer().setyIncr(O_Y);
+		        		model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
 		        		System.out.println("space");
 		        		break;
 				}
@@ -176,17 +167,17 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
-		if(key == KeyEvent.VK_SPACE && view.getContent() == "g1") {
+		if(key == KeyEvent.VK_SPACE && currentpanel == 1) {
 			//model.getGobjS().getPlayer().setyIncr(-O_Y);
 		}
-		if(key == KeyEvent.VK_SPACE && view.getContent() == "g2") {
-			model.getGobjS().getPlayer().setyIncr(-CR_Y_SPACE);
+		if(key == KeyEvent.VK_SPACE && currentpanel == 2) {
+			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y_SPACE);
 		}
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
-		if(key == KeyEvent.VK_SPACE && view.getContent() == "g1") {
+		if(key == KeyEvent.VK_SPACE && currentpanel == 1) {
 			System.out.println("space typed");
 		}
 	}

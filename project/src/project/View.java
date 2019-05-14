@@ -22,14 +22,11 @@ import javax.swing.JPanel;
 public class View extends JFrame{
 	GameObjectStorage GobjS;
 	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
-	static String currentpanel;
 	
 	int frameCount;
 	int picNum;
 	final static int frameWidth = 800;
 	final static int frameHeight = 600;
-	int imageHeight;
-	int imageWidth;
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, ans1, ans2, menu1, menu2, menu, cancel, replay;
 	
@@ -134,60 +131,50 @@ public class View extends JFrame{
 		return new BufferedImage(1,1,1);
 	}
 	
-	public static String getContent() {
-		return currentpanel;
-	}
 	
-	public void initializeBackground() {
-		if(currentpanel == "g1") {
+	public void initializeBackground(int currentpanel) {
+		if(currentpanel == 1) {
 			this.background = g1_backimage;
 		}
-		else if(currentpanel == "g2") {
+		else if(currentpanel == 2) {
 			this.background = g2_backimage;
 		}
-		else {
-			this.background = g1_backimage;
-		}
 	}
 	
-	public void initializeGameImages() {
-		if(currentpanel == "g1") {
+	public void initializeGameImages(int currentpanel) {
+		if(currentpanel == 1) {
 			GobjS.getPlayer().setImg(osprey_image);
 			this.background = g1_backimage;
 		}
-		else if(currentpanel == "g2") {
+		else if(currentpanel == 2) {
 			GobjS.getPlayer().setImg(clapperrail_image);
 			this.background = g2_backimage;
-		}
-		else {
-			GobjS.getPlayer().setImg(osprey_image);
-			this.background = g1_backimage;
 		}
 	}
 	
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			if (currentpanel == "g1") {
+			if (this.equals(game1panel)) {
 				g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 				this.paintEnergy(g);
 				//System.out.println(GobjS.getPlayer().getyIncr());
 			}
-			if (currentpanel == "g2") {
+			if (this.equals(game2panel)) {
 				g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 				this.paintEggs(g);
 				this.paintFox(g);
 			}
-			if (currentpanel == "e1") {
+			if (this.equals(end1panel)) {
 				//just draw something temp on panel for now
 				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 				g.drawString(GobjS.score.toString(), 400, 200);
 			}
-			if (currentpanel == "e2") {
+			if (this.equals(end2panel)) {
 				//just draw something temp on panel for now
 				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 				g.drawString(GobjS.score.toString(), 400, 200);

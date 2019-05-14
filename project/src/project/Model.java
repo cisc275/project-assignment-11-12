@@ -38,11 +38,11 @@ public class Model {
 	 * @param none
 	 * @return none
 	 */
-	public void updateGame() {
-		if (View.getContent() == "g1") {
+	public void updateGame(int currentpanel) {
+		if (currentpanel == 1) {
 			this.updateGameOne();
 		}
-		if (View.getContent() == "g2") {
+		if (currentpanel == 2) {
 			this.updateGameTwo();
 			}
 		}

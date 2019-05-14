@@ -60,6 +60,12 @@ public class Constants {
 		final static int CR_IMH = 50;
 		final static int CR_IMW = 50;
 		
+		
+		final static int CR_Y_SPACE = 30;
+		final static int CR_BOUND = 250 + CR_Y;
+		final static int CR_BOUND_TOP = 250;
+		final static int CR_BOUND_BOTTOM = 250 + CR_Y;
+		
 		//occupancy positions
 		final static int G2Y = 300;
 		final static int G2Y2 = 450;
