@@ -35,7 +35,7 @@ public class Model {
 	/**
 	 * calls appropriate updateGame[One/Two] method
 	 * 
-	 * @param none
+	 * @param int currentpanel: corresponds to current game playing
 	 * @return none
 	 */
 	public void updateGame(int currentpanel) {
