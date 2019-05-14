@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class View extends JFrame{
-	Model model;
 	GameObjectStorage GobjS;
 	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
 	static String currentpanel;
