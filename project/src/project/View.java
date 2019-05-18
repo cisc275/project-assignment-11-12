@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -26,8 +27,8 @@ public class View extends JFrame{
 	
 	int frameCount;
 	int picNum;
-	final static int frameWidth = 800;
-	final static int frameHeight = 600;
+	final static int frameWidth = 1250;
+	final static int frameHeight = 700;
 	BufferedImage[][] imageArray;
 	Button exit, game1, game2, menu1, menu2, menu, cancel, replay;
 	boolean quizflag = false;
@@ -51,6 +52,8 @@ public class View extends JFrame{
 	
 	public View() {
 		this.setPreferredSize(new Dimension(frameWidth, frameHeight));
+		this.setLayout(new BorderLayout());
+		
 		//load images
 		try {
 			
@@ -85,11 +88,11 @@ public class View extends JFrame{
 		panelContainer.add(end2panel, "4");
 		
 		cl.show(panelContainer, "0");
-		
-		this.add(panelContainer);
+		this.add(panelContainer, BorderLayout.CENTER);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
+		
 	}
 	
 	public void createlayouts() {
@@ -160,14 +163,13 @@ public class View extends JFrame{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			if (this.equals(game1panel)) {
-				g.drawImage(background, 0, 0, Color.gray, this);
+				//g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 				this.paintEnergy(g);
-				//System.out.println(GobjS.getPlayer().getyIncr());
 			}
 			if (this.equals(game2panel)) {
-				g.drawImage(background, 0, 0, Color.gray, this);
+				//g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 				this.paintEggs(g);

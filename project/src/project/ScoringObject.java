@@ -6,11 +6,12 @@ public class ScoringObject extends GameObject{
 	String ID;
 	int pointValue;
 	BufferedImage[][] imageArray;
+	
 	//Game 1 Variables
 	int g1_deltaYCount = -1;
 	int deltaY = 0;
+	
 	//Game 2 Variables
-	final static int g2_lifetime = 65;
 	int lifetime = 0;
 	
 	ScoringObject(){
@@ -29,6 +30,7 @@ public class ScoringObject extends GameObject{
 	 */
 	public void move() {
 		this.xloc += this.xIncr;
+		this.yloc += this.yIncr;
 		if(deltaY == 4){
 			g1_deltaYCount = -1;
 		}

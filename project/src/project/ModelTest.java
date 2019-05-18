@@ -1,4 +1,3 @@
-/*
 package project;
 
 import static org.junit.Assert.*;
@@ -11,9 +10,9 @@ import org.junit.Test;
 /**
  * @author Anna Bortle
  *
- 
+ */
 public class ModelTest {
-
+/*
 	@Test
 	public void clapperRailTest() {
 		ClapperRail cr = new ClapperRail(0,0,2,2,100,100,GameObjectEnum.g2ClapperRail);
@@ -58,7 +57,7 @@ public class ModelTest {
 		
 		m.initializeGameOne();
 		
-		//m.updateGame();
+		m.updateGame();
 		
 		for (int i=0;i<500;i++) {
 			m.updateGameOne();
@@ -155,7 +154,7 @@ public class ModelTest {
 		View v = new View();
 		BufferedImage bi = v.createBufferedImage();
 		assertNotNull(bi);
-		//v.initializeBackground();
+		v.initializeBackground();
 		
 	}
 	
@@ -204,7 +203,7 @@ public class ModelTest {
 		Fox f = new Fox(5,5,1,1,30,30,GameObjectEnum.g2Fox);
 		assertNotNull(f);
 		
-		//assertEquals(10, f.questions.size());
+		assertEquals(10, f.questions.size());
 		
 		//test "setters"
 		f.setXloc(20);
@@ -230,6 +229,6 @@ public class ModelTest {
 		assertEquals(realyIncr, f.yIncr);
 
 	}
-
-}
 */
+	
+}

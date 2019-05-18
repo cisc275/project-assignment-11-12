@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Timer;
@@ -21,9 +20,11 @@ public class Controller implements ActionListener, KeyListener {
 	Action drawAction;
 	private int clockcount = 0;
 	int currentpanel;
+	
 	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
 	boolean upflag = false;
 	boolean downflag = true;
+
 	
 	Controller(){
 		this.initializeView();
@@ -142,7 +143,7 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(model.getGobjS().getPlayer().GobjEnum == GameObjectEnum.g2ClapperRail) {
+		if(currentpanel == 2) {
 			int k = e.getKeyCode();
 			switch( k ) { 
 	        	case KeyEvent.VK_UP:
@@ -182,44 +183,44 @@ public class Controller implements ActionListener, KeyListener {
 	        			model.eatFoodOrTrash();
 	        			System.out.println("g2 space pressed");
 	        		}
-	        		if((model.getGobjS().getPlayer().getYloc() == Constants.CR_BOUND_BOTTOM) || (model.getGobjS().getPlayer().getYloc() == Constants.CR_BOUND_TOP) )
-	        		{
-	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y_SPACE);
+	        		if (currentpanel == 1) {
+	        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
+		        		System.out.println("space");
+		        		break;
 	        		}
-	        		break;
+				}
 			}
-		}
-			if(model.getGobjS().getPlayer().GobjEnum == GameObjectEnum.g1Osprey) {
-				int k = e.getKeyCode();
-				switch( k ) { 
-		        	case KeyEvent.VK_SPACE:
-		        		if(g1_spaceCooldown == 0) {
+			if(currentpanel == 1) {
+				System.out.println("game1");
+				int k2 = e.getKeyCode();
+				switch( k2 ) { 
+	        		case KeyEvent.VK_SPACE:
+	        			if(g1_spaceCooldown == 0) {
 		        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
 		        			g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN;
 		        		}
-		        		System.out.println("space");
-		        		break;
-				}
+	        			System.out.println("space");
+	        			break;
 			}
+		}
+		
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
+		
 		if(key == KeyEvent.VK_SPACE && currentpanel == 1) {
 			//model.getGobjS().getPlayer().setyIncr(-O_Y);
 		}
+		/*
 		if(key == KeyEvent.VK_SPACE && currentpanel == 2) {
 			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y_SPACE);
 		}
+		*/
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		int key = arg0.getKeyCode();
-		if(key == KeyEvent.VK_SPACE && currentpanel == 1) {
-			System.out.println("space typed");
-		}
 	}
-	
 	
 	public static void main(String[] args) {
 		Controller c = new Controller();

@@ -1,27 +1,22 @@
 package project;
 
-public class MoonTimer {
+import java.awt.Point;
 
-		int xLoc;
-		int yLoc;
-		int xIncr;
-		int yIncr;
-		int count;
+public class MoonTimer {
+		int imageWidth = 100;
+		int imageHeight = 100;
+	 	int radius = View.frameWidth+(View.frameWidth/8);
+	 	double radian = Math.toRadians(170);
 		
-		MoonTimer(int xLoc, int yLoc, int xIncr, int yIncr){
-			this.xLoc = xLoc;
-			this.yLoc = yLoc;
-			this.xIncr = xIncr;
-			this.yIncr = yIncr;
-			this.count = 0;
-		}
+		double speed = 0.0012;
+		Point center = new Point(View.frameWidth/2, View.frameHeight*2);
+		int xLoc = center.x + (int)(radius*Math.cos(radian)) - imageWidth/2;
+		int yLoc = center.y + (int)(radius*Math.sin(radian));
 		
 		public void move() {
-			count++;
-			xLoc += xIncr;
-			if (count % 3 == 0 && xLoc >= -100) {
-				yLoc += yIncr;
-			}
+			radian += speed;
+			xLoc = center.x + (int)(radius*Math.cos(radian)) - imageWidth/2; 
+			yLoc = center.y + (int)(radius*Math.sin(radian));
 		}
 		
 		public int getXLoc() {
@@ -29,6 +24,12 @@ public class MoonTimer {
 		}
 		public int getYLoc() {
 			return yLoc;
+		}
+		public int getIMH() {
+			return imageHeight;
+		}
+		public int getIMW() {
+			return imageWidth;
 		}
 	}
 
