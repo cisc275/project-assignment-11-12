@@ -287,6 +287,8 @@ public class Model {
 			GobjS.getFox().move();
 		}
 		updateFoodAndTrash();
+		GobjS.getSunTimer().move();
+		GobjS.getMoonTimer().move();
 	}
 	
 	/**
@@ -435,8 +437,11 @@ public class Model {
 		}	
 		GobjS.setPlayer(new ClapperRail(Constants.CRX_I, Constants.CRY_I, Constants.CRX_INCR_I, Constants.CRY_INCR_I, Constants.CR_IMW, Constants.CR_IMH, GameObjectEnum.g2ClapperRail));
 		GobjS.setFox(new Fox(Constants.FX_X, Constants.FX_Y, Constants.FX_XI, Constants.FX_YI, Constants.FX_IMW, Constants.FX_IMH, GameObjectEnum.g2Fox));
+		GobjS.setSunTimer(new SunTimer(0, 0, 1, 1));
+		GobjS.setMoonTimer(new MoonTimer(-800,300,1,-1));
 		score = new Scoring();
 		GobjS.setScore(score);
+		
 	}
 	
 	/**

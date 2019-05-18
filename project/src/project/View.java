@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class View extends JFrame{
+	
 	GameObjectStorage GobjS;
 	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
 	
@@ -42,6 +43,8 @@ public class View extends JFrame{
 	Image egg_image;
 	Image energy_image;
 	Image fox_image;
+	Image sun_image;
+	Image moon_image;
 	
 	
 	CardLayout cl = new CardLayout();
@@ -50,18 +53,20 @@ public class View extends JFrame{
 		this.setPreferredSize(new Dimension(frameWidth, frameHeight));
 		//load images
 		try {
-			g1_backimage = ImageIO.read(new File("images/g1_background.png"));
+			
 			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
-			osprey_image = ImageIO.read(new File("images/o_temp.png"));
 			clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
 			egg_image = ImageIO.read(new File("images/egg.png"));
-			energy_image = ImageIO.read(new File("images/energy.png"));
+			sun_image = ImageIO.read(new File("images/sun.png"));
 			fox_image = ImageIO.read(new File("images/fox.png"));
+			moon_image = ImageIO.read(new File("images/moon.png"));
 			
+			g1_backimage = ImageIO.read(new File("images/g1_background.png"));
 			trout_image = ImageIO.read(new File("images/trout_temp.png"));
 			seaweed_image = ImageIO.read(new File("images/seaweed.png"));
 			strippedbass_image = ImageIO.read(new File("images/striped_bass.png"));
-			
+			energy_image = ImageIO.read(new File("images/energy.png"));
+			osprey_image = ImageIO.read(new File("images/o_temp.png"));
 			
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -167,6 +172,7 @@ public class View extends JFrame{
 				this.paintScoringObjects(g);
 				this.paintEggs(g);
 				this.paintFox(g);
+				this.paintTimer(g);
 			}
 			if (this.equals(end1panel)) {
 				//just draw something temp on panel for now
@@ -197,19 +203,17 @@ public class View extends JFrame{
 		}
 		public void paintFox(Graphics g) {
 			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
-			}
-		
-		
+		}
+		public void paintTimer(Graphics g) {
+			g.drawImage(sun_image, GobjS.getSunTimer().getXLoc(),GobjS.getSunTimer().getYLoc(), 100, 100, this);
+			g.drawImage(moon_image, GobjS.getMoonTimer().getXLoc(),GobjS.getMoonTimer().getYLoc(), 100, 100, this);
+		}
 		public void paintEnergy(Graphics g) {
 			for (int i=0; i < GobjS.score.totalScore;i++) {
 				g.drawImage(energy_image, 5+20*i,10, 30, 40, this);
 			}
 		}
-		
-
 	}
-
-	
 
 	/**
 	 * adds the Controller class as the listener to buttons in View

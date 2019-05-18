@@ -17,7 +17,7 @@ public class Controller implements ActionListener, KeyListener {
 	View view;
 	Quiz quiz;
 	Timer t;
-	final int drawDelay = 30; // change this to 25
+	final int drawDelay = 25; // change this to 25
 	Action drawAction;
 	private int clockcount = 0;
 	int currentpanel;
