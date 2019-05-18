@@ -6,6 +6,7 @@ import java.util.*;
 
 public class Fox extends GameObject{
 	final int finalxloc = 100;
+	Quiz quiz;
 	
 	BufferedImage[][] imageArray;
 	boolean flag = true;
@@ -35,11 +36,6 @@ public class Fox extends GameObject{
 		xloc+=-xIncr;
 		yloc +=-yIncr;	
 	}
-	
-	public void stop() {
-		xIncr = 0;
-		yIncr = 0;
-	}
 
 	@Override
 	public void move() {
@@ -47,12 +43,11 @@ public class Fox extends GameObject{
 			moveEnter();
 			if (xloc == finalxloc) {
 				flag = false;
-				Quiz quiz = new Quiz();
-				//stop();
+				quiz = new Quiz();
+				flag = true;
+				xIncr = -xIncr;
+				yIncr = -yIncr;
 			}
-		}
-		else {
-			moveExit();
 		}
 	}
 }

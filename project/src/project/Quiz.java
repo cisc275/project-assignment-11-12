@@ -2,6 +2,7 @@ package project;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Dialog;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,12 +14,18 @@ import javax.swing.JPanel;
 public class Quiz extends JDialog{
 
 	private JPanel quizpanel;
+	Button ans1, ans2;
 	ArrayList<Question> questions;
+	int correctAns;
 	
 	public Quiz() {
 		loadquestions();
+		createQuiz();
+	}
+	
+	public void createQuiz() {
 		
-		this.setModal(true);
+		this.setModalityType(Dialog.DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(300, 300);
 		this.setTitle("Fox Quiz");
@@ -31,10 +38,12 @@ public class Quiz extends JDialog{
 		JLabel question = new JLabel(questions.get(r).question);
 		Button ans1 = new Button(questions.get(r).ans1);
 		Button ans2 = new Button(questions.get(r).ans2);
+		correctAns = questions.get(r).correctAns;
 		
 		quizpanel.add(question); quizpanel.add(ans1); quizpanel.add(ans2);
 		this.setVisible(true);
 	}
+	
 	
 	public void loadquestions() {
 		questions = new ArrayList<>();
@@ -49,5 +58,10 @@ public class Quiz extends JDialog{
 		questions.add(new Question("Clapper Rails have beaks that are...", "short and fat", "long and slender", 2));
 		questions.add(new Question("The size of a Clapper Rail is similar to the size of a...", "chicken", "cardinal", 1));
 		questions.add(new Question("Clapper Rails live in...", "marshes", "forests", 1));
+	}
+	
+	public void addListenertoQuiz(Controller c) {
+		ans1.addActionListener(c);
+		ans2.addActionListener(c);
 	}
 }

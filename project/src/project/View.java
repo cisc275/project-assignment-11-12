@@ -28,7 +28,8 @@ public class View extends JFrame{
 	final static int frameWidth = 800;
 	final static int frameHeight = 600;
 	BufferedImage[][] imageArray;
-	Button exit, game1, game2, ans1, ans2, menu1, menu2, menu, cancel, replay;
+	Button exit, game1, game2, menu1, menu2, menu, cancel, replay;
+	boolean quizflag = false;
 	
 	Image g2_backimage;
 	Image g1_backimage;
@@ -42,8 +43,6 @@ public class View extends JFrame{
 	Image energy_image;
 	Image fox_image;
 	
-	int rand;
-	static boolean randflag = true;
 	
 	CardLayout cl = new CardLayout();
 	
@@ -192,14 +191,14 @@ public class View extends JFrame{
 			}
 		}
 		public void paintEggs(Graphics g) {
-			Random r = new Random();
 			for (int i=0; i < GobjS.score.totalScore;i++) {
 				g.drawImage(egg_image, 30+20*i,10, 40, 50, this);
 			}
 		}
 		public void paintFox(Graphics g) {
 			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
-		}
+			}
+		
 		
 		public void paintEnergy(Graphics g) {
 			for (int i=0; i < GobjS.score.totalScore;i++) {
@@ -207,8 +206,9 @@ public class View extends JFrame{
 			}
 		}
 		
-		
+
 	}
+
 	
 
 	/**
@@ -221,13 +221,10 @@ public class View extends JFrame{
 	public void addControllertoButton(Controller c) {
 		game1.addActionListener(c);
 		game2.addActionListener(c);
-		//ans1.addActionListener(c);
-		//ans2.addActionListener(c);
 		menu1.addActionListener(c);
 		menu2.addActionListener(c);
-		//replay.addActionListener(c);
+		
 	}
-	
 	
 	
 }

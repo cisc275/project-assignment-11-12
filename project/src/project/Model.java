@@ -458,6 +458,14 @@ public class Model {
 		}
 	}
 	
+	public void updateQuizScore(int ans, int correctAns) {
+		if (ans == correctAns) {
+			score.totalScore += 3;
+		}
+		else {
+			score.totalScore -= 3;
+		}
+	}
 }
 
 

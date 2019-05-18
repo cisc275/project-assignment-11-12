@@ -15,6 +15,7 @@ public class Controller implements ActionListener, KeyListener {
 	
 	Model model;
 	View view;
+	Quiz quiz;
 	Timer t;
 	final int drawDelay = 30; // change this to 25
 	Action drawAction;
@@ -39,6 +40,11 @@ public class Controller implements ActionListener, KeyListener {
 			}
 		};
 		
+	}
+	public void checkQuiz() {
+		if (model.GobjS.getFox().flag == false) {
+			model.GobjS.getFox().quiz.addListenertoQuiz(this);
+		}
 	}
 	
 	public void initializeView() {
@@ -66,24 +72,36 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == view.game1) {
+		Object button = e.getSource();
+		if (e.getSource().equals(view.game1)) {
 			System.out.println("game1 button pressed");
 			view.cl.show(view.panelContainer, "1");
 			currentpanel = 1;
 			model.initializeGameOne();
 		}
-		else if (e.getSource() == view.game2) {
+		else if (e.getSource().equals(view.game2)) {
 			System.out.println("game2 button pressed");
 			view.cl.show(view.panelContainer, "2");
 			currentpanel = 2;
 			model.initializeGameTwo();
 		}
-		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
+		else if (e.getSource().equals(view.menu2) || e.getSource().equals(view.menu1)) {
 			System.out.println("menu button pressed");
 			model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
 			view.cl.show(view.panelContainer, "0");
 			clockcount = 0;
 			currentpanel = 0;
+		}
+		else if (e.getSource().equals(model.fox.quiz.ans1) || e.getSource().equals(model.fox.quiz.ans2)) {
+			if (e.getSource().equals(model.fox.quiz.ans1)){
+				System.out.println("ans1 pressed");
+				model.updateQuizScore(1, model.fox.quiz.correctAns);
+			}
+			else {
+				System.out.println("ans2 pressed");
+				model.updateQuizScore(2, model.fox.quiz.correctAns);
+			}
+			model.fox.quiz.dispose();
 		}
 		view.initializeBackground(currentpanel);
 	}
