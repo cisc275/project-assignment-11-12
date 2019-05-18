@@ -5,7 +5,7 @@ public class Constants {
 	
 	
 	//Game 1 Constants
-	
+		final static int G1_SPACEBAR_COOLDOWN = 50;
 		//initial values/positions for osprey
 		final static int OX_I = (View.frameWidth / 2) - 100;
 		final static int OY_I = 100;
@@ -17,9 +17,9 @@ public class Constants {
 		//initial values/positions for fish
 		final static int FX_I = View.frameWidth - 100;
 		final static int FY_INCR_I = 0;
-		final static int F1_SPEED = -5;
+		final static int F1_SPEED = -3;
 		final static int F2_SPEED = -4;
-		final static int F3_SPEED = -3;
+		final static int F3_SPEED = -5;
 		final static int F1_PV = 1;
 		final static int F2_PV = 2;
 		final static int F3_PV = 3;
@@ -31,9 +31,9 @@ public class Constants {
 		//initial values/positions for seaweed
 		final static int SWX_I = View.frameWidth;
 		final static int SWY_INCR_I = 0;
-		final static int SW1_SPEED = -4;  
+		final static int SW1_SPEED = -3;  
 		final static int SW2_SPEED = -3;
-		final static int SW3_SPEED = -2;
+		final static int SW3_SPEED = -3;
 		final static int SW_PV = -2;
 		final static int SW_IMH = 50;
 		final static int SW_IMW = 50;
@@ -45,7 +45,7 @@ public class Constants {
 		
 		//boundaries/collision
 		final static int O_YBound = 80;
-		final static int O_upwardsYIncr = -35;
+		final static int O_upwardsYIncr = -25;
 	
 		
 	//Game 2 Constants

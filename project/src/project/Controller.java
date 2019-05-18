@@ -21,7 +21,7 @@ public class Controller implements ActionListener, KeyListener {
 	Action drawAction;
 	private int clockcount = 0;
 	int currentpanel;
-	
+	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
 	boolean upflag = false;
 	boolean downflag = true;
 	
@@ -34,8 +34,11 @@ public class Controller implements ActionListener, KeyListener {
 					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame(currentpanel);
 					checkQuiz();
+					if(g1_spaceCooldown > 0) {
+						g1_spaceCooldown--;
+					}
 					clockcount++;
-					if (clockcount > 2000) { //2000*drawDelay[30] = 60000 = 1.0min
+					if (clockcount > (60000/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
 					}
 			}
@@ -139,7 +142,7 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(model.getGobjS().getPlayer().imageHeight == Constants.CR_IMH) {
+		if(model.getGobjS().getPlayer().GobjEnum == GameObjectEnum.g2ClapperRail) {
 			int k = e.getKeyCode();
 			switch( k ) { 
 	        	case KeyEvent.VK_UP:
@@ -183,24 +186,21 @@ public class Controller implements ActionListener, KeyListener {
 	        		{
 	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y_SPACE);
 	        		}
-	        		else {
-	        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
-	        		}
 	        		break;
 			}
 		}
-			if(model.getGobjS().p.imageHeight == Constants.O_IMH) {
-				
+			if(model.getGobjS().getPlayer().GobjEnum == GameObjectEnum.g1Osprey) {
 				int k = e.getKeyCode();
 				switch( k ) { 
-		      
 		        	case KeyEvent.VK_SPACE:
-		        		model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
+		        		if(g1_spaceCooldown == 0) {
+		        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
+		        			g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN;
+		        		}
 		        		System.out.println("space");
 		        		break;
 				}
 			}
-		
 	}
 	@Override
 	public void keyReleased(KeyEvent arg0) {
