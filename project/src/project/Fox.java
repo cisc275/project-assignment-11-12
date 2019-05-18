@@ -44,7 +44,6 @@ public class Fox extends GameObject{
 			if (xloc == finalxloc) {
 				flag = false;
 				quiz = new Quiz();
-				flag = true;
 				xIncr = -xIncr;
 				yIncr = -yIncr;
 			}

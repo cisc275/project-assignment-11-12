@@ -35,7 +35,7 @@ public class Model {
 	/**
 	 * calls appropriate updateGame[One/Two] method
 	 * 
-	 * @param none
+	 * @param int currentpanel: corresponds to current game playing
 	 * @return none
 	 */
 	public void updateGame(int currentpanel) {
@@ -458,6 +458,13 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * Updates the totalScore based on the quiz results
+	 * 
+	 * @param int ans: answer chosen by user, int correctAns: correct answer
+	 * @return none
+	 * @author Anna Bortle
+	 **/
 	public void updateQuizScore(int ans, int correctAns) {
 		if (ans == correctAns) {
 			score.totalScore += 3;

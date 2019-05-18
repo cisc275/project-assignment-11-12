@@ -20,10 +20,6 @@ public class Quiz extends JDialog{
 	
 	public Quiz() {
 		loadquestions();
-		createQuiz();
-	}
-	
-	public void createQuiz() {
 		
 		this.setModalityType(Dialog.DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -36,18 +32,22 @@ public class Quiz extends JDialog{
 		Random rand = new Random();
 		int r = rand.nextInt(questions.size());
 		JLabel question = new JLabel(questions.get(r).question);
-		Button ans1 = new Button(questions.get(r).ans1);
-		Button ans2 = new Button(questions.get(r).ans2);
+		ans1 = new Button(questions.get(r).ans1);
+		ans2 = new Button(questions.get(r).ans2);
 		correctAns = questions.get(r).correctAns;
 		
 		quizpanel.add(question); quizpanel.add(ans1); quizpanel.add(ans2);
-		this.setVisible(true);
 	}
 	
-	
+	/**
+	 * Creates questions for in-game quiz about clapper rail.
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
 	public void loadquestions() {
 		questions = new ArrayList<>();
-		//create questions
+		
 		questions.add(new Question("Clapper Rails are...", "migratory", "non-migratory", 2));
 		questions.add(new Question("A body of water where a river meets the sea is called an...", "estuary", "actuary", 1));
 		questions.add(new Question("Clapper Rails make their nests up high in trees.", "True", "False", 2));
@@ -60,8 +60,15 @@ public class Quiz extends JDialog{
 		questions.add(new Question("Clapper Rails live in...", "marshes", "forests", 1));
 	}
 	
+	/**
+	 * Allows for outside classes to add an ActionListener to the quiz buttons.
+	 * @param Controller c (ActionListener)
+	 * @return none
+	 * @author Anna Bortle
+	 */
 	public void addListenertoQuiz(Controller c) {
 		ans1.addActionListener(c);
 		ans2.addActionListener(c);
+		System.out.println("listener added to quiz");
 	}
 }

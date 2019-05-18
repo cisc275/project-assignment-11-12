@@ -33,6 +33,7 @@ public class Controller implements ActionListener, KeyListener {
 					view.repaint();
 					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame(currentpanel);
+					checkQuiz();
 					clockcount++;
 					if (clockcount > 2000) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
@@ -42,8 +43,13 @@ public class Controller implements ActionListener, KeyListener {
 		
 	}
 	public void checkQuiz() {
-		if (model.GobjS.getFox().flag == false) {
-			model.GobjS.getFox().quiz.addListenertoQuiz(this);
+		if (model.GobjS.getFox() != null) {
+			if (model.GobjS.getFox().flag == false) {
+				System.out.println("trying to add listener");
+				model.GobjS.getFox().quiz.addListenertoQuiz(this);
+				model.GobjS.getFox().quiz.setVisible(true);
+				model.GobjS.getFox().flag = true;
+			}
 		}
 	}
 	
@@ -92,16 +98,16 @@ public class Controller implements ActionListener, KeyListener {
 			clockcount = 0;
 			currentpanel = 0;
 		}
-		else if (e.getSource().equals(model.fox.quiz.ans1) || e.getSource().equals(model.fox.quiz.ans2)) {
-			if (e.getSource().equals(model.fox.quiz.ans1)){
+		else if (e.getSource().equals(model.GobjS.getFox().quiz.ans1) || e.getSource().equals(model.GobjS.getFox().quiz.ans2)) {
+			if (e.getSource().equals(model.GobjS.getFox().quiz.ans1)){
 				System.out.println("ans1 pressed");
-				model.updateQuizScore(1, model.fox.quiz.correctAns);
+				model.updateQuizScore(1, model.GobjS.getFox().quiz.correctAns);
 			}
 			else {
 				System.out.println("ans2 pressed");
-				model.updateQuizScore(2, model.fox.quiz.correctAns);
+				model.updateQuizScore(2, model.GobjS.getFox().quiz.correctAns);
 			}
-			model.fox.quiz.dispose();
+			model.GobjS.getFox().quiz.dispose();
 		}
 		view.initializeBackground(currentpanel);
 	}
