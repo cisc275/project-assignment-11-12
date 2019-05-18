@@ -168,11 +168,11 @@ public class Model {
 	 */
 	public ScoringObject createGameOneFish(int fishLevel) {
 		if(fishLevel == 1) {
-			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL1, Constants.F1_SPEED, Constants.FY_INCR_I, Constants.F1_PV, Constants.F1_IMW, Constants.F_IMH, GameObjectEnum.g1Fish1));
+			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL1, -((int)(Math.random() * 3) + 3), Constants.FY_INCR_I, Constants.F1_PV, Constants.F1_IMW, Constants.F_IMH, GameObjectEnum.g1Fish1));
 		} if(fishLevel == 2) {
-			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL2, Constants.F2_SPEED, Constants.FY_INCR_I, Constants.F2_PV, Constants.F2_IMW, Constants.F_IMH, GameObjectEnum.g1Fish2));
+			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL2, -((int)(Math.random() * 3) + 3), Constants.FY_INCR_I, Constants.F2_PV, Constants.F2_IMW, Constants.F_IMH, GameObjectEnum.g1Fish2));
 		} if(fishLevel == 3) {
-			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL3, Constants.F3_SPEED, Constants.FY_INCR_I, Constants.F3_PV, Constants.F3_IMW, Constants.F_IMH, GameObjectEnum.g1Fish3));
+			return (new ScoringObject(Constants.FX_I, Constants.SO_LEVEL3, -((int)(Math.random() * 3) + 4), Constants.FY_INCR_I, Constants.F3_PV, Constants.F3_IMW, Constants.F_IMH, GameObjectEnum.g1Fish3));
 		}
 		return null;
 	}
@@ -234,13 +234,13 @@ public class Model {
 	 */
 	public ScoringObject createGameOneSeaweed(int seaweedLevel) {
 		if(seaweedLevel == 1) {
-			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL1, Constants.SW1_SPEED, Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
+			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL1, -((int)(Math.random() * 3) + 3), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 		}
 		if(seaweedLevel == 2) {
-			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL2, Constants.SW2_SPEED, Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
+			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL2, -((int)(Math.random() * 3) + 3), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 		} 
 		if(seaweedLevel == 3) {
-			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL3, Constants.SW3_SPEED, Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
+			return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL3, -((int)(Math.random() * 3) + 3), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 		}
 		return null;
 	}

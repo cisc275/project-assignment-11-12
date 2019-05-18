@@ -31,9 +31,9 @@ public class Constants {
 		//initial values/positions for seaweed
 		final static int SWX_I = View.frameWidth;
 		final static int SWY_INCR_I = 0;
-		final static int SW1_SPEED = -4;  
+		final static int SW1_SPEED = -3;  
 		final static int SW2_SPEED = -3;
-		final static int SW3_SPEED = -2;
+		final static int SW3_SPEED = -3;
 		final static int SW_PV = -2;
 		final static int SW_IMH = 50;
 		final static int SW_IMW = 50;
