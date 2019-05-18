@@ -467,6 +467,13 @@ public class Model {
 		GobjS.setScore(score);
 	}
 	
+	/**
+	 * Sets up the locations for clapper rail and food/trash
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
 	public void initializePositions() {
 		g2locations = new Point[10];
 		clapperlocations = new Point[10];
