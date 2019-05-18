@@ -42,12 +42,19 @@ public class Controller implements ActionListener, KeyListener {
 		};
 		
 	}
+	
+	/**
+	 * Checks for the existence of a quiz and adds itself to it as an ActionListener.
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
 	public void checkQuiz() {
 		if (model.GobjS.getFox() != null) {
 			if (model.GobjS.getFox().flag == false) {
-				System.out.println("trying to add listener");
 				model.GobjS.getFox().quiz.addListenertoQuiz(this);
-				model.GobjS.getFox().quiz.setVisible(true);
+				model.GobjS.getFox().quiz.setVisible(true); 
 				model.GobjS.getFox().flag = true;
 			}
 		}
@@ -61,6 +68,13 @@ public class Controller implements ActionListener, KeyListener {
 		view.setFocusTraversalKeysEnabled(false);
 	}
 	
+	/**
+	 * Switches to the appropriate panel after the game ends.
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
 	public void endGame() {
 		if (currentpanel == 1) {
 			view.cl.show(view.panelContainer, "3");
