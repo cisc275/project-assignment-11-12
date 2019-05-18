@@ -5,7 +5,7 @@ public class Constants {
 	
 	
 	//Game 1 Constants
-	
+		final static int G1_SPACEBAR_COOLDOWN = 50;
 		//initial values/positions for osprey
 		final static int OX_I = (View.frameWidth / 2) - 100;
 		final static int OY_I = 100;
@@ -45,7 +45,7 @@ public class Constants {
 		
 		//boundaries/collision
 		final static int O_YBound = 80;
-		final static int O_upwardsYIncr = -35;
+		final static int O_upwardsYIncr = -25;
 	
 		
 	//Game 2 Constants
