@@ -35,7 +35,7 @@ public class Model {
 	/**
 	 * calls appropriate updateGame[One/Two] method
 	 * 
-	 * @param int currentpanel: corresponds to current game playing
+	 * @param none
 	 * @return none
 	 */
 	public void updateGame(int currentpanel) {
@@ -68,8 +68,8 @@ public class Model {
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(1));
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(2));
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(3));
-		GobjS.getScoringObjects().add(this.createGameOneRandomFish());
-		GobjS.getScoringObjects().add(this.createGameOneRandomFish());
+		//GobjS.getScoringObjects().add(this.createGameOneRandomFish());
+		//GobjS.getScoringObjects().add(this.createGameOneRandomFish());
 	}
 	
 	/**
