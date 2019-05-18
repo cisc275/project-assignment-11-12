@@ -34,8 +34,9 @@ public class Controller implements ActionListener, KeyListener {
 					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame(currentpanel);
 					checkQuiz();
+					
 					clockcount++;
-					if (clockcount > 2000) { //2000*drawDelay[30] = 60000 = 1.0min
+					if (clockcount > (60000/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
 					}
 			}

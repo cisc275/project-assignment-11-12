@@ -13,7 +13,7 @@ public class Model {
 	Fox fox;
 	ArrayList<ScoringObject> scoringObjects = new ArrayList<>();
 	Scoring score;
-	int count;
+	int timerCount;
 	Point[] g2locations = new Point[8];
 	Point[] clapperlocations = new Point[8];
 	boolean[] g2occupancy = new boolean[8];
@@ -58,6 +58,7 @@ public class Model {
 	 * @author Ken Chan
 	 */
 	public void initializeGameOne() {
+		this.timerCount = 0;
 		GobjS.setPlayer(new Osprey(Constants.OX_I, Constants.OY_I, Constants.OX_INCR_I, Constants.OY_INCR_I, Constants.O_IMW, Constants.O_IMH, GameObjectEnum.g1Osprey));
 		score = new Scoring();
 		GobjS.setScore(score);
@@ -68,8 +69,6 @@ public class Model {
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(1));
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(2));
 		GobjS.getScoringObjects().add(this.createGameOneSeaweed(3));
-		//GobjS.getScoringObjects().add(this.createGameOneRandomFish());
-		//GobjS.getScoringObjects().add(this.createGameOneRandomFish());
 	}
 	
 	/**
@@ -78,10 +77,11 @@ public class Model {
 	 *
 	 * @param none
 	 * @return none
-	 * @author Hannah Bridge and Brendan Azueta
+	 * @author Ken Chan
 	 */
 	public void updateGameOne() {	
 		//System.out.println("Game 1 updated");
+		this.timerCount++;
 		updateGameOneScoringObjects(GobjS.getScoringObjects());
 		GobjS.getPlayer().move();
 		this.checkIfPlayerCollidesWithBoundary();
@@ -104,10 +104,9 @@ public class Model {
 	 * @author Hannah Bridge and Ken Chan
 	 */
 	public void updateGameOneScoringObjects(ArrayList<ScoringObject> scoringObjects) {
+		this.addFishAndSeaweed(scoringObjects);
 		for(int i = 0; i < scoringObjects.size(); i++) {
 			scoringObjects.get(i).move();
-			Rectangle o1 = GobjS.getScoringObjects().get(i).getBounds();
-			//collisionG1(o1);
 			if(this.collisionG1(GobjS.getScoringObjects().get(i).getBounds())) {
 				this.score.updateScore(scoringObjects.get(i));
 				if(scoringObjects.get(i).GobjEnum != GameObjectEnum.g1Seaweed) {
@@ -126,25 +125,24 @@ public class Model {
 				}
 			}
 			if(scoringObjects.get(i).GobjEnum == GameObjectEnum.g1Seaweed) {
-				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == Constants.SW1_SPEED) {
+				if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) ) {
 					scoringObjects.remove(i);
-					scoringObjects.add(this.createGameOneSeaweed(1));
-				} 
-				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == Constants.SW2_SPEED) {
-					scoringObjects.remove(i);
-					scoringObjects.add(this.createGameOneSeaweed(2));
-				}
-				else if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i)) && scoringObjects.get(i).xIncr == Constants.SW3_SPEED) {
-					scoringObjects.remove(i);
-					scoringObjects.add(this.createGameOneSeaweed(3));
+					scoringObjects.add(this.createGameOneRandomSeaweed());
 				}
 			}
 		}
 	}
 	
-	public void updateGameOneSeaweed() {	
+	public void addFishAndSeaweed(ArrayList<ScoringObject> scoringObjects) {
+		//add a pity timer for not catching fish/ slow this down if they are catching fish.
+		if(timerCount % 180 == 0) {
+			scoringObjects.add(this.createGameOneRandomFish());
+		}
+		if(timerCount % 360 == 0) {
+			scoringObjects.add(this.createGameOneRandomSeaweed());
+		}
+		
 	}
-	
 	/**
 	 * Checks if the scoringObject is off the screen: returns true if it is, false otherwise
 	 * 
@@ -179,9 +177,30 @@ public class Model {
 		return null;
 	}
 	
+	public ScoringObject createGameOneRandomSeaweed() {
+		int seaweedRand = (int)(Math.random() * 4);
+		if(seaweedRand == 0) {
+			return this.createGameOneSeaweed(1);
+		}
+		else if(seaweedRand == 1) {
+			return this.createGameOneSeaweed(2);
+		}
+		else {
+			return this.createGameOneSeaweed(3);
+		}
+	}
+	
+	/**
+	 * Creates random new fish scoring objects for levels 1, 2, 3
+	 * 
+	 * @param 
+	 * @return null
+	 * @author Ken Chan
+	 */
+	
 	public ScoringObject createGameOneRandomFish() {
 		//magic numbers here
-		int fishRand = (int)(Math.random() * 9);
+		int fishRand = (int)(Math.random() * 8);
 		if(fishRand == 0 || fishRand == 1 || fishRand == 2) {
 			return this.createGameOneFish(1);
 		}
@@ -193,11 +212,19 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * Creates new random seaweed scoring objects for levels 1, 2, 3
+	 * 
+	 * @param (int) fishLevel
+	 * @return null
+	 * @author Ken Chan
+	 */
+	/*
 	public ScoringObject createGameOneRandomSeaweed() {
 		int seaweedRand = (int)((Math.random() * 3) + 1);
 		return this.createGameOneSeaweed(seaweedRand);
 	}
-	
+	*/
 	/**
 	 * Creates new seaweed scoring objects for levels 1, 2, 3
 	 * 
@@ -224,7 +251,7 @@ public class Model {
 	 * 
 	 * @param (Rectangle) object
 	 * @return (boolean) true/false
-	 * @author Brendan Azueta
+	 * @author Brendan Azueta and Ken Chan
 	 */
 
 	public boolean collisionG1(Rectangle o1) {
@@ -239,6 +266,12 @@ public class Model {
 		}
 	}
 	
+	/**
+	 * Checks if player collides with the boundary
+	 * @return
+	 * 
+	 * @author Ken Chan
+	 */
 	public boolean checkIfPlayerCollidesWithBoundary() {
 		if(GobjS.getPlayer().getYloc() + GobjS.getPlayer().getImageHeight() >= View.frameHeight) {
 			this.g1BoundaryCollision = true;
@@ -276,14 +309,14 @@ public class Model {
 	 * @author Anna Bortle
 	 */
 	public void updateGameTwo() {
-		if (count % Constants.refreshTime == 0) {
+		if (timerCount % Constants.refreshTime == 0) {
 			for (int i=0; i < Constants.numNew; i++) {
 				createFoodOrTrash();
 			}
 		}		
-		count ++;
+		timerCount ++;
 		GobjS.getPlayer().move();
-		if (count > Constants.foxTime) {
+		if (timerCount > Constants.foxTime) {
 			GobjS.getFox().move();
 		}
 		updateFoodAndTrash();
@@ -424,6 +457,7 @@ public class Model {
 	 * @author Anna Bortle
 	 */
 	public void initializeGameTwo() {
+		this.timerCount = 0;
 		for (int i = 0; i < 8; i++) {
 			g2occupancy[i] = false;
 			if (i < 4) {

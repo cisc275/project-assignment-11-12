@@ -17,9 +17,9 @@ public class Constants {
 		//initial values/positions for fish
 		final static int FX_I = View.frameWidth - 100;
 		final static int FY_INCR_I = 0;
-		final static int F1_SPEED = -5;
+		final static int F1_SPEED = -3;
 		final static int F2_SPEED = -4;
-		final static int F3_SPEED = -3;
+		final static int F3_SPEED = -5;
 		final static int F1_PV = 1;
 		final static int F2_PV = 2;
 		final static int F3_PV = 3;
