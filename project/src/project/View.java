@@ -30,10 +30,10 @@ public class View extends JFrame{
 	final static int frameWidth = 1250;
 	final static int frameHeight = 700;
 	BufferedImage[][] imageArray;
-	Button exit, game1, game2, menu1, menu2, menu, cancel, replay;
+	Button exit, game1, game2;
 	boolean quizflag = false;
 	
-	Image g2_backimage;
+	Image g2_background, g2_foreground;
 	Image g1_backimage;
 	Image osprey_image;
 	Image clapperrail_image;
@@ -57,7 +57,7 @@ public class View extends JFrame{
 		//load images
 		try {
 			
-			g2_backimage = ImageIO.read(new File("images/g2_background.png"));
+			g2_background = ImageIO.read(new File("images/g2_background.png"));
 			clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
 			egg_image = ImageIO.read(new File("images/egg.png"));
 			sun_image = ImageIO.read(new File("images/sun.png"));
@@ -109,13 +109,13 @@ public class View extends JFrame{
 		
 		game1panel = new DrawPanel();
 		game1panel.setLayout(null);
-		menu1 = new Button("main menu");
+		JLabel menu1 = new JLabel("[Esc] Menu");
 		menu1.setBounds(frameWidth-150,10, 100, 30);
 		game1panel.add(menu1);
 		
 		game2panel = new DrawPanel();
 		game2panel.setLayout(null);
-		menu2 = new Button("main menu");
+		JLabel menu2 = new JLabel("[Esc] Menu");
 		menu2.setBounds(frameWidth-150,10, 100, 30);
 		game2panel.add(menu2);
 		
@@ -144,18 +144,16 @@ public class View extends JFrame{
 			this.background = g1_backimage;
 		}
 		else if(currentpanel == 2) {
-			this.background = g2_backimage;
+			this.background = g2_background;
 		}
 	}
 	
 	public void initializeGameImages(int currentpanel) {
 		if(currentpanel == 1) {
 			GobjS.getPlayer().setImg(osprey_image);
-			this.background = g1_backimage;
 		}
 		else if(currentpanel == 2) {
 			GobjS.getPlayer().setImg(clapperrail_image);
-			this.background = g2_backimage;
 		}
 	}
 	
@@ -227,8 +225,6 @@ public class View extends JFrame{
 	public void addControllertoButton(Controller c) {
 		game1.addActionListener(c);
 		game2.addActionListener(c);
-		menu1.addActionListener(c);
-		menu2.addActionListener(c);
 		
 	}
 	

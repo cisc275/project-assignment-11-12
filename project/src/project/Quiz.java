@@ -69,6 +69,5 @@ public class Quiz extends JDialog{
 	public void addListenertoQuiz(Controller c) {
 		ans1.addActionListener(c);
 		ans2.addActionListener(c);
-		System.out.println("listener added to quiz");
 	}
 }

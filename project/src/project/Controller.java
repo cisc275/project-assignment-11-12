@@ -15,6 +15,7 @@ public class Controller implements ActionListener, KeyListener {
 	Model model;
 	View view;
 	Quiz quiz;
+	MenuPopUp mpop;
 	Timer t;
 	final int drawDelay = 25; // change this to 25
 	Action drawAction;
@@ -24,6 +25,7 @@ public class Controller implements ActionListener, KeyListener {
 	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
 	boolean upflag = false;
 	boolean downflag = true;
+	boolean menuflag = false;
 
 	
 	Controller(){
@@ -35,6 +37,7 @@ public class Controller implements ActionListener, KeyListener {
 					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame(currentpanel);
 					checkQuiz();
+					checkMenu();
 					if(g1_spaceCooldown > 0) {
 						g1_spaceCooldown--;
 					}
@@ -109,6 +112,7 @@ public class Controller implements ActionListener, KeyListener {
 			currentpanel = 2;
 			model.initializeGameTwo();
 		}
+		/*
 		else if (e.getSource().equals(view.menu2) || e.getSource().equals(view.menu1)) {
 			System.out.println("menu button pressed");
 			model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
@@ -116,6 +120,7 @@ public class Controller implements ActionListener, KeyListener {
 			clockcount = 0;
 			currentpanel = 0;
 		}
+		*/
 		else if (e.getSource().equals(model.GobjS.getFox().quiz.ans1) || e.getSource().equals(model.GobjS.getFox().quiz.ans2)) {
 			if (e.getSource().equals(model.GobjS.getFox().quiz.ans1)){
 				System.out.println("ans1 pressed");
@@ -143,6 +148,27 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if (currentpanel != 0) {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_ESCAPE:
+					menuflag = true;
+					break;
+			}
+		}
+		if (menuflag) {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_1:
+					model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
+					view.cl.show(view.panelContainer, "0");
+					clockcount = 0;
+					currentpanel = 0;
+					mpop.dispose();
+					break;
+				case KeyEvent.VK_2:
+					mpop.dispose();
+					break;
+			}
+		}
 		if(currentpanel == 2) {
 			int k = e.getKeyCode();
 			switch( k ) { 
@@ -222,9 +248,18 @@ public class Controller implements ActionListener, KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 	}
 	
+	public void checkMenu() {
+		if (menuflag) {
+			mpop = new MenuPopUp();
+			mpop.addKeyListener(this);
+			mpop.setVisible(true); 
+			menuflag = false;
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		Controller c = new Controller();
 		c.start();
-		//System.out.println("main called.");
 	}
 }
