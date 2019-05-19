@@ -177,6 +177,14 @@ public class Model {
 			return null;
 		}
 		
+		/**
+		 * Creates random new seaweed scoring objects for levels 1, 2, 3
+		 * 
+		 * @param 
+		 * @return null
+		 * @author Ken Chan
+		 */
+		
 		public ScoringObject createGameOneRandomSeaweed() {
 			int seaweedRand = (int)(Math.random() * 4);
 			if(seaweedRand == 0) {
@@ -195,7 +203,7 @@ public class Model {
 		 * 
 		 * @param 
 		 * @return null
-		 * @author Ken Chan
+		 * @author Ken Chan and Brendan Azueta
 		 */
 		
 		public ScoringObject createGameOneRandomFish() {
@@ -281,7 +289,14 @@ public class Model {
 			else
 				return false;
 		}
-
+		
+		/**
+		 * Prints out whether the collision between the player and the object was with a fish or seaweed.
+		 * @param (ArrayList) object
+		 * @return
+		 * 
+		 * @author Ken Chan and Brendan Azueta
+		 */
 		public void fishOrSeaWeed(ArrayList<ScoringObject> scoringObjects) {
 			for(int i = 0; i < scoringObjects.size(); i++) {
 				Rectangle o1 = GobjS.getScoringObjects().get(i).getBounds();
