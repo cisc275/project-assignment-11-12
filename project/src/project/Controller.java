@@ -24,6 +24,7 @@ public class Controller implements KeyListener {
 	
 	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
 	boolean menuflag = false;
+	boolean quizflag = false;
 
 	
 	Controller(){
@@ -58,9 +59,11 @@ public class Controller implements KeyListener {
 	public void checkQuiz() {
 		if (model.GobjS.getFox() != null) {
 			if (model.GobjS.getFox().flag == false) {
+				quizflag = true;
 				model.GobjS.getFox().quiz.addListenertoQuiz(this);
 				model.GobjS.getFox().quiz.setVisible(true); 
 				model.GobjS.getFox().flag = true;
+				quizflag = false;
 			}
 		}
 	}
@@ -125,22 +128,27 @@ public class Controller implements KeyListener {
 		}
 		else if (currentpanel != 0) {
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_ESCAPE:
+				case KeyEvent.VK_M:
 					menuflag = true;
 					break;
 			}
 		}
 		if (menuflag) {
 			switch (e.getKeyCode()) {
-				case KeyEvent.VK_1:
+				case KeyEvent.VK_Y:
 					model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
 					view.cl.show(view.panelContainer, "0");
 					clockcount = 0;
 					currentpanel = 0;
 					mpop.dispose();
 					break;
-				case KeyEvent.VK_2:
+				case KeyEvent.VK_C:
 					mpop.dispose();
+					break;
+				case KeyEvent.VK_ESCAPE:
+					mpop.dispose();
+					view.dispose();
+					System.exit(0);
 					break;
 			}
 		}
@@ -177,6 +185,9 @@ public class Controller implements KeyListener {
 	        	case KeyEvent.VK_SPACE:
 	        		model.eatFoodOrTrash();
 	        		break;
+			}
+			if (quizflag) {
+				switch (e.getKeyCode()) {
 	        	case KeyEvent.VK_1:
 	        		model.updateQuizScore(1, model.GobjS.getFox().quiz.correctAns);
 	        		model.GobjS.getFox().quiz.dispose();
@@ -186,6 +197,7 @@ public class Controller implements KeyListener {
 	        		model.GobjS.getFox().quiz.dispose();
 	        		break;
 				}
+			}
 			}
 			if(currentpanel == 1) {
 				System.out.println("game1");
@@ -218,6 +230,7 @@ public class Controller implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 	}
+	
 	
 	public void checkMenu() {
 		if (menuflag) {

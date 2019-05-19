@@ -265,7 +265,7 @@ public class Model {
 				return false;
 			}
 		}
-		
+	
 		/**
 		 * Checks if player collides with the boundary
 		 * @return

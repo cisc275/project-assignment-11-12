@@ -24,10 +24,11 @@ public class MenuPopUp extends JDialog{
 		this.getContentPane().add(popmenupanel,BorderLayout.CENTER);
 		
 		JLabel question = new JLabel("Are you sure you want to exit to Main Menu?");
-		JLabel yes = new JLabel("YES : Press 1");
-		JLabel no = new JLabel("CANCEL : Press 2");
+		JLabel yes = new JLabel("YES : Press Y");
+		JLabel no = new JLabel("CANCEL : Press C");
+		JLabel quit = new JLabel("QUIT GAME: Press Escape");
 		
-		popmenupanel.add(question); popmenupanel.add(yes); popmenupanel.add(no);
+		popmenupanel.add(question); popmenupanel.add(yes); popmenupanel.add(no); popmenupanel.add(quit);
 		//this.setVisible(true);
 	}
 }

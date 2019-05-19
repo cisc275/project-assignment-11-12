@@ -27,8 +27,8 @@ public class View extends JFrame{
 	
 	int frameCount;
 	int picNum;
-	final static int frameWidth = 1250;
-	final static int frameHeight = 700;
+	static int frameWidth;
+	static int frameHeight;
 	BufferedImage[][] imageArray;
 	boolean quizflag = false;
 	
@@ -50,8 +50,6 @@ public class View extends JFrame{
 	CardLayout cl = new CardLayout();
 	
 	public View() {
-		this.setPreferredSize(new Dimension(frameWidth, frameHeight));
-		this.setLayout(new BorderLayout());
 		
 		//load images
 		try {
@@ -74,9 +72,20 @@ public class View extends JFrame{
 			e.printStackTrace();
 		}
 		
+		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setLayout(new BorderLayout());
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.pack();
+		this.setVisible(true);
+		Dimension viewdim = this.getSize();
+		frameWidth = viewdim.width;
+		frameHeight = viewdim.height;
+		
 		//set up card layout & panels
 		panelContainer = new DrawPanel();
 		panelContainer.setLayout(cl);
+		this.add(panelContainer, BorderLayout.CENTER);
 		
 		createlayouts();
 		
@@ -85,13 +94,8 @@ public class View extends JFrame{
 		panelContainer.add(game2panel, "2");
 		panelContainer.add(end1panel, "3");
 		panelContainer.add(end2panel, "4");
-		
+				
 		cl.show(panelContainer, "0");
-		this.add(panelContainer, BorderLayout.CENTER);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack();
-		this.setVisible(true);
-		
 	}
 	
 	public void createlayouts() {
@@ -108,13 +112,13 @@ public class View extends JFrame{
 		
 		game1panel = new DrawPanel();
 		game1panel.setLayout(null);
-		JLabel menu1 = new JLabel("[Esc] Menu");
+		JLabel menu1 = new JLabel("[M] Menu");
 		menu1.setBounds(frameWidth-150,10, 100, 30);
 		game1panel.add(menu1);
 		
 		game2panel = new DrawPanel();
 		game2panel.setLayout(null);
-		JLabel menu2 = new JLabel("[Esc] Menu");
+		JLabel menu2 = new JLabel("[M] Menu");
 		menu2.setBounds(frameWidth-150,10, 100, 30);
 		game2panel.add(menu2);
 		
@@ -184,7 +188,6 @@ public class View extends JFrame{
 				g.drawString(GobjS.score.toString(), 400, 200);
 			}
 		}
-		
 		
 		public void paintPlayer(Graphics g) {
 			g.drawImage(GobjS.getPlayer().getImg(), GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
