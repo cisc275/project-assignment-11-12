@@ -87,10 +87,10 @@ public class Constants {
 		final static int refreshTime = g2_lifetime + 10;
 		
 		//fox
-		final static int FX_IMW = 150;
-		final static int FX_IMH = 150;
+		final static int FX_IMW = 200;
+		final static int FX_IMH = 200;
 
-		final static int foxTime = 1000;
+		final static int foxTime = 600;
 		//initial positions
 		final static int FX_X = -FX_IMW;
 		final static int FX_Y = View.frameHeight/3;

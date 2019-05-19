@@ -10,7 +10,7 @@ import javax.swing.Action;
 import javax.swing.Timer;
 
 
-public class Controller implements ActionListener, KeyListener {
+public class Controller implements KeyListener {
 	
 	Model model;
 	View view;
@@ -23,8 +23,6 @@ public class Controller implements ActionListener, KeyListener {
 	int currentpanel;
 	
 	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
-	boolean upflag = false;
-	boolean downflag = true;
 	boolean menuflag = false;
 
 	
@@ -95,23 +93,6 @@ public class Controller implements ActionListener, KeyListener {
 	public void initializeModel() {
 		model = new Model();
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object button = e.getSource();
-		if (e.getSource().equals(model.GobjS.getFox().quiz.ans1) || e.getSource().equals(model.GobjS.getFox().quiz.ans2)) {
-			if (e.getSource().equals(model.GobjS.getFox().quiz.ans1)){
-				System.out.println("ans1 pressed");
-				
-			}
-			else {
-				System.out.println("ans2 pressed");
-				model.updateQuizScore(2, model.GobjS.getFox().quiz.correctAns);
-			}
-			model.GobjS.getFox().quiz.dispose();
-		}
-		view.initializeBackground(currentpanel);
-	}
 
 	public void start(){
 		EventQueue.invokeLater(new Runnable() {
@@ -167,20 +148,16 @@ public class Controller implements ActionListener, KeyListener {
 			int k = e.getKeyCode();
 			switch(k) { 
 	        	case KeyEvent.VK_UP:
-	        		if (upflag) {
+	        		if (model.getGobjS().getPlayer().getYloc() - Constants.CR_Y >= Constants.CRX_I) {
 	        			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y);
 	        		}
-	        		upflag = false;
-	        		downflag = true;
 	        		System.out.println("up");
 	        		break;
 	        		
 	        	case KeyEvent.VK_DOWN:
-	        		if (downflag) {
+	        		if (model.getGobjS().getPlayer().getYloc() + Constants.CR_Y  <= Constants.CRY_I+Constants.CR_Y) {
 	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y);
 	        		}
-	        		downflag = false;
-	        		upflag = true;
 	        		System.out.println("down");
 	        		break;
 	        		
