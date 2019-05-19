@@ -98,6 +98,12 @@ public class View extends JFrame{
 		cl.show(panelContainer, "0");
 	}
 	
+	/**
+	 * Creates different layouts for the game.
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void createlayouts() {
 		menupanel = new DrawPanel();
 		menupanel.setLayout(null);
@@ -132,16 +138,32 @@ public class View extends JFrame{
 	}
 	
 	
-	
+	/**
+	 * Adds game object storage to view.
+	 * 
+	 * @param GobjS
+	 * @return none
+	 */
 	public void addGameObjectStorageToView(GameObjectStorage GobjS) {
 		this.GobjS = GobjS;
 	}
 	
+	/**
+	 * Creates new buffered image.
+	 * 
+	 * @param none
+	 * @return buffered image
+	 */
 	public BufferedImage createBufferedImage() {
 		return new BufferedImage(1,1,1);
 	}
 	
-	
+	/**
+	 * Initializes background for each game.
+	 * 
+	 * @param int representing current panel
+	 * @return none
+	 */
 	public void initializeBackground(int currentpanel) {
 		if(currentpanel == 1) {
 			this.background = g1_backimage;
@@ -151,6 +173,12 @@ public class View extends JFrame{
 		}
 	}
 	
+	/**
+	 * Initializes player image depending on if player is playing game 1 (osprey) or game 2 (clapper rail).
+	 * 
+	 * @param int representing current panel
+	 * @return none
+	 */
 	public void initializeGameImages(int currentpanel) {
 		if(currentpanel == 1) {
 			GobjS.getPlayer().setImg(osprey_image);
@@ -161,6 +189,12 @@ public class View extends JFrame{
 	}
 	
 	private class DrawPanel extends JPanel{
+		/**
+		 * Paints the components for each panel depending on which panel player is on. 
+		 * 
+		 * @param g 
+		 * @return none
+		 */
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			if (this.equals(game1panel)) {
@@ -189,27 +223,67 @@ public class View extends JFrame{
 			}
 		}
 		
+		/**
+		 * Paints player. Osprey for game 1 player, clapper rail for game 2 player. 
+		 * 
+		 * @param g
+		 * @return none
+		 */
 		public void paintPlayer(Graphics g) {
 			g.drawImage(GobjS.getPlayer().getImg(), GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 		}
 		
+		/**
+		 * Paints scoring objects for each game. Fish and seaweed for game 1, food and trash for game 2. 
+		 * 
+		 * @param g
+		 * @return none
+		 */
 		public void paintScoringObjects(Graphics g) {
 			for(ScoringObject so : GobjS.getScoringObjects()) {
 				g.drawImage(so.getImg(), so.getXloc(), so.getYloc(), so.getImageWidth(), so.getImageHeight(), this);
 			}
 		}
+		
+		/**
+		 * Paints eggs for scoring in game 2 (clapper rail).
+		 * 
+		 * @param g
+		 * @return none
+		 */
 		public void paintEggs(Graphics g) {
 			for (int i=0; i < GobjS.score.totalScore;i++) {
 				g.drawImage(egg_image, 30+20*i,10, 40, 50, this);
 			}
 		}
+		
+		/**
+		 * Paints fox for game 2 (clapper rail).
+		 * 
+		 * @param g
+		 * @return none
+		 */
 		public void paintFox(Graphics g) {
 			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
 		}
+		
+		/**
+		 * Paints sun and moon timers for game 2 (clapper rail).
+		 * 
+		 * @param g
+		 * @return none
+		 */
 		public void paintTimer(Graphics g) {
 			g.drawImage(sun_image, GobjS.getSunTimer().getXLoc(),GobjS.getSunTimer().getYLoc(), 100, 100, this);
 			g.drawImage(moon_image, GobjS.getMoonTimer().getXLoc(),GobjS.getMoonTimer().getYLoc(), 100, 100, this);
 		}
+		
+		/**
+		 * Paints energy for scoring in game 1 (osprey).
+		 * 
+		 * @param g
+		 * @return none
+		 */
 		public void paintEnergy(Graphics g) {
 			for (int i=0; i < GobjS.score.totalScore;i++) {
 				g.drawImage(energy_image, 5+20*i,10, 30, 40, this);

@@ -68,6 +68,12 @@ public class Controller implements KeyListener {
 		}
 	}
 	
+	/**
+	 * Initializes view, adds a key listener for when keys are pressed.
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void initializeView() {
 		view = new View();
 		view.addKeyListener(this);
@@ -93,10 +99,22 @@ public class Controller implements KeyListener {
 		}
 	}
 	
+	/**
+	 * Creates a new model. 
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void initializeModel() {
 		model = new Model();
 	}
 
+	/**
+	 * Timer starts to run.
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -108,6 +126,13 @@ public class Controller implements KeyListener {
 		
 	}
 	
+	/**
+	 * Checks to see which panel/pop up player is on. Calls actions depending on which keys are pressed and which 
+	 * panels/pop ups they correspond to. 
+	 * 
+	 * @param key that was pressed (key event)
+	 * @return none
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (currentpanel == 0) {
@@ -212,6 +237,13 @@ public class Controller implements KeyListener {
 		}
 		
 	}
+	
+	/**
+	 * Checks to see which key was released. 
+	 * 
+	 * @param key that was released after being pressed (key event)
+	 * @return none
+	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
@@ -230,6 +262,12 @@ public class Controller implements KeyListener {
 	}
 	
 	
+	/**
+	 * Checks if menu is shown. 
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void checkMenu() {
 		if (menuflag) {
 			mpop = new MenuPopUp();
