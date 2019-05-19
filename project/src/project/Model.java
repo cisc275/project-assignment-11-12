@@ -334,30 +334,54 @@ public class Model {
 	 */
 	public void createFoodOrTrash() {
 		int rand = r.nextInt(8);
-		int randFood = r.nextInt(2)+1;
-		int randTrash = r.nextInt(2)+1;
+		int randFood = r.nextInt(4)+1;
+		int randTrash = r.nextInt(4)+1;
 		while (g2occupancy[rand] == true) {
 			rand = r.nextInt(8);
 		}
 		int pointValue = foodOrTrash();
 		GameObjectEnum gobje;
 		if(pointValue == 1) {
-			if(randFood == 1){
+			switch (randFood) {
+			case 1:
 				gobje = GameObjectEnum.g2Food;
-			}
-			else {
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 2:
 				gobje = GameObjectEnum.g2Food2;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 3:
+				gobje = GameObjectEnum.g2Food3;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 4:
+				gobje = GameObjectEnum.g2Food4;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
 			}
 		}
 		else {
-			if(randTrash == 1) {
+			switch (randFood) {
+			case 1:
 				gobje = GameObjectEnum.g2Trash;
-			}
-			else {
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 2:
 				gobje = GameObjectEnum.g2Trash2;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 3:
+				gobje = GameObjectEnum.g2Trash3;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 4:
+				gobje = GameObjectEnum.g2Trash4;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
 			}
 		}
-		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+		//GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
 		g2occupancy[rand] = true;
 	}
 	

@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,46 +34,27 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	boolean quizflag = false;
 	
-	Image g2_background, g2_foreground;
-	Image g1_backimage;
-	Image osprey_image;
-	Image clapperrail_image;
-	Image trout_image;
-	Image seaweed_image;
-	Image strippedbass_image;
-	Image background;
-	Image egg_image;
-	Image energy_image;
-	Image fox_image;
-	Image sun_image;
-	Image moon_image;
+	BufferedImage g2_background;
+	BufferedImage g1_backimage;
+	BufferedImage osprey;
+	BufferedImage clapperrail_image;
+	BufferedImage fish1;
+	BufferedImage seaweed_image;
+	BufferedImage fish2;
+	BufferedImage fish3;
+	BufferedImage background;
+	BufferedImage egg_image;
+	BufferedImage energy_image;
+	BufferedImage fox_image;
+	BufferedImage sun_image;
+	BufferedImage moon_image;
+	BufferedImage crmenu;
+	BufferedImage omenu;
 	
 	
 	CardLayout cl = new CardLayout();
 	
 	public View() {
-		
-		//load images
-		try {
-			
-			g2_background = ImageIO.read(new File("images/g2_background.png"));
-			clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
-			egg_image = ImageIO.read(new File("images/egg.png"));
-			sun_image = ImageIO.read(new File("images/sun.png"));
-			fox_image = ImageIO.read(new File("images/fox.png"));
-			moon_image = ImageIO.read(new File("images/moon.png"));
-			
-			g1_backimage = ImageIO.read(new File("images/g1_background.png"));
-			trout_image = ImageIO.read(new File("images/trout_temp.png"));
-			seaweed_image = ImageIO.read(new File("images/seaweed.png"));
-			strippedbass_image = ImageIO.read(new File("images/striped_bass.png"));
-			energy_image = ImageIO.read(new File("images/energy.png"));
-			osprey_image = ImageIO.read(new File("images/o_temp.png"));
-			
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		
 		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
@@ -96,6 +79,33 @@ public class View extends JFrame{
 		panelContainer.add(end2panel, "4");
 				
 		cl.show(panelContainer, "0");
+		
+		//load images
+				try {
+					omenu = ImageIO.read(new File("images/omenu.png"));
+					crmenu = ImageIO.read(new File("images/crmenu.png"));
+					omenu = getScaledImage(omenu, frameWidth/2, frameHeight);
+					crmenu = getScaledImage(crmenu, frameWidth/2, frameHeight);
+					
+					g2_background = ImageIO.read(new File("images/g2_background.png"));
+					clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
+					egg_image = ImageIO.read(new File("images/egg.png"));
+					sun_image = ImageIO.read(new File("images/sun.png"));
+					fox_image = ImageIO.read(new File("images/fox.png"));
+					moon_image = ImageIO.read(new File("images/moon.png"));
+					
+					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
+					fish3 = ImageIO.read(new File("images/fish3.png"));
+					seaweed_image = ImageIO.read(new File("images/seaweed.png"));
+					fish1 = ImageIO.read(new File("images/fish.png"));
+					fish2 = ImageIO.read(new File("images/fish2.png"));
+					energy_image = ImageIO.read(new File("images/energy.png"));
+					osprey = ImageIO.read(new File("images/osprey.png"));
+					
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+				
 	}
 	
 	public void createlayouts() {
@@ -103,12 +113,14 @@ public class View extends JFrame{
 		menupanel.setLayout(null);
 		menupanel.setBackground(Color.white);
 		
+		/*
 		JLabel game1 = new JLabel("Press 1 to play Osprey Game");
 		game1.setBounds(200,50,400,100);
 		JLabel game2 = new JLabel("Press 2 to play Clapper Rail Game");
 		game2.setBounds(200,200,400,100);
 		menupanel.add(game1);
 		menupanel.add(game2);
+		*/
 		
 		game1panel = new DrawPanel();
 		game1panel.setLayout(null);
@@ -153,7 +165,7 @@ public class View extends JFrame{
 	
 	public void initializeGameImages(int currentpanel) {
 		if(currentpanel == 1) {
-			GobjS.getPlayer().setImg(osprey_image);
+			GobjS.getPlayer().setImg(osprey);
 		}
 		else if(currentpanel == 2) {
 			GobjS.getPlayer().setImg(clapperrail_image);
@@ -163,6 +175,11 @@ public class View extends JFrame{
 	private class DrawPanel extends JPanel{
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			if (this.equals(menupanel)) {
+				g.drawImage(omenu, 0, 0, this);
+				g.drawImage(crmenu, frameWidth/2, 0, this);
+				g.fillRect(frameWidth/2 - 10, 0, 20, frameHeight);
+			}
 			if (this.equals(game1panel)) {
 				//g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
@@ -179,7 +196,7 @@ public class View extends JFrame{
 			}
 			if (this.equals(end1panel)) {
 				//just draw something temp on panel for now
-				g.drawImage(osprey_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
+				g.drawImage(osprey, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
 				g.drawString(GobjS.score.toString(), 400, 200);
 			}
 			if (this.equals(end2panel)) {
@@ -216,7 +233,20 @@ public class View extends JFrame{
 			}
 		}
 	}
+	
+	public static BufferedImage getScaledImage(BufferedImage image, int width, int height) throws IOException {
+	    int imageWidth  = image.getWidth();
+	    int imageHeight = image.getHeight();
 
+	    double scaleX = (double)width/imageWidth;
+	    double scaleY = (double)height/imageHeight;
+	    AffineTransform scaleTransform = AffineTransform.getScaleInstance(scaleX, scaleY);
+	    AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+
+	    return bilinearScaleOp.filter(
+	        image,
+	        new BufferedImage(width, height, image.getType()));
+	}
 	/**
 	 * adds the Controller class as the listener to buttons in View
 	 * @param the controller instance 

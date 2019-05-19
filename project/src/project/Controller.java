@@ -17,7 +17,7 @@ public class Controller implements KeyListener {
 	Quiz quiz;
 	MenuPopUp mpop;
 	Timer t;
-	final int drawDelay = 25; // change this to 25
+	final int drawDelay = 35; // change this to 25
 	Action drawAction;
 	private int clockcount = 0;
 	int currentpanel;
