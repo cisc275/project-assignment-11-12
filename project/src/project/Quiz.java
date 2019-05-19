@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class Quiz extends JDialog{
 
 	private JPanel quizpanel;
-	Button ans1, ans2;
+	JLabel ans1, ans2;
 	ArrayList<Question> questions;
 	int correctAns;
 	
@@ -25,6 +25,8 @@ public class Quiz extends JDialog{
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(300, 300);
 		this.setTitle("Fox Quiz");
+		this.setLocationRelativeTo(null);
+		this.setFocusable(true);
 		
 		quizpanel = new JPanel();
 		this.getContentPane().add(quizpanel,BorderLayout.CENTER);
@@ -32,8 +34,8 @@ public class Quiz extends JDialog{
 		Random rand = new Random();
 		int r = rand.nextInt(questions.size());
 		JLabel question = new JLabel(questions.get(r).question);
-		ans1 = new Button(questions.get(r).ans1);
-		ans2 = new Button(questions.get(r).ans2);
+		ans1 = new JLabel("1: " + questions.get(r).ans1);
+		ans2 = new JLabel("2: " + questions.get(r).ans2);
 		correctAns = questions.get(r).correctAns;
 		
 		quizpanel.add(question); quizpanel.add(ans1); quizpanel.add(ans2);
@@ -67,7 +69,6 @@ public class Quiz extends JDialog{
 	 * @author Anna Bortle
 	 */
 	public void addListenertoQuiz(Controller c) {
-		ans1.addActionListener(c);
-		ans2.addActionListener(c);
+		this.addKeyListener(c);
 	}
 }

@@ -30,7 +30,6 @@ public class View extends JFrame{
 	final static int frameWidth = 1250;
 	final static int frameHeight = 700;
 	BufferedImage[][] imageArray;
-	Button exit, game1, game2;
 	boolean quizflag = false;
 	
 	Image g2_background, g2_foreground;
@@ -98,11 +97,11 @@ public class View extends JFrame{
 	public void createlayouts() {
 		menupanel = new DrawPanel();
 		menupanel.setLayout(null);
-		menupanel.setBackground(Color.darkGray);
+		menupanel.setBackground(Color.white);
 		
-		game1 = new Button("Game 1: Osprey");
+		JLabel game1 = new JLabel("Press 1 to play Osprey Game");
 		game1.setBounds(200,50,400,100);
-		game2 = new Button("Game 2: Clapper Rail");
+		JLabel game2 = new JLabel("Press 2 to play Clapper Rail Game");
 		game2.setBounds(200,200,400,100);
 		menupanel.add(game1);
 		menupanel.add(game2);
@@ -221,12 +220,13 @@ public class View extends JFrame{
 	 * @return none
 	 * @author Brendan Azueta
 	 */
-	
+	/*
 	public void addControllertoButton(Controller c) {
 		game1.addActionListener(c);
 		game2.addActionListener(c);
 		
 	}
+	*/
 	
 	
 }

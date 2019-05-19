@@ -69,7 +69,6 @@ public class Controller implements ActionListener, KeyListener {
 	
 	public void initializeView() {
 		view = new View();
-		view.addControllertoButton(this);
 		view.addKeyListener(this);
 		view.setFocusable(true);
 		view.setFocusTraversalKeysEnabled(false);
@@ -100,31 +99,10 @@ public class Controller implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object button = e.getSource();
-		if (e.getSource().equals(view.game1)) {
-			System.out.println("game1 button pressed");
-			view.cl.show(view.panelContainer, "1");
-			currentpanel = 1;
-			model.initializeGameOne();
-		}
-		else if (e.getSource().equals(view.game2)) {
-			System.out.println("game2 button pressed");
-			view.cl.show(view.panelContainer, "2");
-			currentpanel = 2;
-			model.initializeGameTwo();
-		}
-		/*
-		else if (e.getSource().equals(view.menu2) || e.getSource().equals(view.menu1)) {
-			System.out.println("menu button pressed");
-			model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
-			view.cl.show(view.panelContainer, "0");
-			clockcount = 0;
-			currentpanel = 0;
-		}
-		*/
-		else if (e.getSource().equals(model.GobjS.getFox().quiz.ans1) || e.getSource().equals(model.GobjS.getFox().quiz.ans2)) {
+		if (e.getSource().equals(model.GobjS.getFox().quiz.ans1) || e.getSource().equals(model.GobjS.getFox().quiz.ans2)) {
 			if (e.getSource().equals(model.GobjS.getFox().quiz.ans1)){
 				System.out.println("ans1 pressed");
-				model.updateQuizScore(1, model.GobjS.getFox().quiz.correctAns);
+				
 			}
 			else {
 				System.out.println("ans2 pressed");
@@ -148,7 +126,23 @@ public class Controller implements ActionListener, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (currentpanel != 0) {
+		if (currentpanel == 0) {
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_1:
+				System.out.println("game1");
+				view.cl.show(view.panelContainer, "1");
+				currentpanel = 1;
+				model.initializeGameOne();
+				break;
+			case KeyEvent.VK_2:
+				System.out.println("game2");
+				view.cl.show(view.panelContainer, "2");
+				currentpanel = 2;
+				model.initializeGameTwo();
+				break;
+			}
+		}
+		else if (currentpanel != 0) {
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_ESCAPE:
 					menuflag = true;
@@ -171,7 +165,7 @@ public class Controller implements ActionListener, KeyListener {
 		}
 		if(currentpanel == 2) {
 			int k = e.getKeyCode();
-			switch( k ) { 
+			switch(k) { 
 	        	case KeyEvent.VK_UP:
 	        		if (upflag) {
 	        			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y);
@@ -198,22 +192,22 @@ public class Controller implements ActionListener, KeyListener {
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth() 
+	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth()*2 
 	        				+ Constants.CR_X > View.frameWidth)) {
 	        			model.getGobjS().getPlayer().setxIncr(Constants.CR_X);
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		//System.out.println("space");
-	        		if (currentpanel == 2) {
-	        			model.eatFoodOrTrash();
-	        			System.out.println("g2 space pressed");
-	        		}
-	        		if (currentpanel == 1) {
-	        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
-		        		System.out.println("space");
-		        		break;
-	        		}
+	        		model.eatFoodOrTrash();
+	        		break;
+	        	case KeyEvent.VK_1:
+	        		model.updateQuizScore(1, model.GobjS.getFox().quiz.correctAns);
+	        		model.GobjS.getFox().quiz.dispose();
+	        		break;
+	        	case KeyEvent.VK_2:
+	        		model.updateQuizScore(2, model.GobjS.getFox().quiz.correctAns);
+	        		model.GobjS.getFox().quiz.dispose();
+	        		break;
 				}
 			}
 			if(currentpanel == 1) {
