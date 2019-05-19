@@ -146,8 +146,6 @@ public class Controller implements KeyListener {
 					mpop.dispose();
 					break;
 				case KeyEvent.VK_ESCAPE:
-					mpop.dispose();
-					view.dispose();
 					System.exit(0);
 					break;
 			}
