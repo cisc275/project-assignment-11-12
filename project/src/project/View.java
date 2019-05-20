@@ -77,14 +77,14 @@ public class View extends JFrame implements java.io.Serializable{
 	
 	public View() {
 		
-		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 		Dimension viewdim = this.getSize();
-		frameWidth = 800;
-		frameHeight = 800;
+		frameWidth = viewdim.width;
+		frameHeight = viewdim.height;
 		
 		//set up card layout & panels
 		panelContainer = new DrawPanel();
