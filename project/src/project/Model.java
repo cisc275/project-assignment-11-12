@@ -77,12 +77,7 @@ public class Model implements java.io.Serializable{
 			GobjS.setPlayer(new Osprey(Constants.OX_I, Constants.OY_I, Constants.OX_INCR_I, Constants.OY_INCR_I, Constants.O_IMW, Constants.O_IMH, GameObjectEnum.g1Osprey));
 			score = new Scoring();
 			GobjS.setScore(score);
-			this.g1EnergySnapShot = 0;
-			this.g1PityCounter = 1;
-			this.g1OspreyUpdatedHeight = Constants.OY_I;
-			this.g1TimeMultiplier = 1;
-			this.g1BoundaryCollision = false;
-			this.g1ScoringObjectCollision = false;
+			
 			GobjS.getScoringObjects().add(this.createGameOneFish(1));
 			GobjS.getScoringObjects().add(this.createGameOneFish(2));
 			GobjS.getScoringObjects().add(this.createGameOneFish(3));	

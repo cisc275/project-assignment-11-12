@@ -48,7 +48,7 @@ public class Controller implements KeyListener {
 					if(g1_spaceCooldown > 0) {
 						g1_spaceCooldown--;
 					}
-					if (view.tutorialflag == false) { 
+					if (view.tutorialflag == false || view.tutorialflag1 == false && (currentpanel == 1 || currentpanel == 2)) { 
 						clockcount++;
 					}
 					if (clockcount > (Constants.GAME_LENGTH/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
@@ -177,9 +177,12 @@ public class Controller implements KeyListener {
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_M:
 					menuflag = true;
+					model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
+					model.getGobjS().score.totalScore = 0;
 					break;
 			}
 		}
+		
 		if (menuflag) {
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_Y:

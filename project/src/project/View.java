@@ -5,12 +5,12 @@ import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -141,6 +141,7 @@ public class View extends JFrame{
 					energy_image = ImageIO.read(new File("images/energy.png"));
 					osprey = ImageIO.read(new File("images/osprey.png"));
 					end = ImageIO.read(new File("images/end.png"));
+					end = getScaledImage(end, frameWidth, frameHeight);
 					
 				} catch(IOException e) {
 					e.printStackTrace();
@@ -327,7 +328,6 @@ public class View extends JFrame{
 							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
 							g.drawString("Keep collecting fish to avoid losing engergy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
 							g.drawImage(upArrow, 10, 50, 50, 50, this);
-							
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);
@@ -350,6 +350,7 @@ public class View extends JFrame{
 				
 				if (tutorialflag) {
 					if (!learnmovementflag) {
+						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(arrows, frameWidth/3, frameHeight/10, 100, 150, this);
 						g.drawString("Use arrow keys to move.", frameWidth/3 + 200, frameHeight/4);
 					}
@@ -357,12 +358,12 @@ public class View extends JFrame{
 					
 					if (learnmovementflag) {
 						if (!learnscoringflag) {
+							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.drawImage(space, frameWidth/3, frameHeight/10, 200, 150, this);
 							g.drawString("Press spacebar to eat, but avoid the trash!.", frameWidth/3 + 200, frameHeight/4);
 							g.drawString("Each piece of food gets you an egg, try to get more than 5!", frameWidth/3 + 200, frameHeight/4 + 20);
 						}
 						this.paintScoringObjects(g);
-						
 						this.paintEggs(g);
 						
 						if (GobjS.score.totalScore > 5) {
@@ -383,15 +384,14 @@ public class View extends JFrame{
 				this.paintTimer(g);
 				}
 			}
+			
 			if (this.equals(end1panel) || this.equals(end2panel)) {
-				//just draw something temp on panel for now
 				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
 				g.drawImage(end, 0,0, this);
-				g.drawString(GobjS.score.toString(), frameWidth-500, frameHeight-475);
-				g.drawString("[M] Main Menu", frameWidth-500, frameHeight-340);
+				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
+				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
 			}
 			}
-		
 		/**
 		 * Paints player. Osprey for game 1 player, clapper rail for game 2 player. 
 		 * 
