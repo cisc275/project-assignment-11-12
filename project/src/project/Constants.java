@@ -57,8 +57,8 @@ public class Constants {
 	//Game 2 Constants
 		
 		//initial values/positions for clapper rail
-		final static int CR_IMH = 80;
-		final static int CR_IMW = 80;
+		final static int CR_IMH = 100;
+		final static int CR_IMW = 100;
 		
 		final static int CRX_I = View.frameWidth/6 - CR_IMW;
 		final static int CRY_I = (int) (1.5*(View.frameHeight/4));

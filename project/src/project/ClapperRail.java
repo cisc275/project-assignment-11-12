@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 public class ClapperRail extends Player{
@@ -23,5 +24,8 @@ public class ClapperRail extends Player{
 		yloc += yIncr;
 		yIncr = 0;
 		super.updateBounds();
+	}
+	public Point getPointLoc() {
+		return (new Point(xloc,yloc));
 	}
 }

@@ -57,6 +57,13 @@ public class Controller implements KeyListener {
 					if (model.g1NoEnergy) {
 						endGame();
 					}
+					if (currentpanel == 2) {
+						if (model.foxDirectionflag) {
+							view.updateFoxDirection(model.foxDirectionflag);
+						}
+						int location = model.updateCRloc();
+						view.updateG2images(location);
+					}
 			}
 		};
 		
@@ -230,6 +237,7 @@ public class Controller implements KeyListener {
 	        		break;
 	        		
 	        	case KeyEvent.VK_LEFT:
+	        		model.g2rightflag = false;
 	        		System.out.println("left");
 	        		if (!(model.getGobjS().getPlayer().getXloc() - Constants.CR_X < 0)){
 	        			model.getGobjS().getPlayer().setxIncr(-Constants.CR_X);
@@ -243,6 +251,7 @@ public class Controller implements KeyListener {
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
+	        		model.g2rightflag = true;
 	        		System.out.println("right");
 	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth()*2 
 	        				+ Constants.CR_X > View.frameWidth)) {

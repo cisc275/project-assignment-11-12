@@ -25,6 +25,9 @@ public class Model implements java.io.Serializable{
 	Point[] g2locations;
 	Point[] clapperlocations;
 	boolean[] g2occupancy;
+	
+	boolean g2rightflag = false;
+	boolean foxDirectionflag = false;
 	boolean g1NoEnergy = false;
 	boolean g1BoundaryCollision = false;
 	boolean g1ScoringObjectCollision = false;
@@ -363,9 +366,9 @@ public class Model implements java.io.Serializable{
 			updateFoodAndTrash();
 		}
 		else {
-		if (timerCount % Constants.refreshTime == 0) {
-			for (int i=0; i < Constants.numNew; i++) {
-				createFoodOrTrash();
+			if (timerCount % Constants.refreshTime == 0) {
+				for (int i=0; i < Constants.numNew; i++) {
+					createFoodOrTrash();
 			}
 		}		
 		timerCount ++;
@@ -373,10 +376,31 @@ public class Model implements java.io.Serializable{
 		if (timerCount > Constants.foxTime) {
 			GobjS.getFox().move();
 		}
+		if (GobjS.getFox().getxIncr()<0) {
+			foxDirectionflag=false;
+		}
 		updateFoodAndTrash();
 		GobjS.getSunTimer().move();
 		GobjS.getMoonTimer().move();
 		}
+	}
+	
+	public int updateCRloc() {
+		int loc;
+		int o = findClapperRail();
+		if (o > 4) {
+			if (g2rightflag) {
+				loc = 1;
+			}
+			else { loc = 3;}
+		}
+		else {
+			if (g2rightflag) {
+				loc = 0;
+			}
+			else {loc = 2;}
+		}
+		return loc;
 	}
 	
 	/**

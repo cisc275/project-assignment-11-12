@@ -29,13 +29,14 @@ public class View extends JFrame{
 	GameObjectStorage GobjS;
 	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
 	
-	int frameCount;
+	int CRframeCount;
+	int FOXframeCount;
 	int picNum;
 	static int frameWidth;
 	static int frameHeight;
 	BufferedImage[][] imageArray;
 	boolean quizflag = false;
-	
+	boolean foxDirectionflag = false;
 	int G1EnergyCount = 0;
 	
 	//game 1 tutorial
@@ -53,7 +54,11 @@ public class View extends JFrame{
 	BufferedImage g2_background;
 	BufferedImage g1_backimage;
 	BufferedImage osprey;
+	
+	BufferedImage[][] CR_images;
+	BufferedImage CR_bad;
 	BufferedImage clapperrail_image;
+	
 	BufferedImage fish1;
 	BufferedImage seaweed_image;
 	BufferedImage fish2;
@@ -61,6 +66,7 @@ public class View extends JFrame{
 	BufferedImage background;
 	BufferedImage egg_image;
 	BufferedImage energy_image;
+	BufferedImage[] fox_images;
 	BufferedImage fox_image;
 	BufferedImage sun_image;
 	BufferedImage moon_image;
@@ -75,6 +81,9 @@ public class View extends JFrame{
 	CardLayout cl = new CardLayout();
 	
 	public View() {
+		CRframeCount = 3;
+		FOXframeCount = 23;
+		picNum = 0;
 		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
@@ -107,12 +116,15 @@ public class View extends JFrame{
 					omenu = getScaledImage(omenu, frameWidth/2, frameHeight);
 					crmenu = getScaledImage(crmenu, frameWidth/2, frameHeight);
 					
-					g2_background = ImageIO.read(new File("images/g2_background.png"));
+					g2_background = ImageIO.read(new File("images/wetland.jpg"));
 					g2_background = getScaledImage(g2_background, frameWidth, frameHeight);
-					clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
+					
+					CR_images = createCRimages();
+					clapperrail_image = CR_images[0][0];
 					egg_image = ImageIO.read(new File("images/egg.png"));
 					sun_image = ImageIO.read(new File("images/sun.png"));
-					fox_image = ImageIO.read(new File("images/fox.png"));
+					fox_images = createFOXimages();
+					fox_image = fox_images[0];
 					moon_image = ImageIO.read(new File("images/moon.png"));
 					arrows = ImageIO.read(new File("images/arrows.png"));
 					space = ImageIO.read(new File("images/space.jpeg"));
@@ -132,7 +144,63 @@ public class View extends JFrame{
 				}
 				
 	}
+	public BufferedImage[] createFOXimages(){
+		fox_images = new BufferedImage[23];
+		try {
+			for (int i=0; i<23; i++) {
+				fox_images[i] = ImageIO.read(new File("images/fox/fox"+ i + ".png"));
+			}
+			
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return fox_images;
+	}
 	
+	
+	public BufferedImage[][] createCRimages(){
+		CR_images = new BufferedImage[4][3];
+		try {
+		for (int i=0; i<3; i++) {
+			
+			CR_images[0][i] = ImageIO.read(new File("images/claprail_right_"+(i+1)+".png"));
+			
+		}
+		for (int i=0; i<3; i++) {
+			
+			CR_images[1][i] = ImageIO.read(new File("images/claprail_right_water_"+(i+1)+".png"));
+			}
+			
+		for (int i=0; i<3; i++) {
+			
+			CR_images[2][i] = ImageIO.read(new File("images/claprail_left_"+(i+1)+".png"));
+			}
+			
+		
+		for (int i=0; i<3; i++) {
+			
+			CR_images[3][i] = ImageIO.read(new File("images/claprail_left_water_"+(i+1)+".png"));
+			}
+		
+		
+		      
+		CR_bad = ImageIO.read(new File("images/claprail_bad.png"));
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return CR_images;
+	}
+	
+	public void updateG2images(int loc) {
+		GobjS.getPlayer().setImg(  (CR_images[loc][picNum%CRframeCount]) );
+		GobjS.getFox().setImg(fox_images[picNum%FOXframeCount]);
+		
+		}
+	public void updateFoxDirection(boolean Mflag) {
+		foxDirectionflag = Mflag;
+	}
 	/**
 	 * Creates different layouts for the game.
 	 * 
@@ -143,15 +211,7 @@ public class View extends JFrame{
 		menupanel = new DrawPanel();
 		menupanel.setLayout(null);
 		menupanel.setBackground(Color.white);
-		
-		/*
-		JLabel game1 = new JLabel("Press 1 to play Osprey Game");
-		game1.setBounds(200,50,400,100);
-		JLabel game2 = new JLabel("Press 2 to play Clapper Rail Game");
-		game2.setBounds(200,200,400,100);
-		menupanel.add(game1);
-		menupanel.add(game2);
-		*/
+
 		
 		game1panel = new DrawPanel();
 		game1panel.setLayout(null);
@@ -220,7 +280,7 @@ public class View extends JFrame{
 			GobjS.getPlayer().setImg(osprey);
 		}
 		else if(currentpanel == 2) {
-			GobjS.getPlayer().setImg(clapperrail_image);
+			//GobjS.getPlayer().setImg(clapperrail_image);
 		}
 	}
 	
@@ -238,6 +298,7 @@ public class View extends JFrame{
 		 */
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			picNum++;
 			if (this.equals(menupanel)) {
 				g.drawImage(omenu, 0, 0, this);
 				g.drawImage(crmenu, frameWidth/2, 0, this);
@@ -368,7 +429,12 @@ public class View extends JFrame{
 		 * @return none
 		 */
 		public void paintFox(Graphics g) {
-			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
+			if (!foxDirectionflag) {
+				g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
+			}
+			else {
+			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc() + GobjS.getFox().getImg().getWidth(this)/2, GobjS.getFox().getYloc(), -GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
+			}
 		}
 		
 		/**
