@@ -21,7 +21,7 @@ public class Controller implements KeyListener {
 	final int drawDelay = 25; // change this to 25
 	Action drawAction;
 	private int clockcount = 0;
-	int currentpanel;
+	static int currentpanel;
 	
 	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
 	boolean menuflag = false;
@@ -338,6 +338,29 @@ public class Controller implements KeyListener {
 	}
 	
 	public void updateTutorial() {
+		//GAME 1
+		if(currentpanel == 1) {
+			if(!view.tutorialflag1 && view.tutorialcount1 == 1) {
+				tutpop = new endTutorialPopUp();
+				tutpopflag = true;
+				tutpop.addKeyListener(this);
+				tutpop.setVisible(true);
+				tutpopflag = false;
+				
+				view.tutorialcount1++;
+				
+				model.tutorialflag = false;
+				model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects());
+				model.initializeGameOne();
+			}
+		/*	if(view.tutorialflag1 && model.getGobjS().scoringObjects.isEmpty()) {
+				for(int i = 0; i< 5; i++) {
+					model.createGameOneRandomFish();
+					model.createGameOneRandomSeaweed();
+				}
+			}*/
+		}
+		// GAME 2
 		if (currentpanel == 2) {
 			if (!view.tutorialflag && view.tutorialcount == 1) {
 				tutpop = new endTutorialPopUp();

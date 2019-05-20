@@ -319,7 +319,7 @@ public class View extends JFrame{
 					if(learnmovementflag1) {
 						this.paintScoringObjects(g);
 						if(!learnscoringflag1) {
-							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 200, frameHeight/4);
+							g.drawString("Collect fish while avoiding seaweed to build up energy! Try to collect 5!", frameWidth/3 + 200, frameHeight/4);
 							g.drawImage(upArrow, 10, 50, 50, 50, this);
 						}
 						this.paintScoringObjects(g);
