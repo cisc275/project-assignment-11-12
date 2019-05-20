@@ -143,6 +143,7 @@ public class Model implements java.io.Serializable{
 			this.g1OspreyUpdatedHeight = Constants.OY_I + possibleYLoc[this.g1NoEnergyCount];
 			GobjS.getPlayer().setYloc(this.g1OspreyUpdatedHeight);
 		}
+		
 		/**
 		 * Updates the scoring objects for game 1: osprey:
 		 * goes through the scoringObjects array list and removes fish and seaweed if they are off screen and creates
@@ -391,9 +392,10 @@ public class Model implements java.io.Serializable{
 		if (timerCount > Constants.foxTime) {
 			GobjS.getFox().move();
 		}
-		if (GobjS.getFox().getxIncr()<0) {
-			foxDirectionflag=false;
+		if (GobjS.getFox().getxIncr() < 0) {
+			foxDirectionflag=true;
 		}
+		else{foxDirectionflag = false;}
 		updateFoodAndTrash();
 		GobjS.getSunTimer().move();
 		GobjS.getMoonTimer().move();

@@ -58,9 +58,8 @@ public class Controller implements KeyListener {
 						endGame();
 					}
 					if (currentpanel == 2) {
-						if (model.foxDirectionflag) {
-							view.updateFoxDirection(model.foxDirectionflag);
-						}
+						view.updateFoxDirection(model.foxDirectionflag);
+						
 						int location = model.updateCRloc();
 						view.updateG2images(location);
 					}
@@ -339,28 +338,28 @@ public class Controller implements KeyListener {
 	
 	public void updateTutorial() {
 		//GAME 1
-		if(currentpanel == 1) {
-			if(!view.tutorialflag1 && view.tutorialcount1 == 1) {
-				tutpop = new endTutorialPopUp();
-				tutpopflag = true;
-				tutpop.addKeyListener(this);
-				tutpop.setVisible(true);
-				tutpopflag = false;
-				
-				view.tutorialcount1++;
-				
-				model.tutorialflag = false;
-				model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects());
-				model.initializeGameOne();
-			}
-		/*	if(view.tutorialflag1 && model.getGobjS().scoringObjects.isEmpty()) {
-				for(int i = 0; i< 5; i++) {
-					model.createGameOneRandomFish();
-					model.createGameOneRandomSeaweed();
+				if(currentpanel == 1) {
+					if(!view.tutorialflag1 && view.tutorialcount1 == 1) {
+						tutpop = new endTutorialPopUp();
+						tutpopflag = true;
+						tutpop.addKeyListener(this);
+						tutpop.setVisible(true);
+						tutpopflag = false;
+
+						view.tutorialcount1++;
+
+						model.tutorialflag = false;
+						model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects());
+						model.initializeGameOne();
+					}
+				/*	if(view.tutorialflag1 && model.getGobjS().scoringObjects.isEmpty()) {
+						for(int i = 0; i< 5; i++) {
+							model.createGameOneRandomFish();
+							model.createGameOneRandomSeaweed();
+						}
+					}*/
 				}
-			}*/
-		}
-		// GAME 2
+				// GAME 2
 		if (currentpanel == 2) {
 			if (!view.tutorialflag && view.tutorialcount == 1) {
 				tutpop = new endTutorialPopUp();

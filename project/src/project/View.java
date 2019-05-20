@@ -116,7 +116,7 @@ public class View extends JFrame{
 					omenu = getScaledImage(omenu, frameWidth/2, frameHeight);
 					crmenu = getScaledImage(crmenu, frameWidth/2, frameHeight);
 					
-					g2_background = ImageIO.read(new File("images/wetland.jpg"));
+					g2_background = ImageIO.read(new File("images/wetland2.jpg"));
 					g2_background = getScaledImage(g2_background, frameWidth, frameHeight);
 					
 					CR_images = createCRimages();
@@ -352,13 +352,13 @@ public class View extends JFrame{
 						if (!learnscoringflag) {
 							g.drawImage(space, frameWidth/3, frameHeight/10, 200, 150, this);
 							g.drawString("Press spacebar to eat, but avoid the trash!.", frameWidth/3 + 200, frameHeight/4);
-							g.drawString("Each piece of food gets you an egg, try to get more than 3!", frameWidth/3 + 200, frameHeight/4 + 20);
+							g.drawString("Each piece of food gets you an egg, try to get more than 5!", frameWidth/3 + 200, frameHeight/4 + 20);
 						}
 						this.paintScoringObjects(g);
 						
 						this.paintEggs(g);
 						
-						if (GobjS.score.totalScore > 3) {
+						if (GobjS.score.totalScore > 5) {
 							learnscoringflag = true;
 							System.out.println("scoring learned");
 							tutorialflag = false;

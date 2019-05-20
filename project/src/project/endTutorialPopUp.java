@@ -25,15 +25,16 @@ public class endTutorialPopUp extends JDialog{
 			this.getContentPane().add(tutorialpanel,BorderLayout.CENTER);
 			
 			JLabel done = new JLabel("You've finished the tutorial!");
+			JLabel goal = new JLabel("How many eggs do you think you can collect?");
 			JLabel goalG2 = new JLabel("How many eggs do you think you can collect?");
 			JLabel goalG1 = new JLabel("Can you get enough energy to migrate?");
 			JLabel play = new JLabel("Press P to continue to game!");
 			
 			if(Controller.currentpanel == 1) {
-			tutorialpanel.add(done); tutorialpanel.add(goalG1); tutorialpanel.add(play); 
+				tutorialpanel.add(done); tutorialpanel.add(goalG1); tutorialpanel.add(play); 
+				}
+				if(Controller.currentpanel == 2) {
+					tutorialpanel.add(done); tutorialpanel.add(goalG2); tutorialpanel.add(play); 
+				}
 			}
-			if(Controller.currentpanel == 2) {
-				tutorialpanel.add(done); tutorialpanel.add(goalG2); tutorialpanel.add(play); 
-			}
-		}
 }
