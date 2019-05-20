@@ -17,9 +17,7 @@ public class Osprey extends Player{
 	 */
 	public void move() {
 		yloc += yIncr;
-		if (yloc < 0) {
-			yloc = 0;
-		}
 		super.updateBounds();
 	}
+	
 }

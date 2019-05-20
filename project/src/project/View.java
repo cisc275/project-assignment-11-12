@@ -34,6 +34,7 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	boolean quizflag = false;
 	
+	int G1EnergyCount = 0;
 	int tutorialcount = 0;
 	boolean tutorialflag = true;
 	boolean learnmovementflag = false;
@@ -207,7 +208,9 @@ public class View extends JFrame{
 			GobjS.getPlayer().setImg(clapperrail_image);
 		}
 	}
-	
+	public void setG1EnergyCount(int G1Energy) {
+		this.G1EnergyCount = G1Energy;
+	}
 	private class DrawPanel extends JPanel{
 		
 		/**

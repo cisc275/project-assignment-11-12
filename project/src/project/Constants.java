@@ -31,7 +31,7 @@ public class Constants {
 		final static int F1_IMW = 90;
 		final static int F2_IMW = 90;
 		final static int F3_IMW = 90;
-		
+		final static int FS_DELTAY = 7;
 		//initial values/positions for seaweed
 		final static int SWX_I = View.frameWidth;
 		final static int SWY_INCR_I = 0;

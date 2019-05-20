@@ -39,7 +39,7 @@ public class Controller implements KeyListener {
 					view.repaint();
 					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame(currentpanel);
-					
+					view.setG1EnergyCount(model.g1NoEnergyCount);
 					checkQuiz();
 					checkMenu();
 					updateTutorial();
@@ -47,7 +47,10 @@ public class Controller implements KeyListener {
 					if(g1_spaceCooldown > 0) {
 						g1_spaceCooldown--;
 					}
-					if (view.tutorialflag == false) { clockcount++;}
+					if (view.tutorialflag == false) {
+						clockcount++;
+					}
+					
 					if (clockcount > (Constants.GAME_LENGTH/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
 					}
@@ -272,9 +275,9 @@ public class Controller implements KeyListener {
 				int k2 = e.getKeyCode();
 				switch( k2 ) { 
 	        		case KeyEvent.VK_SPACE:
-	        			if(g1_spaceCooldown == 0) {
+	        			if(!model.g1BoundaryCollision && !model.g1ScoringObjectCollision && g1_spaceCooldown == 0) {
 		        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
-		        			g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN;
+		        			g1_spaceCooldown = (Constants.G1_SPACEBAR_COOLDOWN/model.g1PityCounter);
 		        		}
 	        			//System.out.println("space");
 	        			break;

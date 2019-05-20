@@ -8,7 +8,7 @@ public class ScoringObject extends GameObject{
 	BufferedImage[][] imageArray;
 	
 	//Game 1 Variables
-	int g1_deltaYCount = -1;
+	int g1_deltaYCount = 1;
 	int deltaY = 0;
 	
 	//Game 2 Variables
@@ -21,6 +21,9 @@ public class ScoringObject extends GameObject{
 	ScoringObject(int x, int y, int xInc, int yInc, int pV, int iW, int iH, GameObjectEnum GobjEnum){
 		super(x, y, xInc, yInc, iW, iH, GobjEnum);
 		this.pointValue = pV;
+		if((int)(Math.random() * 100) % 2 == 0) {
+			this.g1_deltaYCount = this.g1_deltaYCount * -1;
+		}
 	}
 	
 	/**
@@ -31,10 +34,10 @@ public class ScoringObject extends GameObject{
 	public void move() {
 		this.xloc += this.xIncr;
 		this.yloc += this.yIncr;
-		if(deltaY == 4){
+		if(deltaY == Constants.FS_DELTAY){
 			g1_deltaYCount = -1;
 		}
-		if(deltaY == -4) {
+		if(deltaY == -Constants.FS_DELTAY) {
 			g1_deltaYCount = 1;
 		}
 		deltaY += g1_deltaYCount;
