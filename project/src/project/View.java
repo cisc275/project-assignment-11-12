@@ -312,6 +312,7 @@ public class View extends JFrame{
 				g.drawImage(g1_backimage, 0, 0, Color.gray, this);
 				if(tutorialflag1) {
 					if(!learnmovementflag1) {
+						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
 						g.drawString("Use space bar to dive.", frameWidth/3 + 200, frameHeight/4);
 						if(GobjS.score.totalScore >= 1) {
@@ -322,8 +323,11 @@ public class View extends JFrame{
 					if(learnmovementflag1) {
 						this.paintScoringObjects(g);
 						if(!learnscoringflag1) {
-							g.drawString("Collect fish while avoiding seaweed to build up energy! Try to collect 5!", frameWidth/3 + 200, frameHeight/4);
+							g.setFont(new Font("Arial", Font.PLAIN, 20));
+							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
+							g.drawString("Keep collecting fish to avoid losing engergy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
 							g.drawImage(upArrow, 10, 50, 50, 50, this);
+							
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);
