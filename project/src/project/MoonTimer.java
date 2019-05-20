@@ -8,7 +8,7 @@ public class MoonTimer {
 	 	int radius = View.frameWidth+(View.frameWidth/8);
 	 	double radian = Math.toRadians(170);
 		
-		double speed = 0.0012;
+		double speed = 0.0011;
 		Point center = new Point(View.frameWidth/2, View.frameHeight*2);
 		int xLoc = center.x + (int)(radius*Math.cos(radian)) - imageWidth/2;
 		int yLoc = center.y + (int)(radius*Math.sin(radian));

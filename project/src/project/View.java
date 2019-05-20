@@ -15,17 +15,16 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.TimerTask;
 import java.util.Timer;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
-
 //import project.View.DrawPanel;
 
 @SuppressWarnings("serial")
-public class View extends JFrame implements java.io.Serializable{
+public class View extends JFrame{
 	
 	GameObjectStorage GobjS;
 	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
@@ -44,13 +43,12 @@ public class View extends JFrame implements java.io.Serializable{
 	boolean tutorialflag1 = true;
 	boolean learnmovementflag1 = false;
 	boolean learnscoringflag1 = false;
-	
+
 	// game 2 tutorial
 	int tutorialcount = 0;
 	boolean tutorialflag = true;
 	boolean learnmovementflag = false;
 	boolean learnscoringflag = false;
-	
 	
 	BufferedImage g2_background;
 	BufferedImage g1_backimage;
@@ -71,6 +69,7 @@ public class View extends JFrame implements java.io.Serializable{
 	BufferedImage arrows;
 	BufferedImage space;
 	BufferedImage upArrow;
+
 	
 	
 	CardLayout cl = new CardLayout();
@@ -109,6 +108,7 @@ public class View extends JFrame implements java.io.Serializable{
 					crmenu = getScaledImage(crmenu, frameWidth/2, frameHeight);
 					
 					g2_background = ImageIO.read(new File("images/g2_background.png"));
+					g2_background = getScaledImage(g2_background, frameWidth, frameHeight);
 					clapperrail_image = ImageIO.read(new File("images/cr_temp.png"));
 					egg_image = ImageIO.read(new File("images/egg.png"));
 					sun_image = ImageIO.read(new File("images/sun.png"));
@@ -117,8 +117,9 @@ public class View extends JFrame implements java.io.Serializable{
 					arrows = ImageIO.read(new File("images/arrows.png"));
 					space = ImageIO.read(new File("images/space.jpeg"));
 					upArrow = ImageIO.read(new File("images/upArrow.jpg"));
-					
+
 					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
+					g1_backimage = getScaledImage(g1_backimage, frameWidth, frameHeight);
 					fish3 = ImageIO.read(new File("images/fish3.png"));
 					seaweed_image = ImageIO.read(new File("images/seaweed.png"));
 					fish1 = ImageIO.read(new File("images/fish.png"));
@@ -222,9 +223,11 @@ public class View extends JFrame implements java.io.Serializable{
 			GobjS.getPlayer().setImg(clapperrail_image);
 		}
 	}
+	
 	public void setG1EnergyCount(int G1Energy) {
 		this.G1EnergyCount = G1Energy;
 	}
+	
 	private class DrawPanel extends JPanel{
 		
 		/**
@@ -241,6 +244,7 @@ public class View extends JFrame implements java.io.Serializable{
 				g.fillRect(frameWidth/2 - 10, 0, 20, frameHeight);
 			}
 			if (this.equals(game1panel)) {
+				g.drawImage(g1_backimage, 0, 0, Color.gray, this);
 				if(tutorialflag1) {
 					if(!learnmovementflag1) {
 						g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
@@ -266,12 +270,14 @@ public class View extends JFrame implements java.io.Serializable{
 						}
 					}
 				}
-				//g.drawImage(background, 0, 0, Color.gray, this);
+				
+				
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 				this.paintEnergy(g);
 			}
 			if (this.equals(game2panel)) {
+				g.drawImage(g2_background, 0, 0, Color.white, this);
 				
 				if (tutorialflag) {
 					if (!learnmovementflag) {
@@ -282,8 +288,8 @@ public class View extends JFrame implements java.io.Serializable{
 					
 					if (learnmovementflag) {
 						if (!learnscoringflag) {
-							g.drawImage(space, frameWidth/3, frameHeight/10, 100, 150, this);
-							g.drawString("Press space to eat, but avoid the trash!.", frameWidth/3 + 200, frameHeight/4);
+							g.drawImage(space, frameWidth/3, frameHeight/10, 200, 150, this);
+							g.drawString("Press spacebar to eat, but avoid the trash!.", frameWidth/3 + 200, frameHeight/4);
 							g.drawString("Each piece of food gets you an egg, try to get more than 3!", frameWidth/3 + 200, frameHeight/4 + 20);
 						}
 						this.paintScoringObjects(g);

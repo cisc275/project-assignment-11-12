@@ -4,12 +4,14 @@ public class Constants {
 	//General Constants
 	final static int GAME_LENGTH = 60000; //milliseconds
 	final static int DRAW_DELAY = 25;
+	
 	//Game 1 Constants
 		
 	    final static int G1_SPACEBAR_COOLDOWN = 50;
 	    final static int G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY = 3;
 	    final static int G1_NUM_OF_ENERGY_LEVELS = 5;
 	    final static int G1_CHECK_ENERGY_FREQUENCY = 240;
+	    
 		//initial values/positions for osprey
 		final static int O_IMH = 120;
 		final static int O_IMW = 120;
@@ -31,6 +33,7 @@ public class Constants {
 		final static int F1_IMW = 90;
 		final static int F2_IMW = 90;
 		final static int F3_IMW = 90;
+		
 		final static int FS_DELTAY = 7;
 		//initial values/positions for seaweed
 		final static int SWX_I = View.frameWidth;

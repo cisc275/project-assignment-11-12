@@ -40,6 +40,7 @@ public class Controller implements KeyListener {
 					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame(currentpanel);
 					view.setG1EnergyCount(model.g1NoEnergyCount);
+					
 					checkQuiz();
 					checkMenu();
 					updateTutorial();
@@ -47,10 +48,9 @@ public class Controller implements KeyListener {
 					if(g1_spaceCooldown > 0) {
 						g1_spaceCooldown--;
 					}
-					if (view.tutorialflag == false) {
+					if (view.tutorialflag == false) { 
 						clockcount++;
 					}
-					
 					if (clockcount > (Constants.GAME_LENGTH/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
 					}
@@ -157,7 +157,7 @@ public class Controller implements KeyListener {
 				model.initializeGameOne();
 				break;
 			case KeyEvent.VK_2:
-				System.out.println("game2");
+				//System.out.println("game2");
 				view.cl.show(view.panelContainer, "2");
 				currentpanel = 2;
 				model.initializeGameTwo();

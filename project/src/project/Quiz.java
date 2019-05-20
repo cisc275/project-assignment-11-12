@@ -23,7 +23,7 @@ public class Quiz extends JDialog{
 		
 		this.setModalityType(Dialog.DEFAULT_MODALITY_TYPE.APPLICATION_MODAL);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(300, 300);
+		this.setSize(400, 200);
 		this.setTitle("Fox Quiz");
 		this.setLocationRelativeTo(null);
 		this.setFocusable(true);
@@ -32,13 +32,15 @@ public class Quiz extends JDialog{
 		this.getContentPane().add(quizpanel,BorderLayout.CENTER);
 		
 		Random rand = new Random();
+		rand.setSeed(System.currentTimeMillis());
 		int r = rand.nextInt(questions.size());
+		JLabel intro = new JLabel ("Uh Oh! A fox is watching you! \n Answer his questions correctly!");
 		JLabel question = new JLabel(questions.get(r).question);
 		ans1 = new JLabel("1: " + questions.get(r).ans1);
 		ans2 = new JLabel("2: " + questions.get(r).ans2);
 		correctAns = questions.get(r).correctAns;
 		
-		quizpanel.add(question); quizpanel.add(ans1); quizpanel.add(ans2);
+		quizpanel.add(intro); quizpanel.add(question); quizpanel.add(ans1); quizpanel.add(ans2);
 	}
 	
 	/**

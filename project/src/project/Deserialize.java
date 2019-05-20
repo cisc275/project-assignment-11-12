@@ -10,7 +10,7 @@ public class Deserialize {
 	        ObjectInputStream ois = new ObjectInputStream(fis);
 	        Model model = (Model) ois.readObject();
 	        ois.close();
-	        
+
 	        return model;
 	    }
 

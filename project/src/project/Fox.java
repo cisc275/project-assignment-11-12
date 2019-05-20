@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 
 public class Fox extends GameObject{
-	final int finalxloc = 100;
+	final int finalxloc = 10;
 	Quiz quiz;
 	
 	BufferedImage[][] imageArray;
@@ -47,6 +47,11 @@ public class Fox extends GameObject{
 				xIncr = -xIncr;
 				yIncr = -yIncr;
 			}
+		}
+		if (xloc < 2*Constants.FX_X) {
+			flag = true;
+			xIncr = -xIncr;
+			yIncr = -yIncr;
 		}
 	}
 }

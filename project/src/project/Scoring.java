@@ -39,7 +39,6 @@ public class Scoring {
 		}
 		return totalAmountContained;
 	}
-	
 	public int getTotalScore() {
 		return this.totalScore;
 	}
