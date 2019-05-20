@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -75,6 +76,7 @@ public class View extends JFrame{
 	BufferedImage arrows;
 	BufferedImage space;
 	BufferedImage upArrow;
+	BufferedImage end;
 
 	
 	
@@ -138,6 +140,7 @@ public class View extends JFrame{
 					fish2 = ImageIO.read(new File("images/fish2.png"));
 					energy_image = ImageIO.read(new File("images/energy.png"));
 					osprey = ImageIO.read(new File("images/osprey.png"));
+					end = ImageIO.read(new File("images/end.png"));
 					
 				} catch(IOException e) {
 					e.printStackTrace();
@@ -376,15 +379,12 @@ public class View extends JFrame{
 				this.paintTimer(g);
 				}
 			}
-			if (this.equals(end1panel)) {
+			if (this.equals(end1panel) || this.equals(end2panel)) {
 				//just draw something temp on panel for now
-				g.drawImage(osprey, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-				g.drawString(GobjS.score.toString(), 400, 200);
-			}
-			if (this.equals(end2panel)) {
-				//just draw something temp on panel for now
-				g.drawImage(clapperrail_image, GobjS.getPlayer().getXloc(), GobjS.getPlayer().getYloc(), GobjS.getPlayer().getImageWidth(), GobjS.getPlayer().getImageHeight(), this);
-				g.drawString(GobjS.score.toString(), 400, 200);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
+				g.drawImage(end, 0,0, this);
+				g.drawString(GobjS.score.toString(), frameWidth-500, frameHeight-475);
+				g.drawString("[M] Main Menu", frameWidth-500, frameHeight-340);
 			}
 			}
 		
