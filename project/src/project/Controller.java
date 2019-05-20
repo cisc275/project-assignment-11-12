@@ -18,7 +18,7 @@ public class Controller implements KeyListener {
 	MenuPopUp mpop;
 	endTutorialPopUp tutpop;
 	Timer t;
-	final int drawDelay = 35; // change this to 25
+	final int drawDelay = 25; // change this to 25
 	Action drawAction;
 	private int clockcount = 0;
 	int currentpanel;
@@ -48,8 +48,11 @@ public class Controller implements KeyListener {
 						g1_spaceCooldown--;
 					}
 					if (view.tutorialflag == false) { clockcount++;}
-					if (clockcount > (60000/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
+					if (clockcount > (Constants.GAME_LENGTH/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
+					}
+					if (model.g1NoEnergy) {
+						endGame();
 					}
 			}
 		};
