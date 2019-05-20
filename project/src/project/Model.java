@@ -14,9 +14,12 @@ public class Model {
 	ArrayList<ScoringObject> scoringObjects = new ArrayList<>();
 	Scoring score;
 	int timerCount;
+	int g1NoEnergyCount = 0;
+	int g1EnergySnapShot = 0;
 	Point[] g2locations;
 	Point[] clapperlocations;
 	boolean[] g2occupancy;
+	boolean g1NoEnergy = false;
 	boolean g1BoundaryCollision = false;
 	boolean g1ScoringObjectCollision = false;
 	Random r = new Random();
@@ -83,6 +86,11 @@ public class Model {
 		public void updateGameOne() {	
 			//System.out.println("Game 1 updated");
 			this.timerCount++;
+			if((this.timerCount % Constants.G1_CHECK_ENERGY_FREQUENCY) == 0) {
+				this.checkGameOneEnergy();
+				System.out.println(this.g1NoEnergyCount);
+				System.out.println(this.g1NoEnergy);
+			}
 			updateGameOneScoringObjects(GobjS.getScoringObjects());
 			GobjS.getPlayer().move();
 			this.checkIfPlayerCollidesWithBoundary();
@@ -93,6 +101,14 @@ public class Model {
 			}
 		}
 		
+		public void checkGameOneEnergy() {
+			if(this.g1EnergySnapShot <= score.getTotalScore() + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY) {
+				this.g1NoEnergyCount++;
+			}
+			if(this.g1NoEnergyCount == (Constants.G1_NUM_OF_ENERGY_LEVELS - 1)) {
+				this.g1NoEnergy = true;
+			}
+		}
 		/**
 		 * Updates the scoring objects for game 1: osprey:
 		 * goes through the scoringObjects array list and removes fish and seaweed if they are off screen and creates
