@@ -7,21 +7,31 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class Model {
+public class Model implements java.io.Serializable{
+	
+	/**
+	 Auto Generated serialUID
+	 */
+	private static final long serialVersionUID = -5969197951986274608L;
 	
 	Player p;
 	Fox fox;
 	ArrayList<ScoringObject> scoringObjects = new ArrayList<>();
 	Scoring score;
 	int timerCount;
+	int g1NoEnergyCount = 0;
+	int g1EnergySnapShot = 0;
+	int g1PityCounter = 1;
 	Point[] g2locations;
 	Point[] clapperlocations;
 	boolean[] g2occupancy;
+	boolean g1NoEnergy = false;
 	boolean g1BoundaryCollision = false;
 	boolean g1ScoringObjectCollision = false;
 	Random r = new Random();
 	GameObjectStorage GobjS = new GameObjectStorage();
 	
+	boolean tutorialflag = true;
 	
 	//******GENERAL******//
 	public void addGameObjectStorageToModel(GameObjectStorage GobjS) {
@@ -82,6 +92,11 @@ public class Model {
 		public void updateGameOne() {	
 			//System.out.println("Game 1 updated");
 			this.timerCount++;
+			if((this.timerCount % Constants.G1_CHECK_ENERGY_FREQUENCY) == 0) {
+				this.checkGameOneEnergy();
+				//System.out.println(this.g1NoEnergyCount);
+				//System.out.println(this.g1NoEnergy);
+			}
 			updateGameOneScoringObjects(GobjS.getScoringObjects());
 			GobjS.getPlayer().move();
 			this.checkIfPlayerCollidesWithBoundary();
@@ -92,6 +107,21 @@ public class Model {
 			}
 		}
 		
+		public void checkGameOneEnergy() {
+			if(score.getTotalScore() <= (this.g1EnergySnapShot + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY)) {
+				System.out.println("G1ENERGYSNAPSHOT: " + this.g1EnergySnapShot);
+				System.out.println("G1NUMPOINTSNEEDED: " + (score.getTotalScore() + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY));
+				
+				this.g1NoEnergyCount++;
+				System.out.println("G1NOENERGYCOUNT: " + this.g1NoEnergyCount);
+				this.g1PityCounter++;
+			}
+			if(this.g1NoEnergyCount == (Constants.G1_NUM_OF_ENERGY_LEVELS - 1)) {
+				this.g1NoEnergy = true;
+			}
+			this.g1EnergySnapShot = score.getTotalScore();
+			System.out.println("UPDATEDG1ENERGYSS: " + this.g1EnergySnapShot);
+		}
 		/**
 		 * Updates the scoring objects for game 1: osprey:
 		 * goes through the scoringObjects array list and removes fish and seaweed if they are off screen and creates
@@ -116,7 +146,7 @@ public class Model {
 						scoringObjects.add(this.createGameOneRandomSeaweed());
 					}
 					scoringObjects.remove(i);
-					System.out.println(this.score.totalScore);
+					System.out.println("Total Score: " + this.score.totalScore);
 				}
 				if(scoringObjects.get(i).GobjEnum != GameObjectEnum.g1Seaweed) {
 					if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i))){
@@ -135,7 +165,7 @@ public class Model {
 		
 		public void addFishAndSeaweed(ArrayList<ScoringObject> scoringObjects) {
 			//add a pity timer for not catching fish/ slow this down if they are catching fish.
-			if(timerCount % 180 == 0) {
+			if(timerCount % (180 / this.g1PityCounter) == 0) {
 				scoringObjects.add(this.createGameOneRandomFish());
 			}
 			if(timerCount % 360 == 0) {
@@ -184,7 +214,6 @@ public class Model {
 		 * @return null
 		 * @author Ken Chan
 		 */
-		
 		public ScoringObject createGameOneRandomSeaweed() {
 			int seaweedRand = (int)(Math.random() * 4);
 			if(seaweedRand == 0) {
@@ -208,7 +237,7 @@ public class Model {
 		
 		public ScoringObject createGameOneRandomFish() {
 			//magic numbers here
-			int fishRand = (int)(Math.random() * 8);
+			int fishRand = (int)(Math.random() * 7);
 			if(fishRand == 0 || fishRand == 1 || fishRand == 2) {
 				return this.createGameOneFish(1);
 			}
@@ -265,7 +294,7 @@ public class Model {
 		public boolean collisionG1(Rectangle o1) {
 			Rectangle OP = GobjS.getPlayer().getBounds();
 			if(!this.g1BoundaryCollision && !this.g1ScoringObjectCollision && OP.intersects(o1)) {
-				System.out.println("Collision detected");
+				//System.out.println("Collision detected");
 				this.g1ScoringObjectCollision = true;
 				GobjS.getPlayer().setyIncr(Constants.O_upwardsYIncr);
 				return true;
@@ -311,9 +340,8 @@ public class Model {
 			}
 		}
 		
-	
-	
 	//******GAME 2******//
+		
 	/**
 	 * Updates the state of Game 2: Clapper Rail:
 	 * creates and removes scoringObjects (food and trash), updates the location of the player.
@@ -324,6 +352,11 @@ public class Model {
 	 * @author Anna Bortle
 	 */
 	public void updateGameTwo() {
+		if (tutorialflag) {
+			GobjS.getPlayer().move();
+			updateFoodAndTrash();
+		}
+		else {
 		if (timerCount % Constants.refreshTime == 0) {
 			for (int i=0; i < Constants.numNew; i++) {
 				createFoodOrTrash();
@@ -337,6 +370,7 @@ public class Model {
 		updateFoodAndTrash();
 		GobjS.getSunTimer().move();
 		GobjS.getMoonTimer().move();
+		}
 	}
 	
 	/**
@@ -349,30 +383,54 @@ public class Model {
 	 */
 	public void createFoodOrTrash() {
 		int rand = r.nextInt(8);
-		int randFood = r.nextInt(2)+1;
-		int randTrash = r.nextInt(2)+1;
+		int randFood = r.nextInt(4)+1;
+		int randTrash = r.nextInt(4)+1;
 		while (g2occupancy[rand] == true) {
 			rand = r.nextInt(8);
 		}
 		int pointValue = foodOrTrash();
 		GameObjectEnum gobje;
 		if(pointValue == 1) {
-			if(randFood == 1){
+			switch (randFood) {
+			case 1:
 				gobje = GameObjectEnum.g2Food;
-			}
-			else {
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 2:
 				gobje = GameObjectEnum.g2Food2;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 3:
+				gobje = GameObjectEnum.g2Food3;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 4:
+				gobje = GameObjectEnum.g2Food4;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
 			}
 		}
 		else {
-			if(randTrash == 1) {
+			switch (randTrash) {
+			case 1:
 				gobje = GameObjectEnum.g2Trash;
-			}
-			else {
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 2:
 				gobje = GameObjectEnum.g2Trash2;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 3:
+				gobje = GameObjectEnum.g2Trash3;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
+			case 4:
+				gobje = GameObjectEnum.g2Trash4;
+				GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+				break;
 			}
 		}
-		GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
+		//GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
 		g2occupancy[rand] = true;
 	}
 	
@@ -541,5 +599,6 @@ public class Model {
 		}
 	}
 }
+
 
 

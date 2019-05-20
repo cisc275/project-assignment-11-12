@@ -7,7 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public abstract class GameObject {
+public abstract class GameObject implements java.io.Serializable {
+	/**
+	 Auto Generated serialUID
+	 */
+	private static final long serialVersionUID = 7670614514181502342L;
 	int xloc,yloc,xIncr,yIncr;
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
