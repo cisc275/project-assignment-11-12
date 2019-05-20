@@ -1,16 +1,20 @@
 package project;
 
 public enum GameObjectEnum {
-	g1Osprey("o_temp"),
+	g1Osprey("osprey"),
 	g2ClapperRail("cr_temp"),
-	g1Fish1("striped_bass"),
-	g1Fish2("striped_bass"),
-	g1Fish3("trout_temp"),
+	g1Fish1("fish"),
+	g1Fish2("fish2"),
+	g1Fish3("fish3"),
 	g1Seaweed("seaweed"),
 	g2Food("food"),
 	g2Food2("food2"),
+	g2Food3("food3"),
+	g2Food4("food4"),
 	g2Trash("trash"),
 	g2Trash2("trash2"),
+	g2Trash3("trash3"),
+	g2Trash4("trash4"),
 	g2Fox("fox");
 
 	String imgFileName;

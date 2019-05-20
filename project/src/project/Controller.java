@@ -16,8 +16,9 @@ public class Controller implements KeyListener {
 	View view;
 	Quiz quiz;
 	MenuPopUp mpop;
+	endTutorialPopUp tutpop;
 	Timer t;
-	final int drawDelay = 25; // change this to 25
+	final int drawDelay = 35; // change this to 25
 	Action drawAction;
 	private int clockcount = 0;
 	int currentpanel;
@@ -25,7 +26,10 @@ public class Controller implements KeyListener {
 	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
 	boolean menuflag = false;
 	boolean quizflag = false;
+	boolean tutpopflag = false;
 
+	//Tutorial 2 counts
+	int arrowcount = 0;
 	
 	Controller(){
 		this.initializeView();
@@ -35,12 +39,15 @@ public class Controller implements KeyListener {
 					view.repaint();
 					view.addGameObjectStorageToView(model.getGobjS());
 					model.updateGame(currentpanel);
+					
 					checkQuiz();
 					checkMenu();
+					updateTutorial();
+					
 					if(g1_spaceCooldown > 0) {
 						g1_spaceCooldown--;
 					}
-					clockcount++;
+					if (view.tutorialflag == false) { clockcount++;}
 					if (clockcount > (60000/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
 					}
@@ -110,7 +117,7 @@ public class Controller implements KeyListener {
 	}
 
 	/**
-	 * Timer starts to run.
+	 * Starts the game.
 	 * 
 	 * @param none
 	 * @return none
@@ -175,6 +182,13 @@ public class Controller implements KeyListener {
 					break;
 			}
 		}
+		if (tutpopflag) {
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_P:
+				tutpop.dispose();
+				break;
+		}
+		}
 		if(currentpanel == 2) {
 			int k = e.getKeyCode();
 			switch(k) { 
@@ -182,12 +196,26 @@ public class Controller implements KeyListener {
 	        		if (model.getGobjS().getPlayer().getYloc() - Constants.CR_Y >= Constants.CRX_I) {
 	        			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y);
 	        		}
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
+	        		}
 	        		System.out.println("up");
 	        		break;
 	        		
 	        	case KeyEvent.VK_DOWN:
 	        		if (model.getGobjS().getPlayer().getYloc() + Constants.CR_Y  <= Constants.CRY_I+Constants.CR_Y) {
 	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y);
+	        		}
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
 	        		}
 	        		System.out.println("down");
 	        		break;
@@ -197,12 +225,26 @@ public class Controller implements KeyListener {
 	        		if (!(model.getGobjS().getPlayer().getXloc() - Constants.CR_X < 0)){
 	        			model.getGobjS().getPlayer().setxIncr(-Constants.CR_X);
 	        		}
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
+	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
 	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth()*2 
 	        				+ Constants.CR_X > View.frameWidth)) {
 	        			model.getGobjS().getPlayer().setxIncr(Constants.CR_X);
+	        		}
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
@@ -261,12 +303,12 @@ public class Controller implements KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 	}
 	
-	
 	/**
 	 * Checks if menu is shown. 
 	 * 
 	 * @param none
 	 * @return none
+	 * @author Anna Bortle
 	 */
 	public void checkMenu() {
 		if (menuflag) {
@@ -274,6 +316,30 @@ public class Controller implements KeyListener {
 			mpop.addKeyListener(this);
 			mpop.setVisible(true); 
 			menuflag = false;
+		}
+	}
+	
+	public void updateTutorial() {
+		if (currentpanel == 2) {
+			if (!view.tutorialflag && view.tutorialcount == 1) {
+				tutpop = new endTutorialPopUp();
+				tutpopflag = true;
+				tutpop.addKeyListener(this);
+				tutpop.setVisible(true);
+				tutpopflag = false;
+				
+				view.tutorialcount++;
+				Constants.g2_lifetime = 50;
+				Constants.refreshTime = Constants.g2_lifetime+10;
+				model.tutorialflag = false;
+				model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
+				model.initializeGameTwo();
+			}
+			if (view.tutorialflag && model.getGobjS().scoringObjects.isEmpty()) {
+				for (int i = 0; i < 5; i++) {
+				model.createFoodOrTrash();
+				}
+			}
 		}
 	}
 	

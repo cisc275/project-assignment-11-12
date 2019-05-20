@@ -9,13 +9,12 @@ public class Constants {
 	    final static int G1_SPACEBAR_COOLDOWN = 50;
 	    
 		//initial values/positions for osprey
-		final static int O_IMH = 75;
-		final static int O_IMW = 110;
+		final static int O_IMH = 120;
+		final static int O_IMW = 120;
 		final static int OX_I = (View.frameWidth / 2) - O_IMW;
-		final static int OY_I = View.frameHeight/7;
+		final static int OY_I = View.frameHeight/15;
 		final static int OX_INCR_I = 0;
 		final static int OY_INCR_I = 0;
-		
 		
 		//initial values/positions for fish
 		final static int FX_I = View.frameWidth;
@@ -26,10 +25,10 @@ public class Constants {
 		final static int F1_PV = 1;
 		final static int F2_PV = 2;
 		final static int F3_PV = 3;
-		final static int F_IMH = 60;
-		final static int F1_IMW = 50;
-		final static int F2_IMW = 80;
-		final static int F3_IMW = 100;
+		final static int F_IMH = 50;
+		final static int F1_IMW = 90;
+		final static int F2_IMW = 90;
+		final static int F3_IMW = 90;
 		
 		//initial values/positions for seaweed
 		final static int SWX_I = View.frameWidth;
@@ -38,18 +37,17 @@ public class Constants {
 		final static int SW2_SPEED = -3;
 		final static int SW3_SPEED = -3;
 		final static int SW_PV = -2;
-		final static int SW_IMH = 70;
-		final static int SW_IMW = 70;
+		final static int SW_IMH = 60;
+		final static int SW_IMW = 60;
 		
 		//levels for both scoring objects (game1)
-		final static int SO_LEVEL1 = 3*View.frameHeight/7;
-		final static int SO_LEVEL2 = 4*View.frameHeight/7;
-		final static int SO_LEVEL3 = 5*View.frameHeight/7;
+		final static int SO_LEVEL1 = 4*View.frameHeight/7;
+		final static int SO_LEVEL2 = 5*View.frameHeight/7;
+		final static int SO_LEVEL3 = 6*View.frameHeight/7;
 		
 		//boundaries/collision
-		final static int O_YBound = 80;
+		final static int O_YBound = OY_I;
 		final static int O_upwardsYIncr = -25;
-	
 		
 	//Game 2 Constants
 		
@@ -71,8 +69,8 @@ public class Constants {
 		//initial values
 		final static int FT_XI = 0;
 		final static int FT_YI = 0;
-		final static int FT_IMW = 40;
-		final static int FT_IMH = 40;
+		final static int FT_IMW = 50;
+		final static int FT_IMH = 50;
 		
 		//occupancy positions
 		final static int G2_Y = 2*CR_Y;
@@ -83,8 +81,8 @@ public class Constants {
 		
 		//scoringObjects
 		final static int numNew = 5;
-		final static int g2_lifetime = 50;
-		final static int refreshTime = g2_lifetime + 10;
+		static int g2_lifetime = 100;
+		static int refreshTime = g2_lifetime + 10;
 		
 		//fox
 		final static int FX_IMW = 200;
