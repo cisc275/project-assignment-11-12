@@ -89,8 +89,6 @@ public class Model {
 			this.timerCount++;
 			if((this.timerCount % Constants.G1_CHECK_ENERGY_FREQUENCY) == 0) {
 				this.checkGameOneEnergy();
-				//System.out.println(this.g1NoEnergyCount);
-				//System.out.println(this.g1NoEnergy);
 			}
 			updateGameOneScoringObjects(GobjS.getScoringObjects());
 			GobjS.getPlayer().move();
@@ -110,6 +108,13 @@ public class Model {
 				this.g1NoEnergyCount++;
 				System.out.println("G1NOENERGYCOUNT: " + this.g1NoEnergyCount);
 				this.g1PityCounter++;
+			}
+			else {
+				if(this.g1NoEnergyCount > 0) {
+					System.out.println("G1NOENERGYCOUNT: " + this.g1NoEnergyCount);
+					this.g1NoEnergyCount--;
+					this.g1PityCounter--;
+				}
 			}
 			if(this.g1NoEnergyCount == (Constants.G1_NUM_OF_ENERGY_LEVELS - 1)) {
 				this.g1NoEnergy = true;
