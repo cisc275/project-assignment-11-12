@@ -162,6 +162,9 @@ public class Controller implements KeyListener {
 				currentpanel = 2;
 				model.initializeGameTwo();
 				break;
+			case KeyEvent.VK_ESCAPE:
+				System.exit(0);
+				break;
 			}
 		}
 		else if (currentpanel != 0) {

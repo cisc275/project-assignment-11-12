@@ -242,6 +242,7 @@ public class View extends JFrame{
 				g.drawImage(omenu, 0, 0, this);
 				g.drawImage(crmenu, frameWidth/2, 0, this);
 				g.fillRect(frameWidth/2 - 10, 0, 20, frameHeight);
+				g.drawString("[Esc] Exit Game", 10, 20);
 			}
 			if (this.equals(game1panel)) {
 				g.drawImage(g1_backimage, 0, 0, Color.gray, this);
