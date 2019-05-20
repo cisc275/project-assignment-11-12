@@ -7,7 +7,12 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class Model {
+public class Model implements java.io.Serializable{
+	
+	/**
+	 Auto Generated serialUID
+	 */
+	private static final long serialVersionUID = -5969197951986274608L;
 	
 	Player p;
 	Fox fox;

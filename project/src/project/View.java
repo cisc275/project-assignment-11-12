@@ -25,6 +25,8 @@ import javax.swing.JPanel;
 //import project.View.DrawPanel;
 
 @SuppressWarnings("serial")
+public class View extends JFrame implements java.io.Serializable{
+@SuppressWarnings("serial")
 public class View extends JFrame{
 	
 	GameObjectStorage GobjS;
@@ -76,13 +78,16 @@ public class View extends JFrame{
 	CardLayout cl = new CardLayout();
 	
 	public View() {
-		
+
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 		Dimension viewdim = this.getSize();
+		//frameWidth = 800;
+		//frameHeight = 800;
 		frameWidth = viewdim.width;
 		frameHeight = viewdim.height;
 		
