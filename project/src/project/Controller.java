@@ -148,7 +148,7 @@ public class Controller implements KeyListener {
 		if (currentpanel == 0) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_1:
-				System.out.println("game1");
+				//System.out.println("game1");
 				view.cl.show(view.panelContainer, "1");
 				currentpanel = 1;
 				model.initializeGameOne();
@@ -268,7 +268,7 @@ public class Controller implements KeyListener {
 			}
 			}
 			if(currentpanel == 1) {
-				System.out.println("game1");
+				//System.out.println("game1");
 				int k2 = e.getKeyCode();
 				switch( k2 ) { 
 	        		case KeyEvent.VK_SPACE:
@@ -276,7 +276,7 @@ public class Controller implements KeyListener {
 		        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
 		        			g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN;
 		        		}
-	        			System.out.println("space");
+	        			//System.out.println("space");
 	        			break;
 			}
 		}

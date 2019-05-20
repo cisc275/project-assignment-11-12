@@ -16,6 +16,7 @@ public class Model {
 	int timerCount;
 	int g1NoEnergyCount = 0;
 	int g1EnergySnapShot = 0;
+	int g1PityCounter = 1;
 	Point[] g2locations;
 	Point[] clapperlocations;
 	boolean[] g2occupancy;
@@ -88,8 +89,8 @@ public class Model {
 			this.timerCount++;
 			if((this.timerCount % Constants.G1_CHECK_ENERGY_FREQUENCY) == 0) {
 				this.checkGameOneEnergy();
-				System.out.println(this.g1NoEnergyCount);
-				System.out.println(this.g1NoEnergy);
+				//System.out.println(this.g1NoEnergyCount);
+				//System.out.println(this.g1NoEnergy);
 			}
 			updateGameOneScoringObjects(GobjS.getScoringObjects());
 			GobjS.getPlayer().move();
@@ -102,12 +103,19 @@ public class Model {
 		}
 		
 		public void checkGameOneEnergy() {
-			if(this.g1EnergySnapShot <= score.getTotalScore() + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY) {
+			if(score.getTotalScore() <= (this.g1EnergySnapShot + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY)) {
+				System.out.println("G1ENERGYSNAPSHOT: " + this.g1EnergySnapShot);
+				System.out.println("G1NUMPOINTSNEEDED: " + (score.getTotalScore() + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY));
+				
 				this.g1NoEnergyCount++;
+				System.out.println("G1NOENERGYCOUNT: " + this.g1NoEnergyCount);
+				this.g1PityCounter++;
 			}
 			if(this.g1NoEnergyCount == (Constants.G1_NUM_OF_ENERGY_LEVELS - 1)) {
 				this.g1NoEnergy = true;
 			}
+			this.g1EnergySnapShot = score.getTotalScore();
+			System.out.println("UPDATEDG1ENERGYSS: " + this.g1EnergySnapShot);
 		}
 		/**
 		 * Updates the scoring objects for game 1: osprey:
@@ -133,7 +141,7 @@ public class Model {
 						scoringObjects.add(this.createGameOneRandomSeaweed());
 					}
 					scoringObjects.remove(i);
-					System.out.println(this.score.totalScore);
+					System.out.println("Total Score: " + this.score.totalScore);
 				}
 				if(scoringObjects.get(i).GobjEnum != GameObjectEnum.g1Seaweed) {
 					if(this.checkIfScoringObjectIsOffScreen(scoringObjects.get(i))){
@@ -152,7 +160,7 @@ public class Model {
 		
 		public void addFishAndSeaweed(ArrayList<ScoringObject> scoringObjects) {
 			//add a pity timer for not catching fish/ slow this down if they are catching fish.
-			if(timerCount % 180 == 0) {
+			if(timerCount % (180 / this.g1PityCounter) == 0) {
 				scoringObjects.add(this.createGameOneRandomFish());
 			}
 			if(timerCount % 360 == 0) {
@@ -224,7 +232,7 @@ public class Model {
 		
 		public ScoringObject createGameOneRandomFish() {
 			//magic numbers here
-			int fishRand = (int)(Math.random() * 8);
+			int fishRand = (int)(Math.random() * 7);
 			if(fishRand == 0 || fishRand == 1 || fishRand == 2) {
 				return this.createGameOneFish(1);
 			}
@@ -281,7 +289,7 @@ public class Model {
 		public boolean collisionG1(Rectangle o1) {
 			Rectangle OP = GobjS.getPlayer().getBounds();
 			if(!this.g1BoundaryCollision && !this.g1ScoringObjectCollision && OP.intersects(o1)) {
-				System.out.println("Collision detected");
+				//System.out.println("Collision detected");
 				this.g1ScoringObjectCollision = true;
 				GobjS.getPlayer().setyIncr(Constants.O_upwardsYIncr);
 				return true;

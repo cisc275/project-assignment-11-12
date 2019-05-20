@@ -49,7 +49,7 @@ public class Constants {
 		
 		//boundaries/collision
 		final static int O_YBound = OY_I;
-		final static int O_upwardsYIncr = -25;
+		final static int O_upwardsYIncr = -(Constants.DRAW_DELAY + 5);
 		
 	//Game 2 Constants
 		
