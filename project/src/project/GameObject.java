@@ -1,11 +1,23 @@
 package project;
 
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-public abstract class GameObject {
+public abstract class GameObject implements java.io.Serializable {
+	/**
+	 Auto Generated serialUID
+	 */
+	private static final long serialVersionUID = 7670614514181502342L;
 	int xloc,yloc,xIncr,yIncr;
 	int imageWidth, imageHeight;
 	BufferedImage[][] imageArray;
+	Image img;
+	Rectangle bounds;
+	GameObjectEnum GobjEnum;
 	
 	GameObject(){
 		this.xloc = 0;
@@ -14,15 +26,37 @@ public abstract class GameObject {
 		this.yIncr = 0;
 		this.imageWidth = 0;
 		this.imageHeight = 0;
+		this.img = null;
+		this.GobjEnum = null;
+		bounds = null;
 	}
 	
-	GameObject(int x, int y, int xInc, int yInc, int iW, int iH){
+	GameObject(int x, int y, int xInc, int yInc, int iW, int iH, GameObjectEnum GobjEnum){
 		this.xloc = x;
 		this.yloc = y;
 		this.xIncr = xInc;
 		this.yIncr = yInc;
 		this.imageWidth = iW;
 		this.imageHeight = iH;
+		this.GobjEnum = GobjEnum;
+		this.img = this.loadImage();
+		this.bounds = this.loadBounds();
+	}
+	
+	public Rectangle loadBounds() {
+		return (new Rectangle(xloc,yloc,imageWidth,imageHeight));
+	}
+	
+	public void updateBounds() {
+		this.bounds = (new Rectangle(xloc,yloc,imageWidth,imageHeight));
+	}
+	public Image loadImage() {
+		try {
+			return ImageIO.read(new File (this.GobjEnum.getFullImagePath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public abstract void move();
@@ -69,5 +103,13 @@ public abstract class GameObject {
 	public void setImageArray(BufferedImage[][] imageArray) {
 		this.imageArray = imageArray;
 	}
-	
+	public Image getImg() {
+		return img;
+	}
+	public void setImg(Image img) {
+		this.img = img;
+	}
+	public Rectangle getBounds() {
+		return this.bounds;
+	}
 }

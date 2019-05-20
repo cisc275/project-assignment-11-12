@@ -5,79 +5,129 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Timer;
 
-public class Controller implements ActionListener, KeyListener {
+
+public class Controller implements KeyListener {
 	
 	Model model;
 	View view;
+	Quiz quiz;
+	MenuPopUp mpop;
+	endTutorialPopUp tutpop;
 	Timer t;
-	GameObjectStorage GobjS = new GameObjectStorage();
-	final int drawDelay = 30;
+	final int drawDelay = 25; // change this to 25
 	Action drawAction;
+	private int clockcount = 0;
+	int currentpanel;
 	
-	boolean upflag = false;
-	boolean downflag = true;
-	
-	int CR_Y = (View.frameHeight/9 * 2) + 17;
-	int CR_X = View.frameWidth/5;
-	int O_Y = 50;
+	int g1_spaceCooldown = Constants.G1_SPACEBAR_COOLDOWN; // need to add a visual representation of this
+	boolean menuflag = false;
+	boolean quizflag = false;
+	boolean tutpopflag = false;
+
+	//Tutorial 2 counts
+	int arrowcount = 0;
 	
 	Controller(){
-		
 		this.initializeView();
 		this.initializeModel();
-		//view.addModelToView(this.model);
-		view.addGameObjectStorageToView(this.GobjS);
-		model.addGameObjectStorageToModel(this.GobjS);
 		drawAction = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 					view.repaint();
-					model.updateGame();
+					view.addGameObjectStorageToView(model.getGobjS());
+					model.updateGame(currentpanel);
+					view.setG1EnergyCount(model.g1NoEnergyCount);
+					checkQuiz();
+					checkMenu();
+					updateTutorial();
+					
+					if(g1_spaceCooldown > 0) {
+						g1_spaceCooldown--;
+					}
+					if (view.tutorialflag == false) {
+						clockcount++;
+					}
+					
+					if (clockcount > (Constants.GAME_LENGTH/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
+						endGame();	
+					}
+					if (model.g1NoEnergy) {
+						endGame();
+					}
 			}
 		};
 		
 	}
 	
+	/**
+	 * Checks for the existence of a quiz and adds itself to it as an ActionListener.
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
+	public void checkQuiz() {
+		if (model.GobjS.getFox() != null) {
+			if (model.GobjS.getFox().flag == false) {
+				quizflag = true;
+				model.GobjS.getFox().quiz.addListenertoQuiz(this);
+				model.GobjS.getFox().quiz.setVisible(true); 
+				model.GobjS.getFox().flag = true;
+				quizflag = false;
+			}
+		}
+	}
+	
+	/**
+	 * Initializes view, adds a key listener for when keys are pressed.
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void initializeView() {
 		view = new View();
-		view.addControllertoButton(this);
 		view.addKeyListener(this);
 		view.setFocusable(true);
 		view.setFocusTraversalKeysEnabled(false);
 	}
 	
+	/**
+	 * Switches to the appropriate panel after the game ends.
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
+	public void endGame() {
+		if (currentpanel == 1) {
+			view.cl.show(view.panelContainer, "3");
+			currentpanel = 3;
+		}
+		else {
+			view.cl.show(view.panelContainer, "4");
+			currentpanel = 4;
+		}
+	}
+	
+	/**
+	 * Creates a new model. 
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void initializeModel() {
 		model = new Model();
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == view.game1) {
-			System.out.println("game1 button pressed");
-			view.cl.show(view.panelContainer, "1");
-			view.currentpanel = "g1";
-			model.initializeGameOne();
-		}
-		else if (e.getSource() == view.game2) {
-			System.out.println("game2 button pressed");
-			view.cl.show(view.panelContainer, "2");
-			view.currentpanel = "g2";
-			model.initializeGameTwo();
-		}
-		else if (e.getSource() == view.menu2 || e.getSource() == view.menu1) {
-			System.out.println("menu button pressed");
-			view.cl.show(view.panelContainer, "0");
-			view.currentpanel = "m";
-			
-		}
-	}
 
-	
-	
+	/**
+	 * Starts the game.
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void start(){
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -89,82 +139,219 @@ public class Controller implements ActionListener, KeyListener {
 		
 	}
 	
-	
+	/**
+	 * Checks to see which panel/pop up player is on. Calls actions depending on which keys are pressed and which 
+	 * panels/pop ups they correspond to. 
+	 * 
+	 * @param key that was pressed (key event)
+	 * @return none
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(GobjS.p.imageHeight == model.CR_IMH) {
-		
+		if (currentpanel == 0) {
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_1:
+				//System.out.println("game1");
+				view.cl.show(view.panelContainer, "1");
+				currentpanel = 1;
+				model.initializeGameOne();
+				break;
+			case KeyEvent.VK_2:
+				System.out.println("game2");
+				view.cl.show(view.panelContainer, "2");
+				currentpanel = 2;
+				model.initializeGameTwo();
+				break;
+			}
+		}
+		else if (currentpanel != 0) {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_M:
+					menuflag = true;
+					break;
+			}
+		}
+		if (menuflag) {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_Y:
+					model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
+					view.cl.show(view.panelContainer, "0");
+					clockcount = 0;
+					currentpanel = 0;
+					mpop.dispose();
+					break;
+				case KeyEvent.VK_C:
+					mpop.dispose();
+					break;
+				case KeyEvent.VK_ESCAPE:
+					System.exit(0);
+					break;
+			}
+		}
+		if (tutpopflag) {
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_P:
+				tutpop.dispose();
+				break;
+		}
+		}
+		if(currentpanel == 2) {
 			int k = e.getKeyCode();
-			switch( k ) { 
+			switch(k) { 
 	        	case KeyEvent.VK_UP:
-	        		if (upflag) {
-	        			GobjS.getPlayer().setyIncr(-CR_Y);
+	        		if (model.getGobjS().getPlayer().getYloc() - Constants.CR_Y >= Constants.CRX_I) {
+	        			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y);
 	        		}
-	        		upflag = false;
-	        		downflag = true;
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
+	        		}
 	        		System.out.println("up");
 	        		break;
 	        		
 	        	case KeyEvent.VK_DOWN:
-	        		if (downflag) {
-	        			GobjS.getPlayer().setyIncr(CR_Y);
+	        		if (model.getGobjS().getPlayer().getYloc() + Constants.CR_Y  <= Constants.CRY_I+Constants.CR_Y) {
+	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y);
 	        		}
-	        		downflag = false;
-	        		upflag = true;
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
+	        		}
 	        		System.out.println("down");
 	        		break;
 	        		
 	        	case KeyEvent.VK_LEFT:
 	        		System.out.println("left");
-	        		if (!(GobjS.getPlayer().getXloc() - CR_X < 0)){
-	        			GobjS.getPlayer().setxIncr(-CR_X);
+	        		if (!(model.getGobjS().getPlayer().getXloc() - Constants.CR_X < 0)){
+	        			model.getGobjS().getPlayer().setxIncr(-Constants.CR_X);
+	        		}
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
 	        		}
 	        		break;
 	        	case KeyEvent.VK_RIGHT :
 	        		System.out.println("right");
-	        		if (!(GobjS.getPlayer().getXloc() + GobjS.getPlayer().getImageWidth() + CR_X > View.frameWidth)) {
-	        			GobjS.getPlayer().setxIncr(CR_X);
+	        		if (!(model.getGobjS().getPlayer().getXloc() + model.getGobjS().getPlayer().getImageWidth()*2 
+	        				+ Constants.CR_X > View.frameWidth)) {
+	        			model.getGobjS().getPlayer().setxIncr(Constants.CR_X);
+	        		}
+	        		if (!view.learnmovementflag) {
+	        			arrowcount++;
+	        			System.out.println(arrowcount);
+	        			if (arrowcount > 10) {
+	        				view.learnmovementflag=true;
+	        			}
 	        		}
 	        		break;
 	        	case KeyEvent.VK_SPACE:
-	        		GobjS.getPlayer().setyIncr(O_Y);
-	        		System.out.println("space");
-	        		break;
-	     
-		}
-		
-	}
-		if(GobjS.p.imageHeight == model.O_IMH) {
-			
-			int k = e.getKeyCode();
-			switch( k ) { 
-	      
-	        	case KeyEvent.VK_SPACE:
-	        		GobjS.getPlayer().setyIncr(O_Y);
-	        		System.out.println("space");
+	        		model.eatFoodOrTrash();
 	        		break;
 			}
+			if (quizflag) {
+				switch (e.getKeyCode()) {
+	        	case KeyEvent.VK_1:
+	        		model.updateQuizScore(1, model.GobjS.getFox().quiz.correctAns);
+	        		model.GobjS.getFox().quiz.dispose();
+	        		break;
+	        	case KeyEvent.VK_2:
+	        		model.updateQuizScore(2, model.GobjS.getFox().quiz.correctAns);
+	        		model.GobjS.getFox().quiz.dispose();
+	        		break;
+				}
+			}
+			}
+			if(currentpanel == 1) {
+				//System.out.println("game1");
+				int k2 = e.getKeyCode();
+				switch( k2 ) { 
+	        		case KeyEvent.VK_SPACE:
+	        			if(!model.g1BoundaryCollision && !model.g1ScoringObjectCollision && g1_spaceCooldown == 0) {
+		        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
+		        			g1_spaceCooldown = (Constants.G1_SPACEBAR_COOLDOWN/model.g1PityCounter);
+		        		}
+	        			//System.out.println("space");
+	        			break;
+			}
+		}
 		
 	}
-	}
+	
+	/**
+	 * Checks to see which key was released. 
+	 * 
+	 * @param key that was released after being pressed (key event)
+	 * @return none
+	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		//System.out.println("key released");
 		int key = arg0.getKeyCode();
-		if(key == KeyEvent.VK_SPACE) {
-			GobjS.getPlayer().setyIncr(-O_Y);
+		
+		if(key == KeyEvent.VK_SPACE && currentpanel == 1) {
+			//model.getGobjS().getPlayer().setyIncr(-O_Y);
 		}
+		/*
+		if(key == KeyEvent.VK_SPACE && currentpanel == 2) {
+			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y_SPACE);
+		}
+		*/
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		//System.out.println("key typed");
-		
+	}
+	
+	/**
+	 * Checks if menu is shown. 
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
+	public void checkMenu() {
+		if (menuflag) {
+			mpop = new MenuPopUp();
+			mpop.addKeyListener(this);
+			mpop.setVisible(true); 
+			menuflag = false;
+		}
+	}
+	
+	public void updateTutorial() {
+		if (currentpanel == 2) {
+			if (!view.tutorialflag && view.tutorialcount == 1) {
+				tutpop = new endTutorialPopUp();
+				tutpopflag = true;
+				tutpop.addKeyListener(this);
+				tutpop.setVisible(true);
+				tutpopflag = false;
+				
+				view.tutorialcount++;
+				Constants.g2_lifetime = 50;
+				Constants.refreshTime = Constants.g2_lifetime+10;
+				model.tutorialflag = false;
+				model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects()); //clear scoring objects
+				model.initializeGameTwo();
+			}
+			if (view.tutorialflag && model.getGobjS().scoringObjects.isEmpty()) {
+				for (int i = 0; i < 5; i++) {
+				model.createFoodOrTrash();
+				}
+			}
+		}
 	}
 	
 	
 	public static void main(String[] args) {
 		Controller c = new Controller();
 		c.start();
-		//System.out.println("main called.");
 	}
 }
