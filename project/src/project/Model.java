@@ -22,6 +22,8 @@ public class Model implements java.io.Serializable{
 	int g1NoEnergyCount = 0;
 	int g1EnergySnapShot = 0;
 	int g1PityCounter = 1;
+	int g1OspreyUpdatedHeight = Constants.OY_I;
+	int g1TimeMultiplier = 1;
 	Point[] g2locations;
 	Point[] clapperlocations;
 	boolean[] g2occupancy;
@@ -101,7 +103,7 @@ public class Model implements java.io.Serializable{
 			updateGameOneScoringObjects(GobjS.getScoringObjects());
 			GobjS.getPlayer().move();
 			this.checkIfPlayerCollidesWithBoundary();
-			if(GobjS.getPlayer().getYloc() <= Constants.O_YBound) {
+			if(GobjS.getPlayer().getYloc() <= (this.g1OspreyUpdatedHeight - 25)) {
 				GobjS.getPlayer().setyIncr(0);
 				this.g1BoundaryCollision = false;
 				this.g1ScoringObjectCollision = false;
@@ -111,7 +113,7 @@ public class Model implements java.io.Serializable{
 		public void checkGameOneEnergy() {
 			if(score.getTotalScore() <= (this.g1EnergySnapShot + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY)) {
 				System.out.println("G1ENERGYSNAPSHOT: " + this.g1EnergySnapShot);
-				System.out.println("G1NUMPOINTSNEEDED: " + (score.getTotalScore() + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY));
+				System.out.println("G1NUMPOINTSNEEDED: " + (score.getTotalScore() + (Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY * this.g1TimeMultiplier)));
 				
 				this.g1NoEnergyCount++;
 				System.out.println("G1NOENERGYCOUNT: " + this.g1NoEnergyCount);
@@ -124,6 +126,7 @@ public class Model implements java.io.Serializable{
 					this.g1PityCounter--;
 				}
 			}
+			this.updateOspreyHeight();
 			if(this.g1NoEnergyCount == (Constants.G1_NUM_OF_ENERGY_LEVELS - 1)) {
 				this.g1NoEnergy = true;
 			}
@@ -131,6 +134,15 @@ public class Model implements java.io.Serializable{
 			System.out.println("UPDATEDG1ENERGYSS: " + this.g1EnergySnapShot);
 		}
 		
+		public void updateOspreyHeight() {
+			int[] possibleYLoc = new int[Constants.G1_NUM_OF_ENERGY_LEVELS];
+			int energyLevelYLoc = Constants.G1_OCEAN_YLOC/Constants.G1_NUM_OF_ENERGY_LEVELS;
+			for(int i = 0; i < possibleYLoc.length; i++) {
+				possibleYLoc[i] = i * energyLevelYLoc;
+			}
+			this.g1OspreyUpdatedHeight = Constants.OY_I + possibleYLoc[this.g1NoEnergyCount];
+			GobjS.getPlayer().setYloc(this.g1OspreyUpdatedHeight);
+		}
 		/**
 		 * Updates the scoring objects for game 1: osprey:
 		 * goes through the scoringObjects array list and removes fish and seaweed if they are off screen and creates
@@ -174,10 +186,13 @@ public class Model implements java.io.Serializable{
 		
 		public void addFishAndSeaweed(ArrayList<ScoringObject> scoringObjects) {
 			//add a pity timer for not catching fish/ slow this down if they are catching fish.
-			if(timerCount % (180 / this.g1PityCounter) == 0) {
+			if((this.timerCount*Constants.DRAW_DELAY) >= Constants.GAME_LENGTH/2){
+				this.g1TimeMultiplier++;
+			}
+			if(timerCount % ((Constants.FS_SPAWN_FREQUENCY / this.g1PityCounter) * this.g1TimeMultiplier)  == 0) {
 				scoringObjects.add(this.createGameOneRandomFish());
 			}
-			if(timerCount % 360 == 0) {
+			if(timerCount % (Constants.FS_SPAWN_FREQUENCY * 2) == 0) {
 				scoringObjects.add(this.createGameOneRandomSeaweed());
 			}
 			

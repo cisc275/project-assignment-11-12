@@ -287,7 +287,7 @@ public class Controller implements KeyListener {
 				int k2 = e.getKeyCode();
 				switch( k2 ) { 
 	        		case KeyEvent.VK_SPACE:
-	        			if(!model.g1BoundaryCollision && !model.g1ScoringObjectCollision && g1_spaceCooldown == 0) {
+	        			if(!model.g1BoundaryCollision && !model.g1ScoringObjectCollision) {
 		        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
 		        			g1_spaceCooldown = (Constants.G1_SPACEBAR_COOLDOWN/model.g1PityCounter);
 		        		}

@@ -19,7 +19,7 @@ public class Constants {
 		final static int OY_I = View.frameHeight/15;
 		final static int OX_INCR_I = 0;
 		final static int OY_INCR_I = 0;
-		
+		final static int G1_OCEAN_YLOC = View.frameHeight/2;
 		//initial values/positions for fish
 		final static int FX_I = View.frameWidth;
 		final static int FY_INCR_I = 0;
@@ -33,7 +33,7 @@ public class Constants {
 		final static int F1_IMW = 90;
 		final static int F2_IMW = 90;
 		final static int F3_IMW = 90;
-		
+		final static int FS_SPAWN_FREQUENCY = 180;
 		final static int FS_DELTAY = 7;
 		//initial values/positions for seaweed
 		final static int SWX_I = View.frameWidth;
