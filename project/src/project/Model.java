@@ -78,6 +78,13 @@ public class Model implements java.io.Serializable{
 			score = new Scoring();
 			GobjS.setScore(score);
 			
+			this.g1EnergySnapShot = 0;
+			this.g1PityCounter = 1;
+			this.g1OspreyUpdatedHeight = Constants.OY_I;
+			this.g1TimeMultiplier = 1;
+			this.g1BoundaryCollision = false;
+			this.g1ScoringObjectCollision = false;
+			
 			GobjS.getScoringObjects().add(this.createGameOneFish(1));
 			GobjS.getScoringObjects().add(this.createGameOneFish(2));
 			GobjS.getScoringObjects().add(this.createGameOneFish(3));	
