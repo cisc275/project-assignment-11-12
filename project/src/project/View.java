@@ -38,6 +38,14 @@ public class View extends JFrame{
 	boolean quizflag = false;
 	
 	int G1EnergyCount = 0;
+	
+	//game 1 tutorial
+	int tutorialcount1 = 0;
+	boolean tutorialflag1 = true;
+	boolean learnmovementflag1 = false;
+	boolean learnscoringflag1 = false;
+	
+	// game 2 tutorial
 	int tutorialcount = 0;
 	boolean tutorialflag = true;
 	boolean learnmovementflag = false;
@@ -233,28 +241,28 @@ public class View extends JFrame{
 				g.fillRect(frameWidth/2 - 10, 0, 20, frameHeight);
 			}
 			if (this.equals(game1panel)) {
-				if(tutorialflag) {
-					if(!learnmovementflag) {
+				if(tutorialflag1) {
+					if(!learnmovementflag1) {
 						g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
 						g.drawString("Use space bar to dive.", frameWidth/3 + 200, frameHeight/4);
 						if(GobjS.score.totalScore >= 1) {
-							learnmovementflag = true;
+							learnmovementflag1 = true;
 						}
 					}
 					this.paintPlayer(g);
-					if(learnmovementflag) {
+					if(learnmovementflag1) {
 						this.paintScoringObjects(g);
-						if(!learnscoringflag) {
+						if(!learnscoringflag1) {
 							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 200, frameHeight/4);
 							g.drawImage(upArrow, 10, 50, 50, 50, this);
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);
 						if(GobjS.score.totalScore > 5) {
-							learnscoringflag = true;
+							learnscoringflag1 = true;
 							System.out.println("Scoring learned");
-							tutorialflag = false;
-							tutorialcount++;
+							tutorialflag1 = false;
+							tutorialcount1++;
 						}
 					}
 				}
