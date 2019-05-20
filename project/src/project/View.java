@@ -13,11 +13,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-
+import java.util.TimerTask;
+import java.util.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+
 
 //import project.View.DrawPanel;
 
@@ -34,10 +37,12 @@ public class View extends JFrame{
 	BufferedImage[][] imageArray;
 	boolean quizflag = false;
 	
+	
 	int tutorialcount = 0;
 	boolean tutorialflag = true;
 	boolean learnmovementflag = false;
 	boolean learnscoringflag = false;
+	
 	
 	BufferedImage g2_background;
 	BufferedImage g1_backimage;
@@ -57,6 +62,7 @@ public class View extends JFrame{
 	BufferedImage omenu;
 	BufferedImage arrows;
 	BufferedImage space;
+	BufferedImage upArrow;
 	
 	
 	CardLayout cl = new CardLayout();
@@ -102,6 +108,7 @@ public class View extends JFrame{
 					moon_image = ImageIO.read(new File("images/moon.png"));
 					arrows = ImageIO.read(new File("images/arrows.png"));
 					space = ImageIO.read(new File("images/space.jpeg"));
+					upArrow = ImageIO.read(new File("images/upArrow.jpg"));
 					
 					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
 					fish3 = ImageIO.read(new File("images/fish3.png"));
@@ -224,6 +231,31 @@ public class View extends JFrame{
 				g.fillRect(frameWidth/2 - 10, 0, 20, frameHeight);
 			}
 			if (this.equals(game1panel)) {
+				if(tutorialflag) {
+					if(!learnmovementflag) {
+						g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
+						g.drawString("Use space bar to dive.", frameWidth/3 + 200, frameHeight/4);
+						if(GobjS.score.totalScore >= 1) {
+							learnmovementflag = true;
+						}
+					}
+					this.paintPlayer(g);
+					if(learnmovementflag) {
+						this.paintScoringObjects(g);
+						if(!learnscoringflag) {
+							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 200, frameHeight/4);
+							g.drawImage(upArrow, 10, 50, 50, 50, this);
+						}
+						this.paintScoringObjects(g);
+						this.paintEnergy(g);
+						if(GobjS.score.totalScore > 5) {
+							learnscoringflag = true;
+							System.out.println("Scoring learned");
+							tutorialflag = false;
+							tutorialcount++;
+						}
+					}
+				}
 				//g.drawImage(background, 0, 0, Color.gray, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
