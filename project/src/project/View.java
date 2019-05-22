@@ -53,6 +53,8 @@ public class View extends JFrame{
 	boolean learnmovementflag = false;
 	boolean learnscoringflag = false;
 	
+	
+	
 	BufferedImage g2_background;
 	BufferedImage g1_backimage;
 	BufferedImage osprey;
@@ -78,6 +80,10 @@ public class View extends JFrame{
 	BufferedImage space;
 	BufferedImage upArrow;
 	BufferedImage end;
+	BufferedImage arrowKeys;
+	
+	BufferedImage redX;
+	BufferedImage checkmark;
 
 	
 	
@@ -112,8 +118,12 @@ public class View extends JFrame{
 				
 		cl.show(panelContainer, "0");
 		
+		
+		
 		//load images
 				try {
+					
+					
 					omenu = ImageIO.read(new File("images/omenu.png"));
 					crmenu = ImageIO.read(new File("images/crmenu.png"));
 					omenu = getScaledImage(omenu, frameWidth/2, frameHeight);
@@ -132,17 +142,23 @@ public class View extends JFrame{
 					arrows = ImageIO.read(new File("images/arrows.png"));
 					space = ImageIO.read(new File("images/space.jpeg"));
 					upArrow = ImageIO.read(new File("images/upArrow.jpg"));
+					arrowKeys = ImageIO.read(new File("images/arrowkeys.jpg"));
 
 					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
 					g1_backimage = getScaledImage(g1_backimage, frameWidth, frameHeight);
-					fish3 = ImageIO.read(new File("images/fish3.png"));
 					seaweed_image = ImageIO.read(new File("images/seaweed.png"));
 					fish1 = ImageIO.read(new File("images/fish.png"));
 					fish2 = ImageIO.read(new File("images/fish2.png"));
+					fish3 = ImageIO.read(new File("images/fish3.png"));
 					energy_image = ImageIO.read(new File("images/energy.png"));
 					osprey = ImageIO.read(new File("images/osprey.png"));
 					end = ImageIO.read(new File("images/end.png"));
 					end = getScaledImage(end, frameWidth, frameHeight);
+					
+					redX = ImageIO.read(new File("images/RedX.png"));
+					checkmark = ImageIO.read(new File("images/Checkmark.png"));
+							
+					
 					
 				} catch(IOException e) {
 					e.printStackTrace();
@@ -316,9 +332,17 @@ public class View extends JFrame{
 					//learn to dive in GAME 1
 					if(!learndiveflag1) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
-						g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
-						g.drawString("Use space bar to dive.", frameWidth/3 + 200, frameHeight/4);
-						if(GobjS.score.totalScore >= 1) {
+						g.drawImage(space, frameWidth/7-15, 50, 250, 150, this);
+						g.drawString("Use space bar to dive.", frameWidth/7, frameHeight/4);
+						
+						
+						
+						
+						
+						
+						
+						
+						if(GobjS.score.totalScore >= 4) {
 							learndiveflag1 = true;
 						}
 					}
@@ -326,8 +350,13 @@ public class View extends JFrame{
 					if(learndiveflag1) {
 						if(!learnmovementflag1) {
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
-							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+200, frameHeight/4);
-							if(GobjS.score.totalScore >= 5) {
+							g.setColor(Color.YELLOW);
+							g.fillRect(frameWidth/3+488, (frameHeight+130)-frameHeight, 50, 50);
+							g.fillRect(frameWidth/3+612, (frameHeight+130)-frameHeight, 50, 50);
+							g.drawImage(arrowKeys, frameWidth/3+475, (frameHeight+25)-frameHeight, 200, 200, this);
+							g.setColor(Color.BLACK);
+							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+400, frameHeight/4);
+							if(GobjS.score.totalScore >= 10) {
 								learnmovementflag1 = true;
 							}
 						}
@@ -341,11 +370,11 @@ public class View extends JFrame{
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
 							g.drawString("Keep collecting fish to avoid losing engergy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
-							g.drawImage(upArrow, 10, 50, 50, 50, this);
+							g.drawImage(upArrow, 100, 50, 75, 100, this);
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);
-						if(GobjS.score.totalScore > 8) {
+						if(GobjS.score.totalScore > 13) {
 							learnscoringflag1 = true;
 							System.out.println("Scoring learned");
 							tutorialflag1 = false;

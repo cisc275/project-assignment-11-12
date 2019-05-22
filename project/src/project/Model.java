@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -39,7 +40,13 @@ public class Model implements java.io.Serializable{
 	boolean tutorialflag = true;
 	boolean tutorialflag1 = true;
 	
+	
 	//******GENERAL******//
+	
+	
+
+	
+	
 	public void addGameObjectStorageToModel(GameObjectStorage GobjS) {
 		this.GobjS = GobjS;
 	}
