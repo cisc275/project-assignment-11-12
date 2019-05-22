@@ -43,6 +43,7 @@ public class View extends JFrame{
 	//game 1 tutorial
 	int tutorialcount1 = 0;
 	boolean tutorialflag1 = true;
+	boolean learndiveflag1 = false;
 	boolean learnmovementflag1 = false;
 	boolean learnscoringflag1 = false;
 
@@ -312,15 +313,28 @@ public class View extends JFrame{
 			if (this.equals(game1panel)) {
 				g.drawImage(g1_backimage, 0, 0, Color.gray, this);
 				if(tutorialflag1) {
-					if(!learnmovementflag1) {
+					//learn to dive in GAME 1
+					if(!learndiveflag1) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
 						g.drawString("Use space bar to dive.", frameWidth/3 + 200, frameHeight/4);
 						if(GobjS.score.totalScore >= 1) {
-							learnmovementflag1 = true;
+							learndiveflag1 = true;
 						}
 					}
+					//learn to move left and right in GAME 1
+					if(learndiveflag1) {
+						if(!learnmovementflag1) {
+							g.setFont(new Font("Arial", Font.PLAIN, 20));
+							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+200, frameHeight/4);
+							if(GobjS.score.totalScore >= 5) {
+								learnmovementflag1 = true;
+							}
+						}
+					}
+					//FINISH TUTORIAL FOR GAME 1
 					this.paintPlayer(g);
+
 					if(learnmovementflag1) {
 						this.paintScoringObjects(g);
 						if(!learnscoringflag1) {
@@ -331,7 +345,7 @@ public class View extends JFrame{
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);
-						if(GobjS.score.totalScore > 5) {
+						if(GobjS.score.totalScore > 8) {
 							learnscoringflag1 = true;
 							System.out.println("Scoring learned");
 							tutorialflag1 = false;
