@@ -37,6 +37,7 @@ public class Model implements java.io.Serializable{
 	GameObjectStorage GobjS = new GameObjectStorage();
 	
 	boolean tutorialflag = true;
+	boolean tutorialflag1 = true;
 	
 	//******GENERAL******//
 	public void addGameObjectStorageToModel(GameObjectStorage GobjS) {
@@ -130,7 +131,9 @@ public class Model implements java.io.Serializable{
 				if(this.g1NoEnergyCount > 0) {
 					System.out.println("G1NOENERGYCOUNT: " + this.g1NoEnergyCount);
 					this.g1NoEnergyCount--;
+					if(this.g1PityCounter>1) {
 					this.g1PityCounter--;
+					}
 				}
 			}
 			this.updateOspreyHeight();

@@ -295,6 +295,16 @@ public class Controller implements KeyListener {
 		        		}
 	        			//System.out.println("space");
 	        			break;
+	        		case KeyEvent.VK_RIGHT:
+	        			if(model.getGobjS().getPlayer().getXloc()<Constants.G1_XB_RIGHT) {
+	        				model.getGobjS().getPlayer().setXloc(model.getGobjS().getPlayer().getXloc()+Constants.OX_INCR_I);
+	        			}
+	        			break;
+	        		case KeyEvent.VK_LEFT:
+	        			if(model.getGobjS().getPlayer().getXloc()>Constants.G1_XB_LEFT) {
+	        				model.getGobjS().getPlayer().setXloc(model.getGobjS().getPlayer().getXloc()-Constants.OX_INCR_I);
+	        			}
+	        			break;
 			}
 		}
 		
@@ -351,7 +361,7 @@ public class Controller implements KeyListener {
 
 						view.tutorialcount1++;
 
-						model.tutorialflag = false;
+						model.tutorialflag1 = false;
 						model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects());
 						model.initializeGameOne();
 					}
