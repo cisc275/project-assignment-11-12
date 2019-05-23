@@ -76,7 +76,6 @@ public class View extends JFrame{
 	BufferedImage moon_image;
 	BufferedImage crmenu;
 	BufferedImage omenu;
-	BufferedImage arrows;
 	BufferedImage space;
 	BufferedImage upArrow;
 	BufferedImage end;
@@ -139,7 +138,6 @@ public class View extends JFrame{
 					fox_images = createFOXimages();
 					fox_image = fox_images[0];
 					moon_image = ImageIO.read(new File("images/moon.png"));
-					arrows = ImageIO.read(new File("images/arrows.png"));
 					space = ImageIO.read(new File("images/space.jpeg"));
 					upArrow = ImageIO.read(new File("images/upArrow.jpg"));
 					arrowKeys = ImageIO.read(new File("images/arrowkeys.jpg"));
@@ -333,7 +331,19 @@ public class View extends JFrame{
 					if(!learndiveflag1) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(space, frameWidth/7-15, 50, 250, 150, this);
+						g.drawImage(fish1, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth, 100, 50, this);
+						g.drawImage(fish2, frameWidth-(frameWidth/4), (frameWidth+70)-frameWidth, 100, 50, this);
+						g.drawImage(fish3, frameWidth-(frameWidth/4), (frameWidth+120)-frameWidth, 100, 50, this);
+						g.drawImage(seaweed_image, frameWidth-(frameWidth/4), (frameWidth+170)-frameWidth, 100, 100, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+10)-frameWidth, 100, 50, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, 100, 50, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, 100, 50, this);
+						g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+200)-frameWidth, 100, 50, this);
+						
+						
+						
 						g.drawString("Use space bar to dive.", frameWidth/7, frameHeight/4);
+						
 						
 						
 						
@@ -394,7 +404,7 @@ public class View extends JFrame{
 				if (tutorialflag) {
 					if (!learnmovementflag) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
-						g.drawImage(arrows, frameWidth/3, frameHeight/10, 100, 150, this);
+						g.drawImage(arrowKeys, frameWidth/3+475, (frameHeight+25)-frameHeight, 200, 200, this);
 						g.drawString("Use arrow keys to move.", frameWidth/3 + 200, frameHeight/4);
 					}
 					this.paintPlayer(g);
