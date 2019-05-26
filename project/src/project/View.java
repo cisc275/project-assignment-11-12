@@ -102,16 +102,14 @@ public class View extends JFrame{
 		FOXframeCount = 23;
 		picNum = 0;
 		
-		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 		Dimension viewdim = this.getSize();
-		//frameWidth = viewdim.width;
-		//frameHeight = viewdim.height;
-		frameWidth = 1440;
-		frameHeight = 900;
+		frameWidth = viewdim.width;
+		frameHeight = viewdim.height;
 		
 		//set up card layout & panels
 		panelContainer = new DrawPanel();
@@ -398,7 +396,7 @@ public class View extends JFrame{
 						if(!learnscoringflag1) {
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
-							g.drawString("Keep collecting fish to avoid losing engergy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
+							g.drawString("Keep collecting fish to avoid losing energy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
 							g.drawImage(upArrow, 50, 50, 75, 100, this);
 						}
 						this.paintScoringObjects(g);
