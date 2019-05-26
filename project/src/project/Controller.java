@@ -349,6 +349,12 @@ public class Controller implements KeyListener {
 		}
 	}
 	
+	/**
+	 * updates each game tutorial depending on which part player is on
+	 * 
+	 * @param none
+	 * @return none
+	 */
 	public void updateTutorial() {
 		//GAME 1
 				if(currentpanel == 1) {

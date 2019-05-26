@@ -81,11 +81,20 @@ public class View extends JFrame{
 	BufferedImage end;
 	BufferedImage arrowKeys;
 	
+	BufferedImage food;
+	BufferedImage food2;
+	BufferedImage food3;
+	BufferedImage food4;
+	BufferedImage trash;
+	BufferedImage trash2;
+	BufferedImage trash3;
+	BufferedImage trash4;
+	
 	BufferedImage redX;
 	BufferedImage checkmark;
+	BufferedImage plus;
+	BufferedImage minus;
 
-	
-	
 	CardLayout cl = new CardLayout();
 	
 	public View() {
@@ -93,14 +102,16 @@ public class View extends JFrame{
 		FOXframeCount = 23;
 		picNum = 0;
 		
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 		Dimension viewdim = this.getSize();
-		frameWidth = viewdim.width;
-		frameHeight = viewdim.height;
+		//frameWidth = viewdim.width;
+		//frameHeight = viewdim.height;
+		frameWidth = 1440;
+		frameHeight = 900;
 		
 		//set up card layout & panels
 		panelContainer = new DrawPanel();
@@ -116,8 +127,6 @@ public class View extends JFrame{
 		panelContainer.add(end2panel, "4");
 				
 		cl.show(panelContainer, "0");
-		
-		
 		
 		//load images
 				try {
@@ -139,8 +148,16 @@ public class View extends JFrame{
 					fox_image = fox_images[0];
 					moon_image = ImageIO.read(new File("images/moon.png"));
 					space = ImageIO.read(new File("images/space.jpeg"));
-					upArrow = ImageIO.read(new File("images/upArrow.jpg"));
+					upArrow = ImageIO.read(new File("images/upArrow.png"));
 					arrowKeys = ImageIO.read(new File("images/arrowkeys.jpg"));
+					food = ImageIO.read(new File("images/food.png"));
+					food2 = ImageIO.read(new File("images/food2.png"));
+					food3 = ImageIO.read(new File("images/food3.png"));
+					food4 = ImageIO.read(new File("images/food4.png"));
+					trash = ImageIO.read(new File("images/trash.png"));
+					trash2 = ImageIO.read(new File("images/trash2.png"));
+					trash3 = ImageIO.read(new File("images/trash3.png"));
+					trash4 = ImageIO.read(new File("images/trash4.png"));
 
 					g1_backimage = ImageIO.read(new File("images/g1_background.png"));
 					g1_backimage = getScaledImage(g1_backimage, frameWidth, frameHeight);
@@ -155,14 +172,21 @@ public class View extends JFrame{
 					
 					redX = ImageIO.read(new File("images/RedX.png"));
 					checkmark = ImageIO.read(new File("images/Checkmark.png"));
-							
-					
+					plus = ImageIO.read(new File("images/plus.png"));
+					minus = ImageIO.read(new File("images/minus.png"));
 					
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
 				
 	}
+	
+	/**
+	 * creates the fox images for game 2
+	 * 
+	 * @param none
+	 * @return buffered image array
+	 */
 	public BufferedImage[] createFOXimages(){
 		fox_images = new BufferedImage[23];
 		try {
@@ -177,7 +201,12 @@ public class View extends JFrame{
 		return fox_images;
 	}
 	
-	
+	/**
+	 * creates the clapper rail images for game 2
+	 * 
+	 * @param none
+	 * @return buffered image array
+	 */
 	public BufferedImage[][] createCRimages(){
 		CR_images = new BufferedImage[4][3];
 		try {
@@ -331,7 +360,7 @@ public class View extends JFrame{
 					if(!learndiveflag1) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(space, frameWidth/7-15, 50, 250, 150, this);
-						g.drawImage(fish1, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth, 100, 50, this);
+						g.drawImage(fish1, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth,100, 50, this);
 						g.drawImage(fish2, frameWidth-(frameWidth/4), (frameWidth+70)-frameWidth, 100, 50, this);
 						g.drawImage(fish3, frameWidth-(frameWidth/4), (frameWidth+120)-frameWidth, 100, 50, this);
 						g.drawImage(seaweed_image, frameWidth-(frameWidth/4), (frameWidth+170)-frameWidth, 100, 100, this);
@@ -339,19 +368,9 @@ public class View extends JFrame{
 						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, 100, 50, this);
 						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, 100, 50, this);
 						g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+200)-frameWidth, 100, 50, this);
-						
-						
-						
+
 						g.drawString("Use space bar to dive.", frameWidth/7, frameHeight/4);
-						
-						
-						
-						
-						
-						
-						
-						
-						
+
 						if(GobjS.score.totalScore >= 4) {
 							learndiveflag1 = true;
 						}
@@ -380,7 +399,7 @@ public class View extends JFrame{
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
 							g.drawString("Keep collecting fish to avoid losing engergy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
-							g.drawImage(upArrow, 100, 50, 75, 100, this);
+							g.drawImage(upArrow, 50, 50, 75, 100, this);
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);
@@ -412,9 +431,34 @@ public class View extends JFrame{
 					if (learnmovementflag) {
 						if (!learnscoringflag) {
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
-							g.drawImage(space, frameWidth/3, frameHeight/10, 200, 150, this);
-							g.drawString("Press spacebar to eat, but avoid the trash!.", frameWidth/3 + 200, frameHeight/4);
-							g.drawString("Each piece of food gets you an egg, try to get more than 5!", frameWidth/3 + 200, frameHeight/4 + 20);
+							g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
+							
+							g.drawImage(food, (frameWidth-(frameWidth/2))+140, (frameWidth+10)-frameWidth, 60, 50, this);
+							g.drawImage(food2, (frameWidth-(frameWidth/2))+140, (frameWidth+70)-frameWidth, 60, 50, this);
+							g.drawImage(food3, (frameWidth-(frameWidth/2))+140, (frameWidth+120)-frameWidth, 60, 50, this);
+							g.drawImage(food4, (frameWidth-(frameWidth/2))+140, (frameWidth+170)-frameWidth, 60, 50, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+10)-frameWidth, 60, 50, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+70)-frameWidth, 60, 50, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+120)-frameWidth, 60, 50, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+180)-frameWidth, 60, 50, this);
+							
+							g.drawImage(plus, (frameWidth-(frameWidth/2))+200, (frameWidth+260)-frameWidth, 40, 40, this);
+							g.drawImage(egg_image, (frameWidth-(frameWidth/2))+250, (frameWidth+250)-frameWidth, 50, 70, this);
+							
+							g.drawImage(trash, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth, 60, 50, this);
+							g.drawImage(trash2, frameWidth-(frameWidth/4), (frameWidth+70)-frameWidth, 60, 50, this);
+							g.drawImage(trash3, frameWidth-(frameWidth/4), (frameWidth+120)-frameWidth, 60, 50, this);
+							g.drawImage(trash4, frameWidth-(frameWidth/4), (frameWidth+170)-frameWidth, 60, 50, this);
+							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+10)-frameWidth, 50, 50, this);
+							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, 60, 50, this);
+							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, 60, 50, this);
+							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+180)-frameWidth, 60, 50, this);
+							
+							g.drawImage(minus, (frameWidth-(frameWidth/2))+450, (frameWidth+250)-frameWidth, 50, 50, this);
+							g.drawImage(egg_image, (frameWidth-(frameWidth/2))+500, (frameWidth+250)-frameWidth, 50, 70, this);
+							
+							g.drawString("Press spacebar to eat, but avoid the trash!", frameWidth/4, (frameHeight/10)+200);
+							
 						}
 						this.paintScoringObjects(g);
 						this.paintEggs(g);

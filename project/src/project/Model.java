@@ -125,6 +125,12 @@ public class Model implements java.io.Serializable{
 			}
 		}
 		
+		/**
+		 * checks the amount of energy the osprey has for game 1: if energy is low, osprey's height decreases
+		 * 
+		 * @param none
+		 * @return none
+		 */
 		public void checkGameOneEnergy() {
 			if(score.getTotalScore() <= (this.g1EnergySnapShot + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY)) {
 				System.out.println("G1ENERGYSNAPSHOT: " + this.g1EnergySnapShot);
@@ -151,6 +157,12 @@ public class Model implements java.io.Serializable{
 			System.out.println("UPDATEDG1ENERGYSS: " + this.g1EnergySnapShot);
 		}
 		
+		/**
+		 * updates the height of the osprey for game 1 depending on how much energy it has
+		 * 
+		 * @param none
+		 * @return none
+		 */
 		public void updateOspreyHeight() {
 			int[] possibleYLoc = new int[Constants.G1_NUM_OF_ENERGY_LEVELS];
 			int energyLevelYLoc = Constants.G1_OCEAN_YLOC/Constants.G1_NUM_OF_ENERGY_LEVELS;
@@ -202,6 +214,12 @@ public class Model implements java.io.Serializable{
 			}
 		}
 		
+		/**
+		 * adds more fish and seaweed to game 1
+		 * 
+		 * @param scoringObjects
+		 * @return none
+		 */
 		public void addFishAndSeaweed(ArrayList<ScoringObject> scoringObjects) {
 			//add a pity timer for not catching fish/ slow this down if they are catching fish.
 			if((this.timerCount*Constants.DRAW_DELAY) >= Constants.GAME_LENGTH/2){
@@ -419,6 +437,12 @@ public class Model implements java.io.Serializable{
 		}
 	}
 	
+	/**
+	 * updates the location of the clapper rail for game 2
+	 * 
+	 * @param none
+	 * @return int (location)
+	 */
 	public int updateCRloc() {
 		int loc;
 		int o = findClapperRail();
