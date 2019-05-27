@@ -334,14 +334,14 @@ public class View extends JFrame{
 					if(!learndiveflag1) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(space, frameWidth/7-15, 50, 250, 150, this);
-						g.drawImage(fish1, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth, 100, 50, this);
-						g.drawImage(fish2, frameWidth-(frameWidth/4), (frameWidth+70)-frameWidth, 100, 50, this);
-						g.drawImage(fish3, frameWidth-(frameWidth/4), (frameWidth+120)-frameWidth, 100, 50, this);
-						g.drawImage(seaweed_image, frameWidth-(frameWidth/4), (frameWidth+170)-frameWidth, 100, 100, this);
-						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+10)-frameWidth, 100, 50, this);
-						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, 100, 50, this);
-						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, 100, 50, this);
-						g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+200)-frameWidth, 100, 50, this);
+						g.drawImage(fish1, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(fish2, frameWidth-(frameWidth/4), (frameWidth+70)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(fish3, frameWidth-(frameWidth/4), (frameWidth+120)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(seaweed_image, frameWidth-(frameWidth/4), (frameWidth+170)-frameWidth, Constants.FISH_IMAGE_W, Constants.SEAWEED_IMAGE_H, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+10)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+200)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
 						g.drawString("Use space bar to dive.", frameWidth/7, frameHeight/3);						
 						if(GobjS.score.totalScore >= 4) {
 							learndiveflag1 = true;
@@ -352,11 +352,11 @@ public class View extends JFrame{
 						if(!learnmovementflag1) {
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.setColor(Color.YELLOW);
-							g.fillRect(frameWidth/3+488, (frameHeight+130)-frameHeight, 50, 50);
-							g.fillRect(frameWidth/3+612, (frameHeight+130)-frameHeight, 50, 50);
-							g.drawImage(arrowKeys, frameWidth/3+475, (frameHeight+25)-frameHeight, 200, 200, this);
+							g.fillRect(frameWidth/3+Constants.RECT1_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
+							g.fillRect(frameWidth/3+Constants.RECT2_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
+							g.drawImage(arrowKeys, frameWidth/3+Constants.ARROW_OFFSET, (frameHeight+25)-frameHeight, Constants.ARROWKEYS_HW, Constants.ARROWKEYS_HW, this);
 							g.setColor(Color.BLACK);
-							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+400, frameHeight/4);
+							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+450, frameHeight/4);
 							if(GobjS.score.totalScore >= 10) {
 								learnmovementflag1 = true;
 							}
@@ -370,7 +370,7 @@ public class View extends JFrame{
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
 							//g.drawString("Keep collecting fish to avoid losing energy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
-							g.drawImage(upArrow, 50, 50, 75, 100, this);
+							g.drawImage(upArrow, frameWidth/12, frameHeight/12, Constants.UP_ARROW_W, Constants.UP_ARROW_H, this);
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);

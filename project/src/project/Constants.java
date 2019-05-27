@@ -60,6 +60,18 @@ public class Constants {
 		final static int O_YBound = OY_I;
 		final static int O_upwardsYIncr = -(Constants.DRAW_DELAY + 5);
 		
+		//Game 1 tutorial
+		final static int FISH_IMAGE_W = 100;
+		final static int FISH_IMAGE_H = 50;
+		final static int SEAWEED_IMAGE_H = 100;
+		final static int RECT_HW = 50;
+		final static int RECT1_OFFSET = 488;
+		final static int RECT2_OFFSET = 612;
+		final static int ARROWKEYS_HW = 200;
+		final static int ARROW_OFFSET = 475;
+		final static int UP_ARROW_W = 75;
+		final static int UP_ARROW_H = 100;
+		
 	//Game 2 Constants
 		
 		//initial values/positions for clapper rail
