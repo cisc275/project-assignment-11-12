@@ -340,16 +340,16 @@ public class View extends JFrame{
 			super.paintComponent(g);
 			picNum++;
 			if (this.equals(menupanel)) {
-				g.drawImage(omenu, Constants.ZERO, Constants.ZERO, this);
-				g.drawImage(crmenu, frameWidth/Constants.D2, Constants.ZERO, this);
-				g.fillRect(frameWidth/Constants.D2 - Constants.TEN, Constants.ZERO, Constants.TWENTY, frameHeight);
-				g.drawString("[Esc] Exit Game", Constants.TEN, Constants.TWENTY);
+				g.drawImage(omenu, Constants.INITIAL_POS, Constants.INITIAL_POS, this);
+				g.drawImage(crmenu, frameWidth/Constants.D2, Constants.INITIAL_POS, this);
+				g.fillRect(frameWidth/Constants.D2 - Constants.TEN, Constants.INITIAL_POS, Constants.FONT_SIZE_ARIAL, frameHeight);
+				g.drawString("[Esc] Exit Game", Constants.TEN, Constants.FONT_SIZE_ARIAL);
 			}
 			if (this.equals(game1panel)) {
-				g.drawImage(g1_background, Constants.ZERO, Constants.ZERO, Color.gray, this);
+				g.drawImage(g1_background, Constants.INITIAL_POS, Constants.INITIAL_POS, Color.gray, this);
 				if(tutorialflag1) {
 					if(!learndiveflag1) {
-						g.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+						g.setFont(new Font("Arial", Font.PLAIN, Constants.FONT_SIZE_ARIAL));
 						g.drawImage(space, frameWidth/Constants.D7-Constants.SPACE_SUBX, Constants.SPACE_Y, Constants.SPACE_W, Constants.SPACE_H, this);
 						g.drawImage(fish1, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
 						g.drawImage(fish2, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y2)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
@@ -367,13 +367,13 @@ public class View extends JFrame{
 					//learn to move left and right in GAME 1
 					if(learndiveflag1) {
 						if(!learnmovementflag1) {
-							g.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+							g.setFont(new Font("Arial", Font.PLAIN, Constants.FONT_SIZE_ARIAL));
 							g.setColor(Color.YELLOW);
-							g.fillRect(frameWidth/Constants.D3+Constants.RECT1_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
-							g.fillRect(frameWidth/Constants.D3+Constants.RECT2_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
-							g.drawImage(arrowKeys, frameWidth/3+Constants.ARROW_OFFSET, (frameHeight+25)-frameHeight, Constants.ARROWKEYS_HW, Constants.ARROWKEYS_HW, this);
+							g.fillRect(frameWidth/Constants.D3+Constants.RECT1_OFFSET, (frameHeight+Constants.RECT_ADD_Y)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
+							g.fillRect(frameWidth/Constants.D3+Constants.RECT2_OFFSET, (frameHeight+Constants.RECT_ADD_Y)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
+							g.drawImage(arrowKeys, frameWidth/Constants.D3+Constants.ARROW_OFFSET, (frameHeight+Constants.KEYS_ADD_Y)-frameHeight, Constants.ARROWKEYS_HW, Constants.ARROWKEYS_HW, this);
 							g.setColor(Color.BLACK);
-							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+450, frameHeight/3);
+							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/Constants.D3+Constants.STRING_ADD_X, frameHeight/Constants.D3);
 							if(GobjS.score.totalScore >= 10) {
 								learnmovementflag1 = true;
 							}
@@ -384,9 +384,9 @@ public class View extends JFrame{
 					if(learnmovementflag1) {
 						this.paintScoringObjects(g);
 						if(!learnscoringflag1) {
-							g.setFont(new Font("Arial", Font.PLAIN, 20));
-							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
-							g.drawImage(upArrow, frameWidth/12, frameHeight/12, Constants.UP_ARROW_W, Constants.UP_ARROW_H, this);
+							g.setFont(new Font("Arial", Font.PLAIN, Constants.FONT_SIZE_ARIAL));
+							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/Constants.D3 + Constants.STRING_ADD_X2, frameHeight/Constants.D4);
+							g.drawImage(upArrow, frameWidth/Constants.D12, frameHeight/Constants.D12, Constants.UP_ARROW_W, Constants.UP_ARROW_H, this);
 						}
 						this.paintScoringObjects(g);
 						this.paintEnergy(g);
@@ -406,18 +406,18 @@ public class View extends JFrame{
 				}
 			}
 			if (this.equals(game2panel)) {
-				g.drawImage(g2_background, 0, 0, Color.white, this);
+				g.drawImage(g2_background, Constants.INITIAL_POS, Constants.INITIAL_POS, Color.white, this);
 				
 				if (tutorialflag) {
 					if (!learnmovementflag) {
-						g.setFont(new Font("Arial", Font.PLAIN, 20));
-						g.drawImage(arrowKeys, frameWidth/Constants.D3, frameHeight/Constants.ADD_TO_Y1, 100, 150, this);
+						g.setFont(new Font("Arial", Font.PLAIN, Constants.FONT_SIZE_ARIAL));
+						g.drawImage(arrowKeys, frameWidth/Constants.D3, frameHeight/Constants.ADD_TO_Y1, Constants.AKEYS_IMW, Constants.AKEYS_IMH, this);
 					}
 					this.paintPlayer(g);
 					
 					if (learnmovementflag) {
 						if (!learnscoringflag) {
-							g.setFont(new Font("Arial", Font.PLAIN, 20));
+							g.setFont(new Font("Arial", Font.PLAIN, Constants.FONT_SIZE_ARIAL));
 							g.drawImage(space, frameWidth/Constants.D4, frameHeight/Constants.ADD_TO_Y1, Constants.SPACE_IMW, Constants.SPACE_IMH, this);
 
 							g.drawImage(food, (frameWidth-(frameWidth/Constants.D2))+Constants.FOOD_ADD_TO_X, (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
@@ -466,22 +466,22 @@ public class View extends JFrame{
 				}
 			}
 			if (this.equals(end1panel)) {
-				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-				g.drawImage(end1, 0,0, this);
-				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
-				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, Constants.FONT_SIZE_TR)); 
+				g.drawImage(end1, Constants.INITIAL_POS,Constants.INITIAL_POS, this);
+				g.drawString(GobjS.score.toString(), frameWidth/Constants.D2 - Constants.END_STRING_SUBX, frameHeight/Constants.D3 + Constants.END_STRING_ADDY);
+				g.drawString("[M] Main Menu", frameWidth/Constants.D2 - Constants.END_STRING_SUBX, frameHeight/Constants.D2+ Constants.END_STRING_ADDY);
 			}
 			else if (this.equals(end2panel)) {
-				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-				g.drawImage(end2, 0,0, this);
-				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
-				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, Constants.FONT_SIZE_TR)); 
+				g.drawImage(end2, Constants.INITIAL_POS,Constants.INITIAL_POS, this);
+				g.drawString(GobjS.score.toString(), frameWidth/Constants.D2 - Constants.END_STRING_SUBX, frameHeight/Constants.D3 + Constants.END_STRING_ADDY);
+				g.drawString("[M] Main Menu", frameWidth/Constants.D2 - Constants.END_STRING_SUBX, frameHeight/Constants.D2+ Constants.END_STRING_ADDY);
 			}
 			else if (this.equals(end3panel)) {
-				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-				g.drawImage(end3, 0,0, this);
-				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
-				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
+				g.setFont(new Font("TimesRoman", Font.PLAIN, Constants.FONT_SIZE_TR)); 
+				g.drawImage(end3, Constants.INITIAL_POS,Constants.INITIAL_POS, this);
+				g.drawString(GobjS.score.toString(), frameWidth/Constants.D2 - Constants.END_STRING_SUBX, frameHeight/Constants.D3 + Constants.END_STRING_ADDY);
+				g.drawString("[M] Main Menu", frameWidth/Constants.D2 - Constants.END_STRING_SUBX, frameHeight/Constants.D2+ Constants.END_STRING_ADDY);
 			}
 		}
 		
@@ -517,7 +517,7 @@ public class View extends JFrame{
 			if (picNum%110==0 && !tutorialflag1) {
 				picNumMap++;
 			}
-			g.drawImage(map[picNumMap%frameCount], 0, frameHeight/9, 150,150, this);
+			g.drawImage(map[picNumMap%frameCount], Constants.INITIAL_POS, frameHeight/Constants.D9, Constants.MINIMAP_XY,Constants.MINIMAP_XY, this);
 		}
 		/**
 		 * Paints eggs for scoring in game 2 (clapper rail).
@@ -527,7 +527,7 @@ public class View extends JFrame{
 		 */
 		public void paintEggs(Graphics g) {
 			for (int i=0; i < GobjS.score.totalScore;i++) {
-				g.drawImage(egg_image, 30+20*i,10, 40, 50, this);
+				g.drawImage(egg_image, Constants.EGGS_X+Constants.EGGS_ADD_X*i,Constants.EGGS_Y, Constants.EGGS_IMW, Constants.EGGS_IMH, this);
 			}
 		}
 		
@@ -565,7 +565,7 @@ public class View extends JFrame{
 		 */
 		public void paintEnergy(Graphics g) {
 			for (int i=0; i < GobjS.score.totalScore;i++) {
-				g.drawImage(energy_image, 5+20*i,10, 30, 40, this);
+				g.drawImage(energy_image, Constants.ENERGY_X+Constants.ENERGY_ADD_X*i,Constants.ENERGY_Y, Constants.ENERGY_IMW, Constants.ENERGY_IMH, this);
 			}
 		}
 	}

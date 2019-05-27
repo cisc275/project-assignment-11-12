@@ -12,13 +12,18 @@ public class Constants {
 	final static int D4 = 4;
 	final static int D6 = 6;
 	final static int D7 = 7;
+	final static int D9 = 9;
+	final static int D12 = 12;
 	final static int MENU_SUBX = 150;
 	final static int MENU_Y = 10;
 	final static int MENU_W = 100;
 	final static int MENU_H = 30;
-	final static int ZERO = 0;
+	final static int INITIAL_POS = 0;
 	final static int TEN = 10;
-	final static int TWENTY = 20;
+	final static int FONT_SIZE_ARIAL = 20;
+	final static int FONT_SIZE_TR = 30;
+	final static int END_STRING_SUBX = 100;
+	final static int END_STRING_ADDY = 50;
 	
 	//Game 1 Constants
 		
@@ -76,6 +81,16 @@ public class Constants {
 		final static int O_YBound = OY_I;
 		final static int O_upwardsYIncr = -(Constants.DRAW_DELAY + 5);
 		
+		//minimap 
+		final static int MINIMAP_XY = 150;
+		
+		//energy
+		final static int ENERGY_X = 5;
+		final static int ENERGY_ADD_X = 20;
+		final static int ENERGY_Y = 10;
+		final static int ENERGY_IMW = 30;
+		final static int ENERGY_IMH = 40;
+		
 		//Game 1 tutorial
 		final static int FISH_IMAGE_W = 100;
 		final static int FISH_IMAGE_H = 50;
@@ -93,6 +108,10 @@ public class Constants {
 		final static int SPACE_Y = 50;
 		final static int SPACE_W = 250;
 		final static int SPACE_H = 150;
+		final static int RECT_ADD_Y = 130;
+		final static int STRING_ADD_X = 450;
+		final static int STRING_ADD_X2 = 300;
+		final static int KEYS_ADD_Y = 25;
 
 	//Game 2 Constants
 		
@@ -143,6 +162,13 @@ public class Constants {
 		
 		//timers
 		final static int SUN_MOON_IMAGE_W_H = 100;
+		
+		//eggs
+		final static int EGGS_X = 30;
+		final static int EGGS_ADD_X = 20;
+		final static int EGGS_Y = 10;
+		final static int EGGS_IMW = 40;
+		final static int EGGS_IMH = 50;
 				
 		//game 2 tutorial
 		final static int FOOD_TRASH_IMW = 60;
@@ -161,6 +187,8 @@ public class Constants {
 		final static int MINUS_ADDX = 450;
 		final static int EGG_ADDX2 = 500;
 		final static int PM_ADD_Y = 250;
+		final static int AKEYS_IMW = 100;
+		final static int AKEYS_IMH = 150;
 
 		
 }
