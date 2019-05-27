@@ -44,23 +44,6 @@ public class Quiz extends JDialog{
 		quizpanel.add(intro); quizpanel.add(question); quizpanel.add(ans1); quizpanel.add(ans2);
 	}
 	
-	public void endQuiz(int number) {
-		quizpanel.removeAll();
-		quizpanel.remove(ans1);
-		quizpanel.remove(ans2);
-		if (number == 0) {
-			JLabel fail = new JLabel("Oh no! You answered incorrectly and the fox stole 3 of your eggs!");
-			JLabel cont = new JLabel("Press C to continue.");
-			quizpanel.add(fail); quizpanel.add(cont);
-		}
-		else if (number == 1) {
-			JLabel success = new JLabel("Great Job! You earned an additional 3 eggs!");
-			JLabel cont = new JLabel("Press C to continue.");
-			quizpanel.add(success); quizpanel.add(cont);
-			this.setVisible(true);
-		}
-	}
-	
 	/**
 	 * Creates questions for in-game quiz about clapper rail.
 	 * @param none
