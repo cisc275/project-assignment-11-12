@@ -45,7 +45,7 @@ public class Controller implements KeyListener {
 					checkMenu();
 					updateTutorial();
 					
-					if (view.tutorialflag == false || view.tutorialflag1 == false && (currentpanel == 1 || currentpanel == 2)) { 
+					if ((view.tutorialflag == false && currentpanel == 2) || (view.tutorialflag1 == false && currentpanel == 1)) { 
 						clockcount++;
 					}
 					if (clockcount > (Constants.GAME_LENGTH/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
@@ -57,6 +57,7 @@ public class Controller implements KeyListener {
 					}
 					if (model.g1NoEnergy) {
 						endGame();
+						model.g1NoEnergy = false;
 					}
 					//Game 2
 					if (currentpanel == 2) {
@@ -109,11 +110,12 @@ public class Controller implements KeyListener {
 	 * @author Anna Bortle
 	 */
 	public void endGame() {
+		clockcount = 0;
 		if (currentpanel == 1) {
 			view.cl.show(view.panelContainer, "3");
 			currentpanel = 3;
 		}
-		else {
+		else if (currentpanel == 2){
 			view.cl.show(view.panelContainer, "4");
 			currentpanel = 4;
 		}

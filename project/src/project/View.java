@@ -1,7 +1,6 @@
 package project;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,16 +12,12 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
-import java.util.TimerTask;
-import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-//import project.View.DrawPanel;
 
 @SuppressWarnings("serial")
 public class View extends JFrame{
@@ -304,7 +299,6 @@ public class View extends JFrame{
 			GobjS.getPlayer().setImg(osprey);
 		}
 		else if(currentpanel == 2) {
-			//GobjS.getPlayer().setImg(clapperrail_image);
 		}
 	}
 	
@@ -356,7 +350,7 @@ public class View extends JFrame{
 							g.fillRect(frameWidth/3+Constants.RECT2_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
 							g.drawImage(arrowKeys, frameWidth/3+Constants.ARROW_OFFSET, (frameHeight+25)-frameHeight, Constants.ARROWKEYS_HW, Constants.ARROWKEYS_HW, this);
 							g.setColor(Color.BLACK);
-							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+450, frameHeight/4);
+							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+450, frameHeight/3);
 							if(GobjS.score.totalScore >= 10) {
 								learnmovementflag1 = true;
 							}
@@ -369,7 +363,6 @@ public class View extends JFrame{
 						if(!learnscoringflag1) {
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.drawString("Collect fish while avoiding seaweed to build up energy!", frameWidth/3 + 300, frameHeight/4);
-							//g.drawString("Keep collecting fish to avoid losing energy and falling!", frameWidth/3 + 300, frameHeight/4 + 20);
 							g.drawImage(upArrow, frameWidth/12, frameHeight/12, Constants.UP_ARROW_W, Constants.UP_ARROW_H, this);
 						}
 						this.paintScoringObjects(g);
@@ -382,8 +375,6 @@ public class View extends JFrame{
 						}
 					}
 				}
-				
-				//g.drawImage(mm1, View.frameWidth - 200, 0, 200, 200, this);
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 				this.paintEnergy(g);
@@ -454,16 +445,12 @@ public class View extends JFrame{
 				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
 				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
 			}
-			
-			if(this.equals(end2panel)) {
+			else if (this.equals(end2panel)) {
 				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
 				g.drawImage(end2, 0,0, this);
 				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
 				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
-				
 			}
-			
-			
 		}
 		
 		/**
@@ -511,7 +498,7 @@ public class View extends JFrame{
 				g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc(), GobjS.getFox().getYloc(), GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
 			}
 			else {
-			g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc() + GobjS.getFox().getImg().getWidth(this)/2, GobjS.getFox().getYloc(), -GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
+				g.drawImage(GobjS.getFox().getImg(), GobjS.getFox().getXloc() + GobjS.getFox().getImg().getWidth(this)/2, GobjS.getFox().getYloc(), -GobjS.getFox().getImageWidth(), GobjS.getFox().getImageHeight(), this);
 			}
 		}
 		

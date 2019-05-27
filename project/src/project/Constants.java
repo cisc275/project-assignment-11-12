@@ -71,7 +71,7 @@ public class Constants {
 		final static int ARROW_OFFSET = 475;
 		final static int UP_ARROW_W = 75;
 		final static int UP_ARROW_H = 100;
-		
+
 	//Game 2 Constants
 		
 		//initial values/positions for clapper rail
