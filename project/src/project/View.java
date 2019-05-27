@@ -26,7 +26,7 @@ public class View extends JFrame{
 	
 	GameObjectStorage GobjS;
 	CardLayout cl = new CardLayout();
-	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel;
+	DrawPanel panelContainer, menupanel, game1panel, game2panel, end1panel, end2panel, end3panel;
 	
 	boolean quizflag = false;
 	boolean foxDirectionflag = false;
@@ -45,10 +45,11 @@ public class View extends JFrame{
 	boolean learnmovementflag = false;
 	boolean learnscoringflag = false;
 	
-	int CRframeCount, FOXframeCount;
-	int picNum;
+	int CRframeCount, frameCount;
+	int picNum, picNumMap;
 	
 	BufferedImage g1_background;
+	BufferedImage[] map;
 	Image osprey;
 	Image fish1,fish2,fish3;
 	Image seaweed_image;
@@ -67,8 +68,8 @@ public class View extends JFrame{
 	BufferedImage background;
 	BufferedImage crmenu;
 	BufferedImage omenu;
-	BufferedImage end1;
-	BufferedImage end2;
+	BufferedImage end1, end2, end3;
+
 	
 	Image space;
 	Image upArrow;
@@ -78,8 +79,9 @@ public class View extends JFrame{
 
 	public View() {
 		CRframeCount = 3;
-		FOXframeCount = 23;
+		frameCount = 23;
 		picNum = 0;
+		picNumMap=0;
 		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setLayout(new BorderLayout());
@@ -102,6 +104,7 @@ public class View extends JFrame{
 		panelContainer.add(game2panel, "2");
 		panelContainer.add(end1panel, "3");
 		panelContainer.add(end2panel, "4");
+		panelContainer.add(end3panel, "5");
 				
 		cl.show(panelContainer, "0");
 		
@@ -109,6 +112,7 @@ public class View extends JFrame{
 		try {
 			g1_background = ImageIO.read(new File("images/g1_background.png"));
 			g1_background = getScaledImage(g1_background, frameWidth, frameHeight);
+			map = createMapimages();
 			osprey = ImageIO.read(new File("images/osprey.png"));
 			fish1 = ImageIO.read(new File("images/fish.png"));
 			fish2 = ImageIO.read(new File("images/fish2.png"));
@@ -141,6 +145,8 @@ public class View extends JFrame{
 			end1 = getScaledImage(end1, frameWidth, frameHeight);
 			end2 = ImageIO.read(new File("images/end2.png"));
 			end2 = getScaledImage(end2, frameWidth, frameHeight);
+			end3 = ImageIO.read(new File("images/end3.png"));
+			end3 = getScaledImage(end3, frameWidth, frameHeight);
 			
 			space = ImageIO.read(new File("images/space.jpeg"));
 			upArrow = ImageIO.read(new File("images/upArrow.png"));
@@ -172,6 +178,19 @@ public class View extends JFrame{
 			e.printStackTrace();
 		}
 		return fox_images;
+	}
+	
+	public BufferedImage[] createMapimages() {
+		map = new BufferedImage[23];
+		try {
+			for (int i = 0; i<23; i++) {
+				map[i] = ImageIO.read(new File("images/minimap/mm" + (i+1) + ".png"));
+			}
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 	
 	/**
@@ -206,7 +225,7 @@ public class View extends JFrame{
 	 */
 	public void updateG2images(int loc) {
 		GobjS.getPlayer().setImg((CR_images[loc][picNum%CRframeCount]) );
-		GobjS.getFox().setImg(fox_images[picNum%FOXframeCount]);
+		GobjS.getFox().setImg(fox_images[picNum%frameCount]);
 		}
 	
 	/**
@@ -251,6 +270,10 @@ public class View extends JFrame{
 		end2panel = new DrawPanel();
 		end2panel.setLayout(null);
 		end2panel.setBackground(Color.gray);
+		
+		end3panel = new DrawPanel();
+		end3panel.setLayout(null);
+		end3panel.setBackground(Color.gray);
 	}
 	
 	/**
@@ -378,6 +401,9 @@ public class View extends JFrame{
 				this.paintPlayer(g);
 				this.paintScoringObjects(g);
 				this.paintEnergy(g);
+				if (!tutorialflag1) {
+					this.paintMap(g);
+				}
 			}
 			if (this.equals(game2panel)) {
 				g.drawImage(g2_background, 0, 0, Color.white, this);
@@ -451,6 +477,12 @@ public class View extends JFrame{
 				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
 				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
 			}
+			else if (this.equals(end3panel)) {
+				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
+				g.drawImage(end3, 0,0, this);
+				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
+				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
+			}
 		}
 		
 		/**
@@ -475,6 +507,18 @@ public class View extends JFrame{
 			}
 		}
 		
+		/**
+		 * Paints the minimap for game 1.
+		 * @param g
+		 * @return none
+		 * @author Anna Bortle
+		 */
+		public void paintMap(Graphics g) {
+			if (picNum%110==0 && !tutorialflag1) {
+				picNumMap++;
+			}
+			g.drawImage(map[picNumMap%frameCount], 0, frameHeight/9, 150,150, this);
+		}
 		/**
 		 * Paints eggs for scoring in game 2 (clapper rail).
 		 * 
@@ -539,19 +583,4 @@ public class View extends JFrame{
 	        image,
 	        new BufferedImage(width, height, image.getType()));
 	}
-	/**
-	 * adds the Controller class as the listener to buttons in View
-	 * @param the controller instance 
-	 * @return none
-	 * @author Brendan Azueta
-	 */
-	/*
-	public void addControllertoButton(Controller c) {
-		game1.addActionListener(c);
-		game2.addActionListener(c);
-		
-	}
-	*/
-	
-	
 }

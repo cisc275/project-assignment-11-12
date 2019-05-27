@@ -41,6 +41,7 @@ public class Controller implements KeyListener {
 					model.updateGame(currentpanel);
 					view.setG1EnergyCount(model.g1NoEnergyCount);
 					
+					
 					checkQuiz();
 					checkMenu();
 					updateTutorial();
@@ -112,8 +113,14 @@ public class Controller implements KeyListener {
 	public void endGame() {
 		clockcount = 0;
 		if (currentpanel == 1) {
-			view.cl.show(view.panelContainer, "3");
-			currentpanel = 3;
+			if (model.g1NoEnergy) {
+				view.cl.show(view.panelContainer, "5");
+				currentpanel = 5;
+			}
+			else {
+				view.cl.show(view.panelContainer, "3");
+				currentpanel = 3;
+			}
 		}
 		else if (currentpanel == 2){
 			view.cl.show(view.panelContainer, "4");
