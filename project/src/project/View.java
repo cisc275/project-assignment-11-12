@@ -72,7 +72,8 @@ public class View extends JFrame{
 	BufferedImage background;
 	BufferedImage crmenu;
 	BufferedImage omenu;
-	BufferedImage end;
+	BufferedImage end1;
+	BufferedImage end2;
 	
 	Image space;
 	Image upArrow;
@@ -141,8 +142,10 @@ public class View extends JFrame{
 			omenu = getScaledImage(omenu, frameWidth/2, frameHeight);
 			crmenu = ImageIO.read(new File("images/crmenu.png"));
 			crmenu = getScaledImage(crmenu, frameWidth/2, frameHeight);
-			end = ImageIO.read(new File("images/end.png"));
-			end = getScaledImage(end, frameWidth, frameHeight);
+			end1 = ImageIO.read(new File("images/end1.png"));
+			end1 = getScaledImage(end1, frameWidth, frameHeight);
+			end2 = ImageIO.read(new File("images/end2.png"));
+			end2 = getScaledImage(end2, frameWidth, frameHeight);
 			
 			space = ImageIO.read(new File("images/space.jpeg"));
 			upArrow = ImageIO.read(new File("images/upArrow.png"));
@@ -445,12 +448,22 @@ public class View extends JFrame{
 					this.paintTimer(g);
 				}
 			}
-			if (this.equals(end1panel) || this.equals(end2panel)) {
+			if (this.equals(end1panel)) {
 				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-				g.drawImage(end, 0,0, this);
+				g.drawImage(end1, 0,0, this);
 				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
 				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
 			}
+			
+			if(this.equals(end2panel)) {
+				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
+				g.drawImage(end2, 0,0, this);
+				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
+				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
+				
+			}
+			
+			
 		}
 		
 		/**
