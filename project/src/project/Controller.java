@@ -45,21 +45,22 @@ public class Controller implements KeyListener {
 					checkMenu();
 					updateTutorial();
 					
-					if(g1_spaceCooldown > 0) {
-						g1_spaceCooldown--;
-					}
 					if (view.tutorialflag == false || view.tutorialflag1 == false && (currentpanel == 1 || currentpanel == 2)) { 
 						clockcount++;
 					}
 					if (clockcount > (Constants.GAME_LENGTH/drawDelay)) { //2000*drawDelay[30] = 60000 = 1.0min
 						endGame();	
 					}
+					//Game 1
+					if(g1_spaceCooldown > 0) {
+						g1_spaceCooldown--;
+					}
 					if (model.g1NoEnergy) {
 						endGame();
 					}
+					//Game 2
 					if (currentpanel == 2) {
 						view.updateFoxDirection(model.foxDirectionflag);
-						
 						int location = model.updateCRloc();
 						view.updateG2images(location);
 					}
@@ -157,13 +158,11 @@ public class Controller implements KeyListener {
 		if (currentpanel == 0) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_1:
-				//System.out.println("game1");
 				view.cl.show(view.panelContainer, "1");
 				currentpanel = 1;
 				model.initializeGameOne();
 				break;
 			case KeyEvent.VK_2:
-				//System.out.println("game2");
 				view.cl.show(view.panelContainer, "2");
 				currentpanel = 2;
 				model.initializeGameTwo();
@@ -182,7 +181,6 @@ public class Controller implements KeyListener {
 					break;
 			}
 		}
-		
 		if (menuflag) {
 			switch (e.getKeyCode()) {
 				case KeyEvent.VK_Y:
@@ -205,7 +203,7 @@ public class Controller implements KeyListener {
 			case KeyEvent.VK_P:
 				tutpop.dispose();
 				break;
-		}
+			}
 		}
 		if(currentpanel == 2) {
 			int k = e.getKeyCode();
@@ -223,7 +221,6 @@ public class Controller implements KeyListener {
 	        		}
 	        		System.out.println("up");
 	        		break;
-	        		
 	        	case KeyEvent.VK_DOWN:
 	        		if (model.getGobjS().getPlayer().getYloc() + Constants.CR_Y  <= Constants.CRY_I+Constants.CR_Y) {
 	        			model.getGobjS().getPlayer().setyIncr(Constants.CR_Y);
@@ -236,8 +233,7 @@ public class Controller implements KeyListener {
 	        			}
 	        		}
 	        		System.out.println("down");
-	        		break;
-	        		
+	        		break;	
 	        	case KeyEvent.VK_LEFT:
 	        		model.g2rightflag = false;
 	        		System.out.println("left");
@@ -285,7 +281,6 @@ public class Controller implements KeyListener {
 			}
 		}
 			if(currentpanel == 1) {
-				//System.out.println("game1");
 				int k2 = e.getKeyCode();
 				switch( k2 ) { 
 	        		case KeyEvent.VK_SPACE:
@@ -293,7 +288,6 @@ public class Controller implements KeyListener {
 		        			model.getGobjS().getPlayer().setyIncr(-Constants.O_upwardsYIncr);
 		        			g1_spaceCooldown = (Constants.G1_SPACEBAR_COOLDOWN/model.g1PityCounter);
 		        		}
-	        			//System.out.println("space");
 	        			break;
 	        		case KeyEvent.VK_RIGHT:
 	        			if(model.getGobjS().getPlayer().getXloc()<Constants.G1_XB_RIGHT) {
@@ -307,22 +301,10 @@ public class Controller implements KeyListener {
 	        			break;
 				}
 			}
-			
-		
-		
 	}
 	
-	/**
-	 * Checks to see which key was released. 
-	 * 
-	 * @param key that was released after being pressed (key event)
-	 * @return none
-	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		int key = arg0.getKeyCode();
-		
-		
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
@@ -353,23 +335,23 @@ public class Controller implements KeyListener {
 	 */
 	public void updateTutorial() {
 		//GAME 1
-				if(currentpanel == 1) {
-					if(!view.tutorialflag1 && view.tutorialcount1 == 1) {
-						tutpop = new endTutorialPopUp();
-						tutpopflag = true;
-						tutpop.addKeyListener(this);
-						tutpop.setVisible(true);
-						tutpopflag = false;
+		if(currentpanel == 1) {
+			if(!view.tutorialflag1 && view.tutorialcount1 == 1) {
+				tutpop = new endTutorialPopUp();
+				tutpopflag = true;
+				tutpop.addKeyListener(this);
+				tutpop.setVisible(true);
+				tutpopflag = false;
 
-						view.tutorialcount1++;
+				view.tutorialcount1++;
 
-						model.tutorialflag1 = false;
-						model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects());
-						model.initializeGameOne();
-					}
+				model.tutorialflag1 = false;
+				model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects());
+				model.initializeGameOne();
+			}
 
-				}
-				// GAME 2
+		}
+		// GAME 2
 		if (currentpanel == 2) {
 			if (!view.tutorialflag && view.tutorialcount == 1) {
 				tutpop = new endTutorialPopUp();
@@ -393,7 +375,10 @@ public class Controller implements KeyListener {
 		}
 	}
 	
-	
+	/**
+	 * Main
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Controller c = new Controller();
 		c.start();

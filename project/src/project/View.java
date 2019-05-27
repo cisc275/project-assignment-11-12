@@ -339,7 +339,7 @@ public class View extends JFrame{
 						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, 100, 50, this);
 						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, 100, 50, this);
 						g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+200)-frameWidth, 100, 50, this);
-						g.drawString("Use space bar to dive.", frameWidth/7, frameHeight/4);						
+						g.drawString("Use space bar to dive.", frameWidth/7, frameHeight/3);						
 						if(GobjS.score.totalScore >= 4) {
 							learndiveflag1 = true;
 						}
@@ -392,7 +392,6 @@ public class View extends JFrame{
 					if (!learnmovementflag) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(arrowKeys, frameWidth/3, frameHeight/10, 100, 150, this);
-						//g.drawString("Use arrow keys to move.", frameWidth/3 + 200, frameHeight/4);
 					}
 					this.paintPlayer(g);
 					
@@ -426,36 +425,34 @@ public class View extends JFrame{
 							g.drawImage(egg_image, (frameWidth-(frameWidth/2))+500, (frameWidth+250)-frameWidth, 50, 70, this);
 
 							g.drawString("Press spacebar to eat, but avoid the trash!", frameWidth/4, (frameHeight/10)+200);
+						}
+						
 						this.paintScoringObjects(g);
 						this.paintEggs(g);
 						
 						if (GobjS.score.totalScore > 5) {
 							learnscoringflag = true;
-							System.out.println("scoring learned");
 							tutorialflag = false;
 							tutorialcount++;
-							}
 						}
 					}
 				}
-				
 				else {
-				//g.drawImage(background, 0, 0, Color.gray, this);
-				this.paintPlayer(g);
-				this.paintScoringObjects(g);
-				this.paintEggs(g);
-				this.paintFox(g);
-				this.paintTimer(g);
+					this.paintPlayer(g);
+					this.paintScoringObjects(g);
+					this.paintEggs(g);
+					this.paintFox(g);
+					this.paintTimer(g);
 				}
 			}
-			
 			if (this.equals(end1panel) || this.equals(end2panel)) {
 				g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
 				g.drawImage(end, 0,0, this);
 				g.drawString(GobjS.score.toString(), frameWidth/2 - 100, frameHeight/3 + 50);
 				g.drawString("[M] Main Menu", frameWidth/2 - 100, frameHeight/2+ 50);
 			}
-			}
+		}
+		
 		/**
 		 * Paints player. Osprey for game 1 player, clapper rail for game 2 player. 
 		 * 

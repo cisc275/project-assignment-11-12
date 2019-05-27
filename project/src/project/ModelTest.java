@@ -92,9 +92,7 @@ public class ModelTest {
 		String o_name = "o_temp";
 		
 		o.loadImage();
-		o.getImageArray();
 		o.getImg();
-		o.setImageArray(null);
 		o.setImg(null);
 		//test "setters"
 		o.setXloc(10);
@@ -247,8 +245,6 @@ public class ModelTest {
 	@Test
 	public void QuizTest() {
 		Quiz q = new Quiz();
-		q.endQuiz(0);
-		q.endQuiz(1);
 	}
 	
 	@Test 

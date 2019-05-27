@@ -35,7 +35,7 @@ public class Quiz extends JDialog{
 		rand.setSeed(System.currentTimeMillis());
 		int r = rand.nextInt(questions.size());
 		
-		JLabel intro = new JLabel ("Uh Oh! A fox is watching you! \n Answer his questions correctly!");
+		JLabel intro = new JLabel ("Uh Oh! A fox is watching you! Answer his questions correctly!");
 		JLabel question = new JLabel(questions.get(r).question);
 		ans1 = new JLabel("1: " + questions.get(r).ans1);
 		ans2 = new JLabel("2: " + questions.get(r).ans2);

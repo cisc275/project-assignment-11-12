@@ -11,7 +11,6 @@ public abstract class GameObject implements java.io.Serializable {
 	private static final long serialVersionUID = 7670614514181502342L;
 	int xloc,yloc,xIncr,yIncr;
 	int imageWidth, imageHeight;
-	BufferedImage[][] imageArray;
 	Image img;
 	Rectangle bounds;
 	GameObjectEnum GobjEnum;
@@ -93,12 +92,6 @@ public abstract class GameObject implements java.io.Serializable {
 	}
 	public void setImageHeight(int imageHeight) {
 		this.imageHeight = imageHeight;
-	}
-	public BufferedImage[][] getImageArray() {
-		return imageArray;
-	}
-	public void setImageArray(BufferedImage[][] imageArray) {
-		this.imageArray = imageArray;
 	}
 	public Image getImg() {
 		return img;

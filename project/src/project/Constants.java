@@ -21,7 +21,7 @@ public class Constants {
 		final static int O_IMW = 120;
 		final static int OX_I = (View.frameWidth / 2) - O_IMW;
 		final static int OY_I = View.frameHeight/15;
-		final static int OX_INCR_I = 10;
+		final static int OX_INCR_I = 15;
 		final static int OY_INCR_I = 0;
 		final static int G1_OCEAN_YLOC = View.frameHeight/2;
 		

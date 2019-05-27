@@ -3,7 +3,6 @@ package project;
 import java.awt.image.BufferedImage;
 
 public class Osprey extends Player{
-	//BufferedImage[][] imageArray;
 	
 	Osprey(int x, int y, int xInc, int yInc, int iW, int iH, GameObjectEnum GobjEnum) {
 		super(x, y, xInc, yInc, iW, iH, GobjEnum);

@@ -10,35 +10,38 @@ import java.util.stream.IntStream;
 public class Model implements java.io.Serializable{
 	
 	/**
-	 Auto Generated serialUID
-	 */
+ 	Auto Generated serialUID
+	**/
 	private static final long serialVersionUID = -5969197951986274608L;
 	
 	Player p;
 	Fox fox;
 	ArrayList<ScoringObject> scoringObjects = new ArrayList<>();
+	GameObjectStorage GobjS = new GameObjectStorage();
 	Scoring score;
-	int timerCount;
+	
+	//Game 1
 	int g1NoEnergyCount = 0;
 	int g1EnergySnapShot = 0;
 	int g1PityCounter = 1;
 	int g1OspreyUpdatedHeight = Constants.OY_I;
 	int g1TimeMultiplier = 1;
-	int quizend;
-	Point[] g2locations;
-	Point[] clapperlocations;
-	boolean[] g2occupancy;
-	
-	boolean g2rightflag = false;
-	boolean foxDirectionflag = false;
 	boolean g1NoEnergy = false;
 	boolean g1BoundaryCollision = false;
 	boolean g1ScoringObjectCollision = false;
-	Random r = new Random();
-	GameObjectStorage GobjS = new GameObjectStorage();
-	
-	public boolean tutorialflag = true;
 	public boolean tutorialflag1 = true;
+	
+	//Game 2
+	Point[] g2locations;
+	Point[] clapperlocations;
+	boolean[] g2occupancy;
+	boolean g2rightflag = false;
+	boolean foxDirectionflag = false;
+	public boolean tutorialflag = true;
+	
+	
+	Random r = new Random();
+	int timerCount;
 	
 	//******GENERAL******//
 	public void addGameObjectStorageToModel(GameObjectStorage GobjS) {
@@ -66,7 +69,6 @@ public class Model implements java.io.Serializable{
 	
 	
 	//******GAME 1******//
-	
 		/**
 		 * Initializes game 1 by setting new osprey player and adding scoring objects (fish, seaweed) for each level
 		 * 
@@ -307,19 +309,6 @@ public class Model implements java.io.Serializable{
 		}
 		
 		/**
-		 * Creates new random seaweed scoring objects for levels 1, 2, 3
-		 * 
-		 * @param (int) fishLevel
-		 * @return null
-		 * @author Ken Chan
-		 */
-		/*
-		public ScoringObject createGameOneRandomSeaweed() {
-			int seaweedRand = (int)((Math.random() * 3) + 1);
-			return this.createGameOneSeaweed(seaweedRand);
-		}
-		*/
-		/**
 		 * Creates new seaweed scoring objects for levels 1, 2, 3
 		 * 
 		 * @param (int) seaweedLevel
@@ -397,7 +386,26 @@ public class Model implements java.io.Serializable{
 		}
 		
 	//******GAME 2******//
-		
+	
+	/**
+	 * Initializes game 2 by creating the 8 locations for the clapper rail (4 on the top row, 4 on the bottom row)
+	 * and setting new clapper rail player
+	 * 
+	 * @param none
+	 * @return none
+	 * @author Anna Bortle
+	 */
+	public void initializeGameTwo() {
+		this.timerCount = 0;
+		initializePositions();
+		GobjS.setPlayer(new ClapperRail(Constants.CRX_I, Constants.CRY_I, Constants.CRX_INCR_I, Constants.CRY_INCR_I, Constants.CR_IMW, Constants.CR_IMH, GameObjectEnum.g2ClapperRail));
+		GobjS.setFox(new Fox(Constants.FX_X, Constants.FX_Y, Constants.FX_XI, Constants.FX_YI, Constants.FX_IMW, Constants.FX_IMH, GameObjectEnum.g2Fox));
+		GobjS.setSunTimer(new SunTimer());
+		GobjS.setMoonTimer(new MoonTimer());
+		score = new Scoring();
+		GobjS.setScore(score);
+	}
+	
 	/**
 	 * Updates the state of Game 2: Clapper Rail:
 	 * creates and removes scoringObjects (food and trash), updates the location of the player.
@@ -461,7 +469,8 @@ public class Model implements java.io.Serializable{
 	}
 	
 	/**
-	 * Creates a new scoringObject that is "placed" in a random vacant Point from g2locations, and updates the 
+	 * Creates a new scoringObject (food or trash) that is "placed" in a random vacant Point from g2locations,
+	 * and updates the 
 	 * respective g2occupancy to true. 
 	 * 
 	 * @param none
@@ -519,7 +528,6 @@ public class Model implements java.io.Serializable{
 		}
 		g2occupancy[rand] = true;
 	}
-	
 	
 	/**
 	 * Iterates through scoringObjects arraylist and removes scoringObjects whose "lifetime" is over and should be removed from game.
@@ -608,25 +616,6 @@ public class Model implements java.io.Serializable{
 	}
 	
 	/**
-	 * Initializes game 2 by creating the 8 locations for the clapper rail (4 on the top row, 4 on the bottom row)
-	 * and setting new clapper rail player
-	 * 
-	 * @param none
-	 * @return none
-	 * @author Anna Bortle
-	 */
-	public void initializeGameTwo() {
-		this.timerCount = 0;
-		initializePositions();
-		GobjS.setPlayer(new ClapperRail(Constants.CRX_I, Constants.CRY_I, Constants.CRX_INCR_I, Constants.CRY_INCR_I, Constants.CR_IMW, Constants.CR_IMH, GameObjectEnum.g2ClapperRail));
-		GobjS.setFox(new Fox(Constants.FX_X, Constants.FX_Y, Constants.FX_XI, Constants.FX_YI, Constants.FX_IMW, Constants.FX_IMH, GameObjectEnum.g2Fox));
-		GobjS.setSunTimer(new SunTimer());
-		GobjS.setMoonTimer(new MoonTimer());
-		score = new Scoring();
-		GobjS.setScore(score);
-	}
-	
-	/**
 	 * Sets up the locations for clapper rail and food/trash
 	 * 
 	 * @param none
@@ -679,13 +668,12 @@ public class Model implements java.io.Serializable{
 	public void updateQuizScore(int ans, int correctAns) {
 		if (ans == correctAns) {
 			score.totalScore += 3;
-			quizend = 1;
 		}
 		else {
 			score.totalScore -= 3;
-			quizend = 0;
 		}
 	}
+	
 }
 
 

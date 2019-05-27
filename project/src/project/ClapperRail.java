@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 public class ClapperRail extends Player{
-	
-	BufferedImage[][] imageArray;
 
 	ClapperRail(int x, int y, int xInc, int yInc, int iW, int iH, GameObjectEnum GobjEnum) {
 		super(x, y, xInc, yInc, iW, iH, GobjEnum);
@@ -18,13 +16,18 @@ public class ClapperRail extends Player{
 	 * @author Hannah Bridge
 	 */
 	public void move() {
-		//System.out.println("clapper rail move method called.");
 		xloc += xIncr;
 		xIncr = 0;
 		yloc += yIncr;
 		yIncr = 0;
 		super.updateBounds();
 	}
+	
+	/**
+	 * Returns a Point object that represents CR's current x,y location
+	 * @param none
+	 * @return	Point : CR x,y location
+	 */
 	public Point getPointLoc() {
 		return (new Point(xloc,yloc));
 	}
