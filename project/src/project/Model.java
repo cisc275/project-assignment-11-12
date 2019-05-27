@@ -222,13 +222,13 @@ public class Model implements java.io.Serializable{
 		 */
 		public void addFishAndSeaweed(ArrayList<ScoringObject> scoringObjects) {
 			//add a pity timer for not catching fish/ slow this down if they are catching fish.
-			if((this.timerCount*Constants.DRAW_DELAY) >= Constants.GAME_LENGTH/2){
+			if((this.timerCount*Constants.DRAW_DELAY) >= Constants.GAME_LENGTH/Constants.D2){
 				this.g1TimeMultiplier++;
 			}
 			if(timerCount % ((Constants.FS_SPAWN_FREQUENCY / this.g1PityCounter) * this.g1TimeMultiplier)  == 0) {
 				scoringObjects.add(this.createGameOneRandomFish());
 			}
-			if(timerCount % (Constants.FS_SPAWN_FREQUENCY * 2) == 0) {
+			if(timerCount % (Constants.FS_SPAWN_FREQUENCY * Constants.D2) == 0) {
 				scoringObjects.add(this.createGameOneRandomSeaweed());
 			}
 			
@@ -277,13 +277,13 @@ public class Model implements java.io.Serializable{
 		public ScoringObject createGameOneRandomSeaweed() {
 			int seaweedRand = (int)(Math.random() * 4);
 			if(seaweedRand == 0) {
-				return this.createGameOneSeaweed(1);
+				return this.createGameOneSeaweed(Constants.GAMESEAWEED1);
 			}
 			else if(seaweedRand == 1) {
-				return this.createGameOneSeaweed(2);
+				return this.createGameOneSeaweed(Constants.GAMESEAWEED2);
 			}
 			else {
-				return this.createGameOneSeaweed(3);
+				return this.createGameOneSeaweed(Constants.GAMESEAWEED3);
 			}
 		}
 		
@@ -317,13 +317,13 @@ public class Model implements java.io.Serializable{
 		 */
 		public ScoringObject createGameOneSeaweed(int seaweedLevel) {
 			if(seaweedLevel == 1) {
-				return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL1, -((int)(Math.random() * 3) + 3), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
+				return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL1, -((int)(Math.random() * Constants.THREE_SEAWEED) + Constants.THREE_SEAWEED), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 			}
 			if(seaweedLevel == 2) {
-				return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL2, -((int)(Math.random() * 3) + 3), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
+				return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL2, -((int)(Math.random() * Constants.THREE_SEAWEED) + Constants.THREE_SEAWEED), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 			} 
 			if(seaweedLevel == 3) {
-				return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL3, -((int)(Math.random() * 3) + 3), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
+				return (new ScoringObject(Constants.SWX_I, Constants.SO_LEVEL3, -((int)(Math.random() * Constants.THREE_SEAWEED) + Constants.THREE_SEAWEED), Constants.SWY_INCR_I, Constants.SW_PV, Constants.SW_IMW, Constants.SW_IMH, GameObjectEnum.g1Seaweed));
 			}
 			return null;
 		}
@@ -453,17 +453,17 @@ public class Model implements java.io.Serializable{
 	public int updateCRloc() {
 		int loc;
 		int o = findClapperRail();
-		if (o > 4) { 			//in the water
+		if (o > Constants.WATER) { 			//in the water
 			if (g2rightflag) {
-				loc = 1;
+				loc = Constants.WATER1;
 			}
-			else { loc = 3;}
+			else { loc = Constants.WATER2;}
 		}
 		else { 					//on land
 			if (g2rightflag) {
-				loc = 0;
+				loc = Constants.LAND;
 			}
-			else {loc = 2;}
+			else {loc = Constants.LAND1;}
 		}
 		return loc;
 	}
@@ -565,7 +565,7 @@ public class Model implements java.io.Serializable{
 				return i; 
 			}
 		}
-		return -1;
+		return Constants.TRASH;
 	}
 	
 	/**
@@ -623,10 +623,10 @@ public class Model implements java.io.Serializable{
 	 * @author Anna Bortle
 	 */
 	public void initializePositions() {
-		g2locations = new Point[10];
-		clapperlocations = new Point[10];
-		g2occupancy = new boolean[10];
-		for (int i = 0; i < 10; i++) {
+		g2locations = new Point[Constants.TEN_POINTS];
+		clapperlocations = new Point[Constants.TEN_POINTS];
+		g2occupancy = new boolean[Constants.TEN_POINTS];
+		for (int i = 0; i < Constants.TEN_POINTS; i++) {
 			g2occupancy[i] = false;
 			if (i < 5) {
 				clapperlocations[i] = new Point(Constants.CRX_I+Constants.CR_X*(i), Constants.CRY_I);	
@@ -650,11 +650,11 @@ public class Model implements java.io.Serializable{
 	 */
 	public int foodOrTrash() {
 		int i = r.nextInt();
-		if (i%2 == 0) {
-			return -1;
+		if (i%Constants.FOOD_TRASH == 0) {
+			return Constants.TRASH;
 		}
 		else {
-			return 1;
+			return Constants.FOOD;
 		}
 	}
 	
@@ -667,10 +667,10 @@ public class Model implements java.io.Serializable{
 	 **/
 	public void updateQuizScore(int ans, int correctAns) {
 		if (ans == correctAns) {
-			score.totalScore += 3;
+			score.totalScore += Constants.QUIZ_SCORE;
 		}
 		else {
-			score.totalScore -= 3;
+			score.totalScore -= Constants.QUIZ_SCORE;
 		}
 	}
 	

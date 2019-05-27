@@ -130,6 +130,8 @@ public class Constants {
 		final static int CR_BOUND = CR_Y+ CR_Y;
 		final static int CR_BOUND_TOP = CRY_I;
 		
+		public static final int TEN_POINTS = 10;
+		
 		//initial values
 		final static int FT_XI = 0;
 		final static int FT_YI = 0;
@@ -147,18 +149,33 @@ public class Constants {
 		final static int numNew = 5;
 		static int g2_lifetime = 100;
 		static int refreshTime = g2_lifetime + 10;
+		final static int FOOD_TRASH = 2;
+		final static int FOOD = 1;
+		final static int TRASH = -1;
+		public static final int THREE_SEAWEED = 3;
+		public static final int GAMESEAWEED1 = 1;
+		public static final int GAMESEAWEED2 = 2;
+		public static final int GAMESEAWEED3 = 3;
+		
 		
 		//fox
 		final static int FX_IMW = 250;
 		final static int FX_IMH = 250;
 
 		final static int foxTime = 600;
+		final static int QUIZ_SCORE = 3;
 		
 		//initial positions
 		final static int FX_X = -FX_IMW;
 		final static int FX_Y = View.frameHeight/4;
 		final static int FX_XI = 1;
 		final static int FX_YI = 0;
+		public static final int WATER = 4;
+		public static final int WATER1 = 1;
+		public static final int WATER2 = 3;
+		public static final int LAND = 0;
+		public static final int LAND1 = 2;
+		
 		
 		//timers
 		final static int SUN_MOON_IMAGE_W_H = 100;
@@ -189,6 +206,7 @@ public class Constants {
 		final static int PM_ADD_Y = 250;
 		final static int AKEYS_IMW = 100;
 		final static int AKEYS_IMH = 150;
+		
 
 		
 }
