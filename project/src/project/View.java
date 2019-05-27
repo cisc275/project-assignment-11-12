@@ -328,10 +328,10 @@ public class View extends JFrame{
 					if(!learndiveflag1) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
 						g.drawImage(space, frameWidth/7-15, 50, 250, 150, this);
-						g.drawImage(fish1, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(fish2, frameWidth-(frameWidth/4), (frameWidth+70)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(fish3, frameWidth-(frameWidth/4), (frameWidth+120)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(seaweed_image, frameWidth-(frameWidth/4), (frameWidth+170)-frameWidth, Constants.FISH_IMAGE_W, Constants.SEAWEED_IMAGE_H, this);
+						g.drawImage(fish1, frameWidth-(frameWidth/Constants.D4), (frameWidth+10)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(fish2, frameWidth-(frameWidth/Constants.D4), (frameWidth+70)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(fish3, frameWidth-(frameWidth/Constants.D4), (frameWidth+120)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(seaweed_image, frameWidth-(frameWidth/Constants.D4), (frameWidth+170)-frameWidth, Constants.FISH_IMAGE_W, Constants.SEAWEED_IMAGE_H, this);
 						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+10)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
 						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
 						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
@@ -346,8 +346,8 @@ public class View extends JFrame{
 						if(!learnmovementflag1) {
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
 							g.setColor(Color.YELLOW);
-							g.fillRect(frameWidth/3+Constants.RECT1_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
-							g.fillRect(frameWidth/3+Constants.RECT2_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
+							g.fillRect(frameWidth/Constants.D3+Constants.RECT1_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
+							g.fillRect(frameWidth/Constants.D3+Constants.RECT2_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
 							g.drawImage(arrowKeys, frameWidth/3+Constants.ARROW_OFFSET, (frameHeight+25)-frameHeight, Constants.ARROWKEYS_HW, Constants.ARROWKEYS_HW, this);
 							g.setColor(Color.BLACK);
 							g.drawString("Use the Arrow Keys to move left and right!", frameWidth/3+450, frameHeight/3);
@@ -385,40 +385,40 @@ public class View extends JFrame{
 				if (tutorialflag) {
 					if (!learnmovementflag) {
 						g.setFont(new Font("Arial", Font.PLAIN, 20));
-						g.drawImage(arrowKeys, frameWidth/3, frameHeight/10, 100, 150, this);
+						g.drawImage(arrowKeys, frameWidth/Constants.D3, frameHeight/Constants.ADD_TO_Y1, 100, 150, this);
 					}
 					this.paintPlayer(g);
 					
 					if (learnmovementflag) {
 						if (!learnscoringflag) {
 							g.setFont(new Font("Arial", Font.PLAIN, 20));
-							g.drawImage(space, frameWidth/4, frameHeight/10, 200, 150, this);
+							g.drawImage(space, frameWidth/Constants.D4, frameHeight/Constants.ADD_TO_Y1, Constants.SPACE_IMW, Constants.SPACE_IMH, this);
 
-							g.drawImage(food, (frameWidth-(frameWidth/2))+140, (frameWidth+10)-frameWidth, 60, 50, this);
-							g.drawImage(food2, (frameWidth-(frameWidth/2))+140, (frameWidth+70)-frameWidth, 60, 50, this);
-							g.drawImage(food3, (frameWidth-(frameWidth/2))+140, (frameWidth+120)-frameWidth, 60, 50, this);
-							g.drawImage(food4, (frameWidth-(frameWidth/2))+140, (frameWidth+170)-frameWidth, 60, 50, this);
-							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+10)-frameWidth, 60, 50, this);
-							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+70)-frameWidth, 60, 50, this);
-							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+120)-frameWidth, 60, 50, this);
-							g.drawImage(checkmark, frameWidth-(frameWidth/3), (frameWidth+180)-frameWidth, 60, 50, this);
+							g.drawImage(food, (frameWidth-(frameWidth/Constants.D2))+Constants.FOOD_ADD_TO_X, (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(food2, (frameWidth-(frameWidth/Constants.D2))+Constants.FOOD_ADD_TO_X, (frameWidth+Constants.ADD_TO_Y2)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(food3, (frameWidth-(frameWidth/Constants.D2))+Constants.FOOD_ADD_TO_X, (frameWidth+Constants.ADD_TO_Y3)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(food4, (frameWidth-(frameWidth/Constants.D2))+Constants.FOOD_ADD_TO_X, (frameWidth+Constants.FT_ADD_TO_Y4)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/Constants.D3), (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/Constants.D3), (frameWidth+Constants.ADD_TO_Y2)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/Constants.D3), (frameWidth+Constants.ADD_TO_Y3)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(checkmark, frameWidth-(frameWidth/Constants.D3), (frameWidth+Constants.CX_ADD_TO_Y4)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
 
-							g.drawImage(plus, (frameWidth-(frameWidth/2))+200, (frameWidth+260)-frameWidth, 40, 40, this);
-							g.drawImage(egg_image, (frameWidth-(frameWidth/2))+250, (frameWidth+250)-frameWidth, 50, 70, this);
+							g.drawImage(plus, (frameWidth-(frameWidth/Constants.D2))+Constants.PLUS_ADDX, (frameWidth+Constants.PM_ADD_Y)-frameWidth, Constants.PLUS, Constants.PLUS, this);
+							g.drawImage(egg_image, (frameWidth-(frameWidth/Constants.D2))+Constants.EGG_ADDX, (frameWidth+Constants.PM_ADD_Y)-frameWidth, Constants.EGG_IMW, Constants.EGG_IMH, this);
 
-							g.drawImage(trash, frameWidth-(frameWidth/4), (frameWidth+10)-frameWidth, 60, 50, this);
-							g.drawImage(trash2, frameWidth-(frameWidth/4), (frameWidth+70)-frameWidth, 60, 50, this);
-							g.drawImage(trash3, frameWidth-(frameWidth/4), (frameWidth+120)-frameWidth, 60, 50, this);
-							g.drawImage(trash4, frameWidth-(frameWidth/4), (frameWidth+170)-frameWidth, 60, 50, this);
-							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+10)-frameWidth, 50, 50, this);
-							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, 60, 50, this);
-							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, 60, 50, this);
-							g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+180)-frameWidth, 60, 50, this);
+							g.drawImage(trash, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(trash2, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y2)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(trash3, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y3)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(trash4, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.FT_ADD_TO_Y4)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(redX, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(redX, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.ADD_TO_Y2)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(redX, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.ADD_TO_Y3)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
+							g.drawImage(redX, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.CX_ADD_TO_Y4)-frameWidth, Constants.FOOD_TRASH_IMW, Constants.FOOD_TRASH_IMH, this);
 
-							g.drawImage(minus, (frameWidth-(frameWidth/2))+450, (frameWidth+250)-frameWidth, 50, 50, this);
-							g.drawImage(egg_image, (frameWidth-(frameWidth/2))+500, (frameWidth+250)-frameWidth, 50, 70, this);
+							g.drawImage(minus, (frameWidth-(frameWidth/Constants.D2))+Constants.MINUS_ADDX, (frameWidth+Constants.PM_ADD_Y)-frameWidth, Constants.MINUS, Constants.MINUS, this);
+							g.drawImage(egg_image, (frameWidth-(frameWidth/Constants.D2))+Constants.EGG_ADDX2, (frameWidth+Constants.PM_ADD_Y)-frameWidth, Constants.EGG_IMW, Constants.EGG_IMH, this);
 
-							g.drawString("Press spacebar to eat, but avoid the trash!", frameWidth/4, (frameHeight/10)+200);
+							g.drawString("Press spacebar to eat, but avoid the trash!", frameWidth/Constants.D4, (frameHeight/Constants.ADD_TO_Y1)+Constants.PLUS_ADDX);
 						}
 						
 						this.paintScoringObjects(g);
@@ -509,8 +509,8 @@ public class View extends JFrame{
 		 * @return none
 		 */
 		public void paintTimer(Graphics g) {
-			g.drawImage(sun_image, GobjS.getSunTimer().getXLoc(),GobjS.getSunTimer().getYLoc(), 100, 100, this);
-			g.drawImage(moon_image, GobjS.getMoonTimer().getXLoc(),GobjS.getMoonTimer().getYLoc(), 100, 100, this);
+			g.drawImage(sun_image, GobjS.getSunTimer().getXLoc(),GobjS.getSunTimer().getYLoc(), Constants.SUN_MOON_IMAGE_W_H, Constants.SUN_MOON_IMAGE_W_H, this);
+			g.drawImage(moon_image, GobjS.getMoonTimer().getXLoc(),GobjS.getMoonTimer().getYLoc(), Constants.SUN_MOON_IMAGE_W_H, Constants.SUN_MOON_IMAGE_W_H, this);
 		}
 		
 		/**
