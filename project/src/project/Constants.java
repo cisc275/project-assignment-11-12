@@ -4,10 +4,21 @@ public class Constants {
 	//General Constants
 	final static int GAME_LENGTH = 60000; //milliseconds
 	final static int DRAW_DELAY = 25;
+	final static int ADD_TO_Y1 = 10;
+	final static int ADD_TO_Y2 = 70;
+	final static int ADD_TO_Y3 = 120;
 	final static int D2 = 2;
 	final static int D3 = 3;
 	final static int D4 = 4;
 	final static int D6 = 6;
+	final static int D7 = 7;
+	final static int MENU_SUBX = 150;
+	final static int MENU_Y = 10;
+	final static int MENU_W = 100;
+	final static int MENU_H = 30;
+	final static int ZERO = 0;
+	final static int TEN = 10;
+	final static int TWENTY = 20;
 	
 	//Game 1 Constants
 		
@@ -45,6 +56,7 @@ public class Constants {
 		
 		final static int FS_SPAWN_FREQUENCY = 180;
 		final static int FS_DELTAY = 7;
+		
 		//initial values/positions for seaweed
 		final static int SWX_I = View.frameWidth;
 		final static int SWY_INCR_I = 0;
@@ -75,6 +87,12 @@ public class Constants {
 		final static int ARROW_OFFSET = 475;
 		final static int UP_ARROW_W = 75;
 		final static int UP_ARROW_H = 100;
+		final static int SEAWEED_ADD_TO_Y = 170;
+		final static int X_ADD_TO_Y = 200;
+		final static int SPACE_SUBX = 15;
+		final static int SPACE_Y = 50;
+		final static int SPACE_W = 250;
+		final static int SPACE_H = 150;
 
 	//Game 2 Constants
 		
@@ -116,10 +134,33 @@ public class Constants {
 		final static int FX_IMH = 250;
 
 		final static int foxTime = 600;
+		
 		//initial positions
 		final static int FX_X = -FX_IMW;
 		final static int FX_Y = View.frameHeight/4;
 		final static int FX_XI = 1;
 		final static int FX_YI = 0;
+		
+		//timers
+		final static int SUN_MOON_IMAGE_W_H = 100;
+				
+		//game 2 tutorial
+		final static int FOOD_TRASH_IMW = 60;
+		final static int FOOD_TRASH_IMH = 50;
+		final static int EGG_IMW = 50;
+		final static int EGG_IMH = 70;
+		final static int PLUS = 40;
+		final static int MINUS = 50;
+		final static int FOOD_ADD_TO_X = 140;
+		final static int FT_ADD_TO_Y4 = 170;
+		final static int CX_ADD_TO_Y4 = 180;
+		final static int SPACE_IMW = 200;
+		final static int SPACE_IMH = 150;
+		final static int PLUS_ADDX =200;
+		final static int EGG_ADDX = 250;
+		final static int MINUS_ADDX = 450;
+		final static int EGG_ADDX2 = 500;
+		final static int PM_ADD_Y = 250;
+
 		
 }

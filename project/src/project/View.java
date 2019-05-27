@@ -254,13 +254,13 @@ public class View extends JFrame{
 		game1panel = new DrawPanel();
 		game1panel.setLayout(null);
 		JLabel menu1 = new JLabel("[M] Menu");
-		menu1.setBounds(frameWidth-150,10, 100, 30);
+		menu1.setBounds(frameWidth-Constants.MENU_SUBX,Constants.MENU_Y, Constants.MENU_W, Constants.MENU_H);
 		game1panel.add(menu1);
 		
 		game2panel = new DrawPanel();
 		game2panel.setLayout(null);
 		JLabel menu2 = new JLabel("[M] Menu");
-		menu2.setBounds(frameWidth-150,10, 100, 30);
+		menu2.setBounds(frameWidth-Constants.MENU_SUBX,Constants.MENU_Y, Constants.MENU_W, Constants.MENU_H);
 		game2panel.add(menu2);
 		
 		end1panel = new DrawPanel();
@@ -340,26 +340,26 @@ public class View extends JFrame{
 			super.paintComponent(g);
 			picNum++;
 			if (this.equals(menupanel)) {
-				g.drawImage(omenu, 0, 0, this);
-				g.drawImage(crmenu, frameWidth/2, 0, this);
-				g.fillRect(frameWidth/2 - 10, 0, 20, frameHeight);
-				g.drawString("[Esc] Exit Game", 10, 20);
+				g.drawImage(omenu, Constants.ZERO, Constants.ZERO, this);
+				g.drawImage(crmenu, frameWidth/Constants.D2, Constants.ZERO, this);
+				g.fillRect(frameWidth/Constants.D2 - Constants.TEN, Constants.ZERO, Constants.TWENTY, frameHeight);
+				g.drawString("[Esc] Exit Game", Constants.TEN, Constants.TWENTY);
 			}
 			if (this.equals(game1panel)) {
-				g.drawImage(g1_background, 0, 0, Color.gray, this);
+				g.drawImage(g1_background, Constants.ZERO, Constants.ZERO, Color.gray, this);
 				if(tutorialflag1) {
 					if(!learndiveflag1) {
-						g.setFont(new Font("Arial", Font.PLAIN, 20));
-						g.drawImage(space, frameWidth/7-15, 50, 250, 150, this);
-						g.drawImage(fish1, frameWidth-(frameWidth/Constants.D4), (frameWidth+10)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(fish2, frameWidth-(frameWidth/Constants.D4), (frameWidth+70)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(fish3, frameWidth-(frameWidth/Constants.D4), (frameWidth+120)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(seaweed_image, frameWidth-(frameWidth/Constants.D4), (frameWidth+170)-frameWidth, Constants.FISH_IMAGE_W, Constants.SEAWEED_IMAGE_H, this);
-						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+10)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+70)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(checkmark, frameWidth-(frameWidth/6), (frameWidth+120)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawImage(redX, frameWidth-(frameWidth/6), (frameWidth+200)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
-						g.drawString("Use space bar to dive.", frameWidth/7, frameHeight/3);						
+						g.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+						g.drawImage(space, frameWidth/Constants.D7-Constants.SPACE_SUBX, Constants.SPACE_Y, Constants.SPACE_W, Constants.SPACE_H, this);
+						g.drawImage(fish1, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(fish2, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y2)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(fish3, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.ADD_TO_Y3)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(seaweed_image, frameWidth-(frameWidth/Constants.D4), (frameWidth+Constants.SEAWEED_ADD_TO_Y)-frameWidth, Constants.FISH_IMAGE_W, Constants.SEAWEED_IMAGE_H, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.ADD_TO_Y1)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.ADD_TO_Y2)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(checkmark, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.ADD_TO_Y3)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawImage(redX, frameWidth-(frameWidth/Constants.D6), (frameWidth+Constants.X_ADD_TO_Y)-frameWidth, Constants.FISH_IMAGE_W, Constants.FISH_IMAGE_H, this);
+						g.drawString("Use space bar to dive.", frameWidth/Constants.D7, frameHeight/Constants.D3);						
 						if(GobjS.score.totalScore >= 4) {
 							learndiveflag1 = true;
 						}
@@ -367,7 +367,7 @@ public class View extends JFrame{
 					//learn to move left and right in GAME 1
 					if(learndiveflag1) {
 						if(!learnmovementflag1) {
-							g.setFont(new Font("Arial", Font.PLAIN, 20));
+							g.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
 							g.setColor(Color.YELLOW);
 							g.fillRect(frameWidth/Constants.D3+Constants.RECT1_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
 							g.fillRect(frameWidth/Constants.D3+Constants.RECT2_OFFSET, (frameHeight+130)-frameHeight, Constants.RECT_HW, Constants.RECT_HW);
