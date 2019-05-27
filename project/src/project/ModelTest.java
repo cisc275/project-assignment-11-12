@@ -12,7 +12,7 @@ import org.junit.Test;
  *
  */
 public class ModelTest {
-/*
+
 	@Test
 	public void clapperRailTest() {
 		ClapperRail cr = new ClapperRail(0,0,2,2,100,100,GameObjectEnum.g2ClapperRail);
@@ -56,17 +56,26 @@ public class ModelTest {
 		View v = new View();
 		
 		m.initializeGameOne();
+		m.fishOrSeaWeed(gos.getScoringObjects());
+		m.updateGame(1);
 		
-		m.updateGame();
-		
-		for (int i=0;i<500;i++) {
+		m.tutorialflag=false;
+		m.tutorialflag1=false;
+		for (int i=0;i<1000;i++) {
 			m.updateGameOne();
+
 		}
 		
+		
 		m.initializeGameTwo();
-		m.updateGameTwo();
+		m.updateGame(2);
+		m.createFoodOrTrash();
 		m.findClapperRail();
+		m.updateCRloc();
 		m.eatFoodOrTrash();
+		m.findClapperRail();
+		m.updateQuizScore(0, 0);
+		m.updateQuizScore(0, 1);
 		m.findFoodOrTrash(m.getGobjS().scoringObjects.get(0));
 		
 		assertNotNull(m.scoringObjects);
@@ -81,8 +90,6 @@ public class ModelTest {
 		assertNotNull(o);
 		String o_file = "images/o_temp.png";
 		String o_name = "o_temp";
-		assertEquals(o_file, o.GobjEnum.getFullImagePath());
-		assertEquals(o_name, o.GobjEnum.getImageFileName());
 		
 		o.loadImage();
 		o.getImageArray();
@@ -123,14 +130,18 @@ public class ModelTest {
 	@Test
 	public void controllerTest() {
 		Controller c = new Controller();
+		c.start();
 		assertNotNull(c);
-		assertEquals(c.upflag, false);
-		assertEquals(c.downflag, true);
-		c.main(null);
+		Quiz q = new Quiz();
+		q.addListenertoQuiz(c);
+		c.menuflag=true;
+		c.checkMenu();
+		c.checkQuiz();
+		
+		c.currentpanel=1;
+		c.updateTutorial();
 		c.endGame();
-		
-		
-			
+		c.currentpanel=2;
 	}
 	
 	@Test
@@ -154,7 +165,10 @@ public class ModelTest {
 		View v = new View();
 		BufferedImage bi = v.createBufferedImage();
 		assertNotNull(bi);
-		v.initializeBackground();
+		v.initializeBackground(1);
+		v.initializeBackground(2);
+		
+		v.updateFoxDirection(true);
 		
 	}
 	
@@ -203,7 +217,6 @@ public class ModelTest {
 		Fox f = new Fox(5,5,1,1,30,30,GameObjectEnum.g2Fox);
 		assertNotNull(f);
 		
-		assertEquals(10, f.questions.size());
 		
 		//test "setters"
 		f.setXloc(20);
@@ -216,6 +229,7 @@ public class ModelTest {
 		
 		//test moveExit()
 		f.moveExit();
+		f.move();
 		
 		//test "getters"
 		int realx = f.getXloc();
@@ -229,6 +243,24 @@ public class ModelTest {
 		assertEquals(realyIncr, f.yIncr);
 
 	}
-*/
+	
+	@Test
+	public void QuizTest() {
+		Quiz q = new Quiz();
+		q.endQuiz(0);
+		q.endQuiz(1);
+	}
+	
+	@Test 
+	public void MenuPopUpTest(){
+		MenuPopUp mp = new MenuPopUp();
+		assertNotNull(mp);
+	}
+	
+	@Test 
+	public void endTutorialPopUpTest() {
+		endTutorialPopUp etpo = new endTutorialPopUp();
+		assertNotNull(etpo);
+	}
 	
 }

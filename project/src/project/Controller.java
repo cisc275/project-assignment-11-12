@@ -283,7 +283,7 @@ public class Controller implements KeyListener {
 	        		break;
 				}
 			}
-			}
+		}
 			if(currentpanel == 1) {
 				//System.out.println("game1");
 				int k2 = e.getKeyCode();
@@ -305,8 +305,10 @@ public class Controller implements KeyListener {
 	        				model.getGobjS().getPlayer().setXloc(model.getGobjS().getPlayer().getXloc()-Constants.OX_INCR_I);
 	        			}
 	        			break;
+				}
 			}
-		}
+			
+		
 		
 	}
 	
@@ -320,14 +322,7 @@ public class Controller implements KeyListener {
 	public void keyReleased(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
 		
-		if(key == KeyEvent.VK_SPACE && currentpanel == 1) {
-			//model.getGobjS().getPlayer().setyIncr(-O_Y);
-		}
-		/*
-		if(key == KeyEvent.VK_SPACE && currentpanel == 2) {
-			model.getGobjS().getPlayer().setyIncr(-Constants.CR_Y_SPACE);
-		}
-		*/
+		
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
@@ -350,10 +345,11 @@ public class Controller implements KeyListener {
 	}
 	
 	/**
-	 * updates each game tutorial depending on which part player is on
+	 * Transitions player from game tutorial to actual gameplay
 	 * 
 	 * @param none
 	 * @return none
+	 * @author Anna Bortle & Brendan Azueta
 	 */
 	public void updateTutorial() {
 		//GAME 1
@@ -371,12 +367,7 @@ public class Controller implements KeyListener {
 						model.getGobjS().getScoringObjects().removeAll(model.getGobjS().getScoringObjects());
 						model.initializeGameOne();
 					}
-				/*	if(view.tutorialflag1 && model.getGobjS().scoringObjects.isEmpty()) {
-						for(int i = 0; i< 5; i++) {
-							model.createGameOneRandomFish();
-							model.createGameOneRandomSeaweed();
-						}
-					}*/
+
 				}
 				// GAME 2
 		if (currentpanel == 2) {

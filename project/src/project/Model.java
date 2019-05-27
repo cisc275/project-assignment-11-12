@@ -1,6 +1,5 @@
 package project;
 
-import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ public class Model implements java.io.Serializable{
 	int g1PityCounter = 1;
 	int g1OspreyUpdatedHeight = Constants.OY_I;
 	int g1TimeMultiplier = 1;
+	int quizend;
 	Point[] g2locations;
 	Point[] clapperlocations;
 	boolean[] g2occupancy;
@@ -37,16 +37,10 @@ public class Model implements java.io.Serializable{
 	Random r = new Random();
 	GameObjectStorage GobjS = new GameObjectStorage();
 	
-	boolean tutorialflag = true;
-	boolean tutorialflag1 = true;
-	
+	public boolean tutorialflag = true;
+	public boolean tutorialflag1 = true;
 	
 	//******GENERAL******//
-	
-	
-
-	
-	
 	public void addGameObjectStorageToModel(GameObjectStorage GobjS) {
 		this.GobjS = GobjS;
 	}
@@ -56,7 +50,7 @@ public class Model implements java.io.Serializable{
 	}
 	
 	/**
-	 * calls appropriate updateGame[One/Two] method
+	 * Calls appropriate updateGame[One/Two] method to update current game
 	 * 
 	 * @param int currentpanel: corresponds to current game playing
 	 * @return none
@@ -126,10 +120,12 @@ public class Model implements java.io.Serializable{
 		}
 		
 		/**
-		 * checks the amount of energy the osprey has for game 1: if energy is low, osprey's height decreases
+		 * Checks the amount of energy the osprey has for game 1.
+		 * If energy is low, osprey's height decreases
 		 * 
 		 * @param none
 		 * @return none
+		 * @author Ken Chan
 		 */
 		public void checkGameOneEnergy() {
 			if(score.getTotalScore() <= (this.g1EnergySnapShot + Constants.G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY)) {
@@ -144,8 +140,8 @@ public class Model implements java.io.Serializable{
 				if(this.g1NoEnergyCount > 0) {
 					System.out.println("G1NOENERGYCOUNT: " + this.g1NoEnergyCount);
 					this.g1NoEnergyCount--;
-					if(this.g1PityCounter>1) {
-					this.g1PityCounter--;
+					if (this.g1PityCounter > 1) {
+						this.g1PityCounter--;
 					}
 				}
 			}
@@ -154,14 +150,15 @@ public class Model implements java.io.Serializable{
 				this.g1NoEnergy = true;
 			}
 			this.g1EnergySnapShot = score.getTotalScore();
-			System.out.println("UPDATEDG1ENERGYSS: " + this.g1EnergySnapShot);
+			System.out.println("UPDATEDG1ENERGYS: " + this.g1EnergySnapShot);
 		}
 		
 		/**
-		 * updates the height of the osprey for game 1 depending on how much energy it has
+		 * Updates the height of the osprey for game 1 depending on how much energy it has
 		 * 
 		 * @param none
 		 * @return none
+		 * @author Ken Chan
 		 */
 		public void updateOspreyHeight() {
 			int[] possibleYLoc = new int[Constants.G1_NUM_OF_ENERGY_LEVELS];
@@ -215,10 +212,11 @@ public class Model implements java.io.Serializable{
 		}
 		
 		/**
-		 * adds more fish and seaweed to game 1
+		 * Adds more fish and seaweed to game 1
 		 * 
 		 * @param scoringObjects
 		 * @return none
+		 * @author Ken Chan
 		 */
 		public void addFishAndSeaweed(ArrayList<ScoringObject> scoringObjects) {
 			//add a pity timer for not catching fish/ slow this down if they are catching fish.
@@ -294,7 +292,6 @@ public class Model implements java.io.Serializable{
 		 * @return null
 		 * @author Ken Chan and Brendan Azueta
 		 */
-		
 		public ScoringObject createGameOneRandomFish() {
 			//magic numbers here
 			int fishRand = (int)(Math.random() * 7);
@@ -350,7 +347,6 @@ public class Model implements java.io.Serializable{
 		 * @return (boolean) true/false
 		 * @author Brendan Azueta and Ken Chan
 		 */
-
 		public boolean collisionG1(Rectangle o1) {
 			Rectangle OP = GobjS.getPlayer().getBounds();
 			if(!this.g1BoundaryCollision && !this.g1ScoringObjectCollision && OP.intersects(o1)) {
@@ -420,39 +416,42 @@ public class Model implements java.io.Serializable{
 			if (timerCount % Constants.refreshTime == 0) {
 				for (int i=0; i < Constants.numNew; i++) {
 					createFoodOrTrash();
+				}
+			}		
+			if (timerCount > Constants.foxTime) {
+				GobjS.getFox().move();
 			}
-		}		
-		timerCount ++;
-		GobjS.getPlayer().move();
-		if (timerCount > Constants.foxTime) {
-			GobjS.getFox().move();
-		}
-		if (GobjS.getFox().getxIncr() < 0) {
-			foxDirectionflag=true;
-		}
-		else{foxDirectionflag = false;}
-		updateFoodAndTrash();
-		GobjS.getSunTimer().move();
-		GobjS.getMoonTimer().move();
+			if (GobjS.getFox().getxIncr() < 0) {
+				foxDirectionflag=true;
+			}
+			else{foxDirectionflag = false;}
+		
+			timerCount ++;
+			GobjS.getPlayer().move();
+			updateFoodAndTrash();
+			GobjS.getSunTimer().move();
+			GobjS.getMoonTimer().move();
 		}
 	}
 	
 	/**
-	 * updates the location of the clapper rail for game 2
+	 * Updates the location of Clapper Rail.
+	 * Used in determining appropriate image for CR.
 	 * 
 	 * @param none
 	 * @return int (location)
+	 * @author Anna Bortle
 	 */
 	public int updateCRloc() {
 		int loc;
 		int o = findClapperRail();
-		if (o > 4) {
+		if (o > 4) { 			//in the water
 			if (g2rightflag) {
 				loc = 1;
 			}
 			else { loc = 3;}
 		}
-		else {
+		else { 					//on land
 			if (g2rightflag) {
 				loc = 0;
 			}
@@ -518,7 +517,6 @@ public class Model implements java.io.Serializable{
 				break;
 			}
 		}
-		//GobjS.getScoringObjects().add(new ScoringObject(g2locations[rand].x,g2locations[rand].y, Constants.FT_XI, Constants.FT_YI, pointValue, Constants.FT_IMW, Constants.FT_IMH, gobje));
 		g2occupancy[rand] = true;
 	}
 	
@@ -681,9 +679,11 @@ public class Model implements java.io.Serializable{
 	public void updateQuizScore(int ans, int correctAns) {
 		if (ans == correctAns) {
 			score.totalScore += 3;
+			quizend = 1;
 		}
 		else {
 			score.totalScore -= 3;
+			quizend = 0;
 		}
 	}
 }

@@ -8,10 +8,10 @@ public class Constants {
 	//Game 1 Constants
 		
 	    final static int G1_SPACEBAR_COOLDOWN = 50;
-	    final static int G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY = 3;
+	    final static int G1_NUM_OF_POINTS_NEEDED_FOR_ENERGY = 2;
 	    final static int G1_NUM_OF_ENERGY_LEVELS = 5;
 	    final static int G1_CHECK_ENERGY_FREQUENCY = 240;
-	    
+
 	    //Boundaries 
 	    final static int G1_XB_LEFT = 0;
 	    final static int G1_XB_RIGHT = View.frameWidth-140;
